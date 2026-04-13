@@ -14,7 +14,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="h-full antialiased">
+    <html lang="fr" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (!window.ethereum) {
+                  Object.defineProperty(window, 'ethereum', {
+                    configurable: true,
+                    writable: true,
+                    value: undefined,
+                  });
+                }
+              } catch(e) {}
+            `,
+          }}
+        />
+      </head>
       <body
         className="min-h-full flex flex-col"
         style={{
