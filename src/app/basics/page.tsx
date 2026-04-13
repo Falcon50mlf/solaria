@@ -1,6 +1,7 @@
 'use client';
 
 import { useGameState } from '@/lib/useGameState';
+import { ClientOnly } from '@/lib/ClientOnly';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -99,6 +100,7 @@ export default function BasicsPage() {
   const xpProgress = Math.max(0, Math.min(100, (currentLevelXp / xpNeeded) * 100));
 
   return (
+    <ClientOnly>
     <main className="basics-container">
       {/* Top Bar - Player Info */}
       <motion.div
@@ -341,5 +343,6 @@ export default function BasicsPage() {
         </div>
       </motion.div>
     </main>
+    </ClientOnly>
   );
 }

@@ -6,6 +6,7 @@ import { useGameState } from '@/lib/useGameState';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight, RotateCcw } from 'lucide-react';
+import { ClientOnly } from '@/lib/ClientOnly';
 
 interface Node {
   id: number;
@@ -187,6 +188,7 @@ export default function DecentralisationModule() {
   };
 
   return (
+    <ClientOnly>
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white p-6">
       {/* Phase 1: Story Intro */}
       {phase === 1 && (
@@ -400,5 +402,6 @@ export default function DecentralisationModule() {
         </motion.div>
       )}
     </div>
+    </ClientOnly>
   );
 }

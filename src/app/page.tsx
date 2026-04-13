@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ClientOnly } from "@/lib/ClientOnly";
 import { Zap, Trophy, BookOpen } from "lucide-react";
 
 const Particles = () => {
@@ -69,6 +70,7 @@ const StatCard = ({
 
 export default function Home() {
   return (
+    <ClientOnly>
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[var(--sol-dark)] via-[var(--sol-darker)] to-[var(--sol-dark)] -z-10" />
@@ -155,5 +157,6 @@ export default function Home() {
         <div className="absolute bottom-1/4 right-10 w-40 h-40 bg-[var(--sol-green)] rounded-full blur-3xl opacity-5" />
       </main>
     </div>
+    </ClientOnly>
   );
 }

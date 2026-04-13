@@ -6,6 +6,7 @@ import { useGameState } from '@/lib/useGameState';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Award, ArrowRight, Home } from 'lucide-react';
+import { ClientOnly } from '@/lib/ClientOnly';
 
 // Fake hash generation function
 function fakeHash(input: string): string {
@@ -108,6 +109,7 @@ export default function BlockchainPage() {
   };
 
   return (
+    <ClientOnly>
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -583,5 +585,6 @@ export default function BlockchainPage() {
         }
       `}</style>
     </div>
+    </ClientOnly>
   );
 }
