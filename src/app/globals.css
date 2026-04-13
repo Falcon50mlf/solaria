@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+:root {
+  --sol-purple: #9945FF;
+  --sol-green: #14F195;
+  --sol-dark: #0D0D1A;
+  --sol-darker: #07070F;
+  --sol-card: #13132B;
+  --sol-card-hover: #1A1A3E;
+  --sol-text: #E4E4ED;
+  --sol-text-muted: #8888AA;
+  --sol-accent: #FF6B6B;
+  --sol-blue: #00D4FF;
+}
+
+@theme inline {
+  --color-background: var(--sol-darker);
+  --color-foreground: var(--sol-text);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--sol-darker);
+  color: var(--sol-text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--sol-darker); }
+::-webkit-scrollbar-thumb { background: var(--sol-purple); border-radius: 3px; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(153, 69, 255, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(153, 69, 255, 0.6), 0 0 40px rgba(20, 241, 149, 0.2); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+.game-card {
+  background: var(--sol-card);
+  border: 1px solid rgba(153, 69, 255, 0.15);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.game-card:hover {
+  background: var(--sol-card-hover);
+  border-color: rgba(153, 69, 255, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(153, 69, 255, 0.15);
+}
+.game-card.locked { opacity: 0.5; pointer-events: none; filter: grayscale(0.5); }
+.game-card.completed { border-color: rgba(20, 241, 149, 0.4); }
+
+.xp-bar {
+  background: rgba(153, 69, 255, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+  height: 8px;
+}
+.xp-fill {
+  background: linear-gradient(90deg, var(--sol-purple), var(--sol-green));
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(153, 69, 255, 0.2), rgba(20, 241, 149, 0.2));
+  border: 1px solid rgba(153, 69, 255, 0.3);
+  color: var(--sol-green);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--sol-purple), #7B2FCC);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(153, 69, 255, 0.4);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: rgba(153, 69, 255, 0.1);
+  color: var(--sol-purple);
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
+  border: 1px solid rgba(153, 69, 255, 0.3);
+  cursor: pointer;
+}
+.btn-secondary:hover { background: rgba(153, 69, 255, 0.2); }
+
+.narrative-box {
+  background: linear-gradient(135deg, rgba(153, 69, 255, 0.08), rgba(20, 241, 149, 0.05));
+  border-left: 3px solid var(--sol-purple);
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 20px 0;
+  font-style: italic;
+  color: var(--sol-text-muted);
+  line-height: 1.7;
+}
+.narrative-box .narrator {
+  color: var(--sol-green);
+  font-weight: 600;
+  font-style: normal;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.block-visual {
+  background: var(--sol-card);
+  border: 2px solid rgba(153, 69, 255, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s;
+}
+.block-visual.valid {
+  border-color: var(--sol-green);
+  box-shadow: 0 0 15px rgba(20, 241, 149, 0.2);
+}
+.block-visual.building {
+  border-color: var(--sol-purple);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
