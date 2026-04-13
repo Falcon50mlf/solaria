@@ -55,7 +55,7 @@ export default function WalletContent() {
   const entropyCanvasRef = useRef<HTMLCanvasElement>(null);
   const [mousePositions, setMousePositions] = useState<Set<string>>(new Set());
   const [entropyReady, setEntropyReady] = useState(false);
-  const canvasDirtyRef = useRef(false);
+  const positionsRef = useRef<Set<string>>(new Set());
 
   // Derivation animation
   const [showPrivateKey, setShowPrivateKey] = useState(false);
@@ -71,43 +71,37 @@ export default function WalletContent() {
     }
   }, [gameState]);
 
-  // Mouse tracking for entropy
-  useEffect(() => {
-    if (minigameStep !== 'entropy' || !entropyCanvasRef.current) return;
-
+  const handleCanvasMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = entropyCanvasRef.current;
-    const ctx = canvas.getContext('2d');
+    if (!canvas) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = Math.round(e.clientX - rect.left);
-      const y = Math.round(e.clientY - rect.top);
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const x = Math.round((e.clientX - rect.left) * scaleX);
+    const y = Math.round((e.clientY - rect.top) * scaleY);
 
-      if (x >= 0 && x < canvas.width && y >= 0 && y < canvas.height) {
-        const key = `${Math.floor(x / 4)},${Math.floor(y / 4)}`;
+    if (x >= 0 && x < canvas.width && y >= 0 && y < canvas.height) {
+      const key = `${Math.floor(x / 4)},${Math.floor(y / 4)}`;
 
-        if (!mousePositions.has(key)) {
-          setMousePositions((prev) => new Set([...prev, key]));
-          canvasDirtyRef.current = true;
+      if (!positionsRef.current.has(key)) {
+        positionsRef.current = new Set([...positionsRef.current, key]);
+        setMousePositions(positionsRef.current);
 
-          // Draw a small dot
-          if (ctx) {
-            ctx.fillStyle = `hsla(${Math.random() * 360}, 100%, 50%, 0.6)`;
-            ctx.beginPath();
-            ctx.arc(x, y, 3, 0, Math.PI * 2);
-            ctx.fill();
-          }
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.fillStyle = `hsla(${Math.random() * 360}, 100%, 50%, 0.6)`;
+          ctx.beginPath();
+          ctx.arc(x, y, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
-          if (mousePositions.size >= 30) {
-            setEntropyReady(true);
-          }
+        if (positionsRef.current.size >= 30) {
+          setEntropyReady(true);
         }
       }
-    };
-
-    canvas.addEventListener('mousemove', handleMouseMove);
-    return () => canvas.removeEventListener('mousemove', handleMouseMove);
-  }, [minigameStep, mousePositions]);
+    }
+  };
 
   // Animate derivation step
   useEffect(() => {
@@ -119,17 +113,17 @@ export default function WalletContent() {
       return () => clearTimeout(timer);
     }
 
-    if (showPrivateKey && privKeyChars < 32) {
+    if (showPrivateKey && privKeyChars < 64) {
       const timer = setTimeout(() => setPrivKeyChars((p) => p + 1), 30);
       return () => clearTimeout(timer);
     }
 
-    if (privKeyChars === 32 && !showPublicKey) {
+    if (privKeyChars === 64 && !showPublicKey) {
       const timer = setTimeout(() => setShowPublicKey(true), 500);
       return () => clearTimeout(timer);
     }
 
-    if (showPublicKey && pubKeyChars < 32) {
+    if (showPublicKey && pubKeyChars < 64) {
       const timer = setTimeout(() => setPubKeyChars((p) => p + 1), 30);
       return () => clearTimeout(timer);
     }
@@ -318,6 +312,7 @@ export default function WalletContent() {
                   <div className="mb-6 relative">
                     <canvas
                       ref={entropyCanvasRef}
+                      onMouseMove={handleCanvasMouseMove}
                       width={400}
                       height={300}
                       className="w-full bg-slate-950 border-2 border-slate-700 rounded-lg cursor-crosshair"
