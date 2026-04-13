@@ -51,10 +51,11 @@ const INITIAL_STATE: GameState = {
 };
 
 let currentState: GameState = { ...INITIAL_STATE };
+let cachedSnapshot: GameState = { ...currentState, modules: currentState.modules.map(m => ({ ...m })), badges: [...currentState.badges] };
 const listeners: Set<() => void> = new Set();
 
 export function getGameState(): GameState {
-  return { ...currentState, modules: currentState.modules.map(m => ({ ...m })) };
+  return cachedSnapshot;
 }
 
 export function subscribe(listener: () => void) {
@@ -63,6 +64,7 @@ export function subscribe(listener: () => void) {
 }
 
 function notify() {
+  cachedSnapshot = { ...currentState, modules: currentState.modules.map(m => ({ ...m })), badges: [...currentState.badges] };
   listeners.forEach(fn => fn());
 }
 
