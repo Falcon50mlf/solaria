@@ -15,23 +15,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className="h-full antialiased" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (!window.ethereum) {
-                  Object.defineProperty(window, 'ethereum', {
-                    configurable: true,
-                    writable: true,
-                    value: undefined,
-                  });
-                }
-              } catch(e) {}
-            `,
-          }}
-        />
-      </head>
       <body
         className="min-h-full flex flex-col"
         style={{
