@@ -15,6 +15,7 @@ import {
 import '@/styles/basics.css';
 import { useLocale } from '@/lib/useLocale';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import { AuthButton } from '@/components/AuthButton';
 
 /* MODULES is now defined inside the component to access i18n translations */
 
@@ -80,6 +81,7 @@ export default function BasicsContent() {
   return (
     <main className="basics-container">
       <LanguageToggle />
+      <AuthButton />
       <motion.div
         className="player-info-bar"
         initial={{ opacity: 0, y: -10 }}

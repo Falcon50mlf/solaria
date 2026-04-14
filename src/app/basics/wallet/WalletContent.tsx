@@ -16,6 +16,7 @@ import { completeModule } from '@/lib/gameState';
 import { useGameState } from '@/lib/useGameState';
 import { useLocale } from '@/lib/useLocale';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import { AuthButton } from '@/components/AuthButton';
 
 type Phase = 'story' | 'minigame' | 'reveal';
 type MinigameStep = 'entropy' | 'derivation' | 'wallet';
@@ -160,6 +161,7 @@ export default function WalletContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-4 md:p-8">
       <LanguageToggle />
+      <AuthButton />
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">

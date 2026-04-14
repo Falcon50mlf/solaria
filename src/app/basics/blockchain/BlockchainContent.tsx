@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Award, ArrowRight, Home } from 'lucide-react';
 import { useLocale } from '@/lib/useLocale';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import { AuthButton } from '@/components/AuthButton';
 
 
 // Fake hash generation function
@@ -114,6 +115,7 @@ export default function BlockchainContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6">
       <LanguageToggle />
+      <AuthButton />
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
