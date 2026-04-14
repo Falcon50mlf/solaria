@@ -19,7 +19,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { useUser } from "@/hooks/useUser";
 import { useLocale } from "@/lib/useLocale";
-import { LanguageToggle } from "@/components/LanguageToggle";
+import { TopBar } from "@/components/TopBar";
 
 interface ProgressRow {
   module_id: string;
@@ -97,7 +97,7 @@ export default function DashboardContent() {
 
   return (
     <div className="min-h-screen p-6 md:p-10">
-      <LanguageToggle />
+      <TopBar />
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
@@ -316,13 +316,6 @@ export default function DashboardContent() {
             <BookOpen size={18} />
             {t.dashboard.continueLearn}
           </Link>
-          <button
-            onClick={handleLogout}
-            className="flex items-center justify-center gap-2 border border-[var(--sol-card-hover)] hover:border-[var(--sol-accent)]/50 text-[var(--sol-text-muted)] hover:text-[var(--sol-accent)] font-medium py-3 px-6 rounded-lg transition-colors cursor-pointer"
-          >
-            <LogOut size={18} />
-            {t.dashboard.logout}
-          </button>
         </motion.div>
       </div>
     </div>

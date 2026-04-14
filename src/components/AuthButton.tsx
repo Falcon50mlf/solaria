@@ -4,12 +4,12 @@ import { usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { LogIn, User } from "lucide-react";
+import { LogIn, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { useLocale } from "@/lib/useLocale";
 
 export function AuthButton() {
-  const { authenticated, ready, login } = usePrivy();
+  const { authenticated, ready, login, logout } = usePrivy();
   const { t } = useLocale();
   const router = useRouter();
   const wasAuthenticated = useRef(false);
@@ -28,6 +28,25 @@ export function AuthButton() {
   if (!ready) return null;
 
   if (authenticated) {
+    const isOnDashboard = typeof window !== "undefined" && window.location.pathname === "/dashboard";
+
+    if (isOnDashboard) {
+      return (
+        <motion.button
+          onClick={async () => {
+            await logout();
+            router.push("/");
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-1.5 bg-[var(--sol-darker)]/80 backdrop-blur-sm border border-[var(--sol-accent)]/30 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--sol-accent)] hover:border-[var(--sol-accent)]/60 transition-colors cursor-pointer"
+        >
+          <LogOut size={14} />
+          {t.dashboard.logout}
+        </motion.button>
+      );
+    }
+
     return (
       <Link href="/dashboard">
         <motion.div
