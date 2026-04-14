@@ -12,16 +12,14 @@ export function AuthButton() {
   const { authenticated, ready, login, logout } = usePrivy();
   const { t } = useLocale();
   const router = useRouter();
-  const wasAuthenticated = useRef(false);
-
-  // Redirect to dashboard when user just logged in
+  // Redirect to dashboard only when user just completed login on /login page
+  const hasRedirected = useRef(false);
   useEffect(() => {
-    if (ready && authenticated && !wasAuthenticated.current) {
-      wasAuthenticated.current = true;
+    if (!ready || !authenticated || hasRedirected.current) return;
+    const isLoginPage = window.location.pathname === "/login";
+    if (isLoginPage) {
+      hasRedirected.current = true;
       router.push("/dashboard");
-    }
-    if (ready && !authenticated) {
-      wasAuthenticated.current = false;
     }
   }, [ready, authenticated, router]);
 
