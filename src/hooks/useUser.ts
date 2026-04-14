@@ -41,6 +41,9 @@ export function useUser(): UseUserReturn {
 
     const privyDid = user.id;
 
+    // Set cookie so gameState sync can identify the user
+    document.cookie = `privy-id=${encodeURIComponent(privyDid)};path=/;max-age=31536000;samesite=lax`;
+
     // Skip if already upserted for this user
     if (upsertedRef.current === privyDid) return;
     upsertedRef.current = privyDid;

@@ -172,6 +172,27 @@ export const fr: TranslationDictionary = {
     backToBasics: "Retour aux Bases",
     nextWallet: "Suivant : Les Portefeuilles",
   },
+  login: {
+    title: "Connexion",
+    subtitle: "Connectez-vous pour sauvegarder votre progression et gagner des badges.",
+    loginButton: "Se connecter",
+    orContinue: "ou continuer sans compte",
+    backHome: "Retour à l'accueil",
+  },
+  dashboard: {
+    title: "Tableau de bord",
+    subtitle: "Suivez votre progression dans l'aventure Solana",
+    welcomeBack: "Content de vous revoir",
+    walletLabel: "Wallet Solana",
+    emailLabel: "Email",
+    progressTitle: "Votre progression",
+    noProgress: "Vous n'avez pas encore complété de modules. Commencez l'aventure !",
+    moduleCompleted: "Complété",
+    totalXp: "XP Total",
+    badgesEarned: "Badges obtenus",
+    continueLearn: "Continuer l'apprentissage",
+    logout: "Se déconnecter",
+  },
   wallet: {
     // Header
     headerTitle: "Le Wallet",

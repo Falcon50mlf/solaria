@@ -173,6 +173,27 @@ export const en: TranslationDictionary = {
     backToBasics: "Back to Basics",
     nextWallet: "Next: Wallets",
   },
+  login: {
+    title: "Sign In",
+    subtitle: "Sign in to save your progress and earn badges.",
+    loginButton: "Sign in",
+    orContinue: "or continue without an account",
+    backHome: "Back to home",
+  },
+  dashboard: {
+    title: "Dashboard",
+    subtitle: "Track your progress in the Solana adventure",
+    welcomeBack: "Welcome back",
+    walletLabel: "Solana Wallet",
+    emailLabel: "Email",
+    progressTitle: "Your progress",
+    noProgress: "You haven't completed any modules yet. Start the adventure!",
+    moduleCompleted: "Completed",
+    totalXp: "Total XP",
+    badgesEarned: "Badges earned",
+    continueLearn: "Continue learning",
+    logout: "Sign out",
+  },
   wallet: {
     // Header
     headerTitle: "The Wallet",

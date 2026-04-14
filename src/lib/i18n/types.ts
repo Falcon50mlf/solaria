@@ -131,6 +131,27 @@ export interface TranslationDictionary {
     backToBasics: string;
     nextWallet: string;
   };
+  login: {
+    title: string;
+    subtitle: string;
+    loginButton: string;
+    orContinue: string;
+    backHome: string;
+  };
+  dashboard: {
+    title: string;
+    subtitle: string;
+    welcomeBack: string;
+    walletLabel: string;
+    emailLabel: string;
+    progressTitle: string;
+    noProgress: string;
+    moduleCompleted: string;
+    totalXp: string;
+    badgesEarned: string;
+    continueLearn: string;
+    logout: string;
+  };
   wallet: {
     // Header
     headerTitle: string;
