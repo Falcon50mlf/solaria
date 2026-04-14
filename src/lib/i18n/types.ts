@@ -153,6 +153,9 @@ export interface TranslationDictionary {
     badgesEarned: string;
     continueLearn: string;
     logout: string;
+    chaptersTitle: string;
+    chapterProgress: string;
+    chapterModules: string;
   };
   wallet: {
     // Header

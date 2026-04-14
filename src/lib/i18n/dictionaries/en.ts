@@ -195,6 +195,9 @@ export const en: TranslationDictionary = {
     badgesEarned: "Badges earned",
     continueLearn: "Continue learning",
     logout: "Sign out",
+    chaptersTitle: "Your chapters",
+    chapterProgress: "progress",
+    chapterModules: "modules",
   },
   wallet: {
     // Header
