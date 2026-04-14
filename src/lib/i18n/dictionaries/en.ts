@@ -39,6 +39,7 @@ export const en: TranslationDictionary = {
     startAdventure: "Start the adventure",
     chaptersTitle: "Chapters",
     chapterModules: "modules",
+    exploreWithoutAccount: "Explore without an account",
   },
   basics: {
     pageTitle: "The Basics",

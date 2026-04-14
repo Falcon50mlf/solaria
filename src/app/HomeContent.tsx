@@ -174,6 +174,19 @@ export default function HomeContent() {
               </div>
             </motion.div>
           </Link>
+
+          <motion.div
+            className="mt-4 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.5 }}
+          >
+            <Link href="/basics">
+              <button className="btn-primary text-base px-6 py-3 sm:text-lg sm:px-10 sm:py-4 transition-all duration-300">
+                {t.home.exploreWithoutAccount}
+              </button>
+            </Link>
+          </motion.div>
         </motion.div>
 
         {/* Floating accent shapes */}

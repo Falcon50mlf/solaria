@@ -42,6 +42,7 @@ export interface TranslationDictionary {
     startAdventure: string;
     chaptersTitle: string;
     chapterModules: string;
+    exploreWithoutAccount: string;
   };
   basics: {
     pageTitle: string;
