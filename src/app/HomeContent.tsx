@@ -135,9 +135,9 @@ export default function HomeContent() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          <StatCard value="4" label={t.home.statModules} icon={BookOpen} delay={0.5} />
-          <StatCard value="500 XP" label={t.home.statXpToEarn} icon={Zap} delay={0.6} />
-          <StatCard value="4" label={t.home.statBadges} icon={Trophy} delay={0.7} />
+          <StatCard value="5" label={t.home.statModules} icon={BookOpen} delay={0.5} />
+          <StatCard value="640 XP" label={t.home.statXpToEarn} icon={Zap} delay={0.6} />
+          <StatCard value="5" label={t.home.statBadges} icon={Trophy} delay={0.7} />
         </motion.div>
 
         {/* CTA Button */}

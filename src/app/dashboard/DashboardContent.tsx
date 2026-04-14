@@ -11,6 +11,7 @@ import {
   Boxes,
   Key,
   Shield,
+  Send,
   BookOpen,
   Copy,
   Check,
@@ -34,6 +35,7 @@ const MODULE_ICONS: Record<string, typeof Network> = {
   blockchain: Boxes,
   wallet: Key,
   seedphrase: Shield,
+  transactions: Send,
 };
 
 interface Chapter {
@@ -47,8 +49,8 @@ const CHAPTERS: Chapter[] = [
   {
     id: "basics",
     link: "/basics",
-    moduleIds: ["decentralisation", "blockchain", "wallet", "seedphrase"],
-    totalXp: 500,
+    moduleIds: ["decentralisation", "blockchain", "wallet", "seedphrase", "transactions"],
+    totalXp: 640,
   },
 ];
 

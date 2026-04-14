@@ -51,6 +51,7 @@ export interface TranslationDictionary {
       blockchain: ModuleTranslations;
       wallet: ModuleTranslations;
       seedphrase: ModuleTranslations;
+      transactions: ModuleTranslations;
     };
   };
   badges: {
@@ -58,6 +59,7 @@ export interface TranslationDictionary {
     blockchain: string;
     wallet: string;
     seedphrase: string;
+    transactions: string;
     master: string;
   };
   decentralisation: {
@@ -250,5 +252,45 @@ export interface TranslationDictionary {
     keyPoints: string[];
     allCompletedTitle: string;
     allCompletedText: string;
+  };
+  transactions: {
+    headerTitle: string;
+    headerSubtitle: string;
+    backToBasics: string;
+    // Phase 1 - Story
+    storyIntro: string;
+    storyAnalogy: string;
+    defTransactionTitle: string;
+    defTransactionText: string;
+    keyConceptsTitle: string;
+    keyConceptsText: string;
+    didYouKnowTitle: string;
+    didYouKnowText: string;
+    storySummary: string;
+    storyNextButton: string;
+    // Phase 2 - Mini-game
+    phase2Title: string;
+    phase2Subtitle: string;
+    phase2Narrative: string;
+    phase2FromLabel: string;
+    phase2ToLabel: string;
+    phase2AmountLabel: string;
+    phase2AmountPlaceholder: string;
+    phase2FeesLabel: string;
+    phase2SignButton: string;
+    phase2Signing: string;
+    phase2Confirmed: string;
+    phase2ConfirmedText: string;
+    phase2TxHash: string;
+    phase2FinishButton: string;
+    // Phase 3 - Reveal
+    revealTitle: string;
+    revealSubtitle: string;
+    revealNarrative1: string;
+    revealNarrative2: string;
+    didYouKnowRevealTitle: string;
+    didYouKnowRevealText: string;
+    keyPointsTitle: string;
+    keyPoints: string[];
   };
 }

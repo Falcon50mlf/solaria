@@ -520,6 +520,12 @@ export default function SeedPhraseContent() {
               {/* Navigation */}
               <div className="flex flex-col gap-3">
                 <Link
+                  href="/basics/transactions"
+                  className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 py-4 rounded-lg font-bold text-lg text-center transition-colors flex items-center justify-center gap-2"
+                >
+                  {t.common.nextModule} <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
                   href="/basics"
                   className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 py-4 rounded-lg font-bold text-lg text-center transition-colors"
                 >

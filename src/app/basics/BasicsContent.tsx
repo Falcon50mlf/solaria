@@ -13,6 +13,7 @@ import {
   Trophy,
   Zap,
   ChevronLeft,
+  Send,
 } from 'lucide-react';
 import '@/styles/basics.css';
 import { useLocale } from '@/lib/useLocale';
@@ -70,6 +71,7 @@ export default function BasicsContent() {
     { id: 'blockchain', title: t.basics.modules.blockchain.title, subtitle: t.basics.modules.blockchain.subtitle, icon: Boxes, maxXp: 150, link: '/basics/blockchain', step: 2 },
     { id: 'wallet', title: t.basics.modules.wallet.title, subtitle: t.basics.modules.wallet.subtitle, icon: Key, maxXp: 120, link: '/basics/wallet', step: 3 },
     { id: 'seedphrase', title: t.basics.modules.seedphrase.title, subtitle: t.basics.modules.seedphrase.subtitle, icon: Shield, maxXp: 130, link: '/basics/seedphrase', step: 4 },
+    { id: 'transactions', title: t.basics.modules.transactions.title, subtitle: t.basics.modules.transactions.subtitle, icon: Send, maxXp: 140, link: '/basics/transactions', step: 5 },
   ];
 
   const moduleStates = new Map(modules.map((m) => [m.id, m]));

@@ -58,6 +58,7 @@ export const en: TranslationDictionary = {
         subtitle: "Your identity in the crypto world",
       },
       seedphrase: { title: "The Seed Phrase", subtitle: "Your ultimate backup key" },
+      transactions: { title: "Transactions", subtitle: "Send and receive SOL" },
     },
   },
   badges: {
@@ -65,6 +66,7 @@ export const en: TranslationDictionary = {
     blockchain: "Block Forger",
     wallet: "Key Guardian",
     seedphrase: "Seed Protector",
+    transactions: "Transaction Master",
     master: "Basics Master",
   },
   decentralisation: {
@@ -325,5 +327,61 @@ export const en: TranslationDictionary = {
     ],
     allCompletedTitle: "Basics Master",
     allCompletedText: "You have completed all four fundamental modules! You are ready for the next chapter of the Solana adventure.",
+  },
+  transactions: {
+    headerTitle: "Transactions",
+    headerSubtitle: "Send and receive SOL on Solana",
+    backToBasics: "Back to Basics",
+    // Phase 1 - Story
+    storyIntro:
+      "You have a wallet and a secured seed phrase. Now it's time to bring your wallet to life by making your first transaction. This is where everything becomes real.",
+    storyAnalogy:
+      "A transaction is like sending a registered letter: you write the recipient, the amount, and sign it with your private key... but unlike the postal service, it's instant and verifiable by everyone on the blockchain.",
+    defTransactionTitle: "📖 Definition — Transaction",
+    defTransactionText:
+      "A transaction on Solana is an instruction signed with your private key that transfers SOL from one address to another. It is verified by the network's validators and permanently recorded on the blockchain. Once confirmed, it is irreversible.",
+    keyConceptsTitle: "🔑 Key Concepts",
+    keyConceptsText:
+      "Every transaction on Solana involves minimal fees (~0.000005 SOL, roughly $0.001). Confirmation takes about 400 milliseconds. Once finalized, the transaction is etched forever into the blockchain. Each transaction has a unique signature (hash) that allows it to be tracked and verified.",
+    didYouKnowTitle: "💡 Did you know?",
+    didYouKnowText:
+      "Solana processes around 4,000 transactions per second in practice, with average fees of $0.00025 per transaction. It is one of the cheapest blockchains in the world, making micro-transactions finally viable.",
+    storySummary:
+      "A transaction = an instruction signed by your private key, verified by validators, and recorded forever on the blockchain.",
+    storyNextButton: "Next: Simulate your first transaction",
+    // Phase 2 - Mini-game
+    phase2Title: "Your First Transaction",
+    phase2Subtitle: "Simulate sending SOL",
+    phase2Narrative:
+      "You have 10 SOL in your wallet. Send some SOL to a friend to test the network.",
+    phase2FromLabel: "From (your wallet)",
+    phase2ToLabel: "To (recipient)",
+    phase2AmountLabel: "Amount (SOL)",
+    phase2AmountPlaceholder: "e.g. 2.5",
+    phase2FeesLabel: "Network fees",
+    phase2SignButton: "Sign and Send",
+    phase2Signing: "Signing in progress...",
+    phase2Confirmed: "Transaction Confirmed!",
+    phase2ConfirmedText:
+      "Your transaction has been validated by the validators and recorded on the Solana blockchain.",
+    phase2TxHash: "Transaction signature",
+    phase2FinishButton: "Finish and Earn the Badge",
+    // Phase 3 - Reveal
+    revealTitle: "Congratulations!",
+    revealSubtitle: "You've mastered Solana transactions",
+    revealNarrative1:
+      "You now understand the full lifecycle of a transaction: from its creation to its confirmation by validators, including the signature with your private key. Every transaction is an irreversible act written into the history of the blockchain.",
+    revealNarrative2:
+      "The golden rule: always check the recipient's address and the amount before signing. A confirmed transaction can never be reversed.",
+    didYouKnowRevealTitle: "💡 Did you know?",
+    didYouKnowRevealText:
+      "Solana uses a unique transaction parallelization engine called Sealevel. Unlike other blockchains that process transactions one by one, Sealevel can execute thousands of smart contracts simultaneously — like a multi-lane highway instead of a single-lane road.",
+    keyPointsTitle: "🔑 Key Concepts",
+    keyPoints: [
+      "A transaction is a signed instruction that transfers SOL between two addresses",
+      "Fees on Solana are among the lowest (~$0.00025 per transaction)",
+      "Each transaction has a unique signature to trace it on the blockchain",
+      "A confirmed transaction is irreversible — always verify before signing",
+    ],
   },
 };

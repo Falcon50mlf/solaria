@@ -58,6 +58,7 @@ export const fr: TranslationDictionary = {
         subtitle: "Votre identité dans le monde crypto",
       },
       seedphrase: { title: "La Seed Phrase", subtitle: "Votre clé de secours ultime" },
+      transactions: { title: "Les Transactions", subtitle: "Envoyer et recevoir des SOL" },
     },
   },
   badges: {
@@ -65,6 +66,7 @@ export const fr: TranslationDictionary = {
     blockchain: "Forgeur de Blocs",
     wallet: "Gardien des Clés",
     seedphrase: "Protecteur de Seeds",
+    transactions: "Maître des Transactions",
     master: "Maître des Basics",
   },
   decentralisation: {
@@ -323,5 +325,61 @@ export const fr: TranslationDictionary = {
     ],
     allCompletedTitle: "Maître des Basics",
     allCompletedText: "Vous avez complété les quatre modules fondamentaux ! Vous êtes prêt pour le prochain chapitre de l'aventure Solana.",
+  },
+  transactions: {
+    headerTitle: "Les Transactions",
+    headerSubtitle: "Envoyer et recevoir des SOL sur Solana",
+    backToBasics: "Retour aux Basics",
+    // Phase 1 - Story
+    storyIntro:
+      "Vous avez un wallet et une seed phrase sécurisée. Il est maintenant temps de donner vie à votre wallet en effectuant votre première transaction. C'est le moment où tout devient concret.",
+    storyAnalogy:
+      "Une transaction, c'est comme envoyer une lettre recommandée : vous écrivez le destinataire, le montant, vous signez avec votre clé privée... mais contrairement à La Poste, c'est instantané et vérifiable par tout le monde sur la blockchain.",
+    defTransactionTitle: "📖 Définition — Transaction",
+    defTransactionText:
+      "Une transaction sur Solana est une instruction signée avec votre clé privée qui transfère des SOL d'une adresse à une autre. Elle est vérifiée par les validateurs du réseau et enregistrée de manière permanente sur la blockchain. Une fois confirmée, elle est irréversible.",
+    keyConceptsTitle: "🔑 Notions clés",
+    keyConceptsText:
+      "Chaque transaction sur Solana implique des frais minimes (~0.000005 SOL, soit environ $0.001). La confirmation prend environ 400 millisecondes. Une fois finalisée, la transaction est gravée pour toujours dans la blockchain. Chaque transaction possède une signature unique (hash) qui permet de la retrouver et de la vérifier.",
+    didYouKnowTitle: "💡 Le saviez-vous ?",
+    didYouKnowText:
+      "Solana traite environ 4 000 transactions par seconde en pratique, avec des frais moyens de $0.00025 par transaction. C'est l'une des blockchains les moins chères au monde, rendant les micro-transactions enfin viables.",
+    storySummary:
+      "Une transaction = une instruction signée par votre clé privée, vérifiée par les validateurs, et enregistrée pour toujours sur la blockchain.",
+    storyNextButton: "Suivant : Simulez votre première transaction",
+    // Phase 2 - Mini-game
+    phase2Title: "Votre Première Transaction",
+    phase2Subtitle: "Simulez l'envoi de SOL",
+    phase2Narrative:
+      "Vous avez 10 SOL dans votre wallet. Envoyez des SOL à un ami pour tester le réseau.",
+    phase2FromLabel: "De (votre wallet)",
+    phase2ToLabel: "Vers (destinataire)",
+    phase2AmountLabel: "Montant (SOL)",
+    phase2AmountPlaceholder: "ex: 2.5",
+    phase2FeesLabel: "Frais de réseau",
+    phase2SignButton: "Signer et Envoyer",
+    phase2Signing: "Signature en cours...",
+    phase2Confirmed: "Transaction Confirmée !",
+    phase2ConfirmedText:
+      "Votre transaction a été validée par les validateurs et enregistrée sur la blockchain Solana.",
+    phase2TxHash: "Signature de transaction",
+    phase2FinishButton: "Terminer et Recevoir le Badge",
+    // Phase 3 - Reveal
+    revealTitle: "Félicitations !",
+    revealSubtitle: "Vous maîtrisez les transactions Solana",
+    revealNarrative1:
+      "Vous comprenez désormais le cycle complet d'une transaction : de sa création à sa confirmation par les validateurs, en passant par la signature avec votre clé privée. Chaque transaction est un acte irréversible inscrit dans l'histoire de la blockchain.",
+    revealNarrative2:
+      "La règle d'or : vérifiez toujours l'adresse du destinataire et le montant avant de signer. Une transaction confirmée ne peut jamais être annulée.",
+    didYouKnowRevealTitle: "💡 Le saviez-vous ?",
+    didYouKnowRevealText:
+      "Solana utilise un système unique de parallélisation des transactions appelé Sealevel. Contrairement aux autres blockchains qui traitent les transactions une par une, Sealevel permet d'exécuter des milliers de smart contracts simultanément, comme une autoroute à voies multiples au lieu d'une route à sens unique.",
+    keyPointsTitle: "🔑 Notions clés",
+    keyPoints: [
+      "Une transaction est une instruction signée qui transfère des SOL entre deux adresses",
+      "Les frais sur Solana sont parmi les plus bas (~$0.00025 par transaction)",
+      "Chaque transaction possède une signature unique pour la tracer sur la blockchain",
+      "Une transaction confirmée est irréversible — vérifiez toujours avant de signer",
+    ],
   },
 };
