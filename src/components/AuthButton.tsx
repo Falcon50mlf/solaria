@@ -12,15 +12,15 @@ export function AuthButton() {
   const { authenticated, ready, login, logout } = usePrivy();
   const { t } = useLocale();
   const router = useRouter();
-  // Redirect to dashboard only when user just completed login on /login page
-  const hasRedirected = useRef(false);
+  // Track auth state transitions to detect fresh login
+  const prevAuthenticated = useRef<boolean | null>(null);
   useEffect(() => {
-    if (!ready || !authenticated || hasRedirected.current) return;
-    const isLoginPage = window.location.pathname === "/login";
-    if (isLoginPage) {
-      hasRedirected.current = true;
+    if (!ready) return;
+    // Detect transition: was not authenticated → now authenticated = just logged in
+    if (prevAuthenticated.current === false && authenticated) {
       router.push("/dashboard");
     }
+    prevAuthenticated.current = authenticated;
   }, [ready, authenticated, router]);
 
   if (!ready) return null;
