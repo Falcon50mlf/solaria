@@ -151,10 +151,9 @@ export default function HomeContent() {
             {t.home.chaptersTitle}
           </h2>
 
-          <Link href="/basics">
+          <div>
             <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] hover:border-[var(--sol-purple)]/40 rounded-xl p-5 sm:p-6 transition-colors cursor-pointer"
+              className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 sm:p-6"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -173,7 +172,7 @@ export default function HomeContent() {
                 <ChevronRight size={20} className="text-[var(--sol-text-muted)]" />
               </div>
             </motion.div>
-          </Link>
+          </div>
 
           <motion.div
             className="mt-4 text-center"
