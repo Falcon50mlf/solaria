@@ -218,37 +218,40 @@ export default function DecentralisationContent() {
             </p>
           </motion.div>
 
-          {/* Definition Box */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5 mb-6"
-          >
-            <h3 className="font-bold text-indigo-300 mb-3 text-lg">📖 Définition</h3>
-            <p className="text-slate-200 leading-relaxed">
-              <strong>La décentralisation</strong>, c'est le fait de répartir le pouvoir entre
-              plusieurs participants au lieu de le concentrer en un seul point. Imaginez une salle
-              de classe : dans un système centralisé, un seul professeur corrige tous les examens.
-              S'il est malade, personne n'est noté. Dans un système décentralisé, les étudiants se
-              corrigent mutuellement. Même si l'un d'eux est absent, les autres continuent.
-            </p>
-          </motion.div>
+          {/* Pedagogical boxes */}
+          <div className="space-y-4 mb-8">
+            {/* Definition Box */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5"
+            >
+              <h3 className="text-indigo-400 font-bold text-lg mb-2">📖 Définition</h3>
+              <p className="text-slate-200 leading-relaxed">
+                <strong>La décentralisation</strong>, c'est le fait de répartir le pouvoir entre
+                plusieurs participants au lieu de le concentrer en un seul point. Imaginez une salle
+                de classe : dans un système centralisé, un seul professeur corrige tous les examens.
+                S'il est malade, personne n'est noté. Dans un système décentralisé, les étudiants se
+                corrigent mutuellement. Même si l'un d'eux est absent, les autres continuent.
+              </p>
+            </motion.div>
 
-          {/* Le saviez-vous Box */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5 mb-6"
-          >
-            <h3 className="font-bold text-amber-300 mb-3 text-lg">💡 Le saviez-vous ?</h3>
-            <p className="text-slate-200 leading-relaxed">
-              Bitcoin a été créé en 2009 comme première monnaie décentralisée. Aucune banque,
-              aucun gouvernement ne le contrôle. Aujourd'hui, des milliers d'ordinateurs dans le
-              monde entier maintiennent le réseau.
-            </p>
-          </motion.div>
+            {/* Le saviez-vous Box */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5"
+            >
+              <h3 className="text-amber-400 font-bold text-lg mb-2">💡 Le saviez-vous ?</h3>
+              <p className="text-slate-200 leading-relaxed">
+                Bitcoin a été créé en 2009 comme première monnaie décentralisée. Aucune banque,
+                aucun gouvernement ne le contrôle. Aujourd'hui, des milliers d'ordinateurs dans le
+                monde entier maintiennent le réseau.
+              </p>
+            </motion.div>
+          </div>
 
           {/* Explanation */}
           <motion.div
@@ -326,20 +329,23 @@ export default function DecentralisationContent() {
             </p>
           </motion.div>
 
-          {/* En pratique Box */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-emerald-900/30 border border-emerald-500/50 rounded-lg p-5 mb-8"
-          >
-            <h3 className="font-bold text-emerald-300 mb-3 text-lg">🔧 En pratique</h3>
-            <p className="text-slate-200 leading-relaxed">
-              Dans le réseau Solana, plus de 1 900 validateurs répartis dans le monde entier
-              vérifient les transactions. Si un validateur s'arrête, les autres continuent sans
-              interruption.
-            </p>
-          </motion.div>
+          {/* Pedagogical boxes */}
+          <div className="space-y-4 mb-8">
+            {/* Notions clés Box */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
+            >
+              <h3 className="text-purple-400 font-bold text-lg mb-2">🔑 Notions clés</h3>
+              <p className="text-slate-200 leading-relaxed">
+                Dans le réseau Solana, plus de 1 900 validateurs répartis dans le monde entier
+                vérifient les transactions. Si un validateur s'arrête, les autres continuent sans
+                interruption.
+              </p>
+            </motion.div>
+          </div>
 
           {/* Game Area */}
           <div className="bg-slate-800 rounded-lg p-8 mb-6 border border-slate-700">
@@ -438,59 +444,62 @@ export default function DecentralisationContent() {
             </p>
           </motion.div>
 
-          {/* Definition: Réseau peer-to-peer */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5 mb-6"
-          >
-            <h3 className="font-bold text-indigo-300 mb-3 text-lg">📖 Définition</h3>
-            <p className="text-slate-200 leading-relaxed">
-              <strong>Réseau peer-to-peer</strong> : un réseau où chaque participant est à la fois
-              client et serveur. Pas de chef, tout le monde est égal. C'est comme un groupe WhatsApp
-              où tout le monde peut envoyer des messages à tout le monde, sans passer par un
-              administrateur.
-            </p>
-          </motion.div>
+          {/* Pedagogical boxes */}
+          <div className="space-y-4 mb-8">
+            {/* Definition: Réseau peer-to-peer */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5"
+            >
+              <h3 className="text-indigo-400 font-bold text-lg mb-2">📖 Définition</h3>
+              <p className="text-slate-200 leading-relaxed">
+                <strong>Réseau peer-to-peer</strong> : un réseau où chaque participant est à la fois
+                client et serveur. Pas de chef, tout le monde est égal. C'est comme un groupe WhatsApp
+                où tout le monde peut envoyer des messages à tout le monde, sans passer par un
+                administrateur.
+              </p>
+            </motion.div>
 
-          {/* Le saviez-vous: Solana performance */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5 mb-6"
-          >
-            <h3 className="font-bold text-amber-300 mb-3 text-lg">💡 Le saviez-vous ?</h3>
-            <p className="text-slate-200 leading-relaxed">
-              Solana peut traiter jusqu'à 65 000 transactions par seconde grâce à sa technologie
-              unique appelée Proof of History. C'est plus rapide que Visa !
-            </p>
-          </motion.div>
+            {/* Le saviez-vous: Solana performance */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5"
+            >
+              <h3 className="text-amber-400 font-bold text-lg mb-2">💡 Le saviez-vous ?</h3>
+              <p className="text-slate-200 leading-relaxed">
+                Solana peut traiter jusqu'à 65 000 transactions par seconde grâce à sa technologie
+                unique appelée Proof of History. C'est plus rapide que Visa !
+              </p>
+            </motion.div>
 
-          {/* Recap section */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-            className="bg-slate-700/50 border border-slate-500/50 rounded-lg p-5 mb-8"
-          >
-            <h3 className="font-bold text-slate-200 mb-3 text-lg">📝 Ce que vous avez appris</h3>
-            <ul className="space-y-2 text-slate-300">
-              <li className="flex items-start gap-2">
-                <span className="text-red-400 mt-1">&#8226;</span>
-                <span>Un réseau centralisé dépend d'un seul point &#8594; fragile</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-400 mt-1">&#8226;</span>
-                <span>Un réseau décentralisé répartit le pouvoir &#8594; résilient</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-blue-400 mt-1">&#8226;</span>
-                <span>La décentralisation est le fondement de toutes les blockchains, dont Solana</span>
-              </li>
-            </ul>
-          </motion.div>
+            {/* Notions clés (recap) */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
+            >
+              <h3 className="text-purple-400 font-bold text-lg mb-2">🔑 Notions clés</h3>
+              <ul className="space-y-2 text-slate-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">&#8226;</span>
+                  <span>Un réseau centralisé dépend d'un seul point &#8594; fragile</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400 mt-1">&#8226;</span>
+                  <span>Un réseau décentralisé répartit le pouvoir &#8594; résilient</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-400 mt-1">&#8226;</span>
+                  <span>La décentralisation est le fondement de toutes les blockchains, dont Solana</span>
+                </li>
+              </ul>
+            </motion.div>
+          </div>
 
           {/* Badge */}
           <motion.div

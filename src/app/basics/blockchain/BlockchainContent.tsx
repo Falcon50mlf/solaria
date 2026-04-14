@@ -150,39 +150,6 @@ export default function BlockchainContent() {
                 </p>
               </motion.div>
 
-              {/* Definition: Hash */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-indigo-50 border border-indigo-200 rounded-lg p-5 mb-6"
-              >
-                <p className="text-indigo-800 font-bold mb-2">{"📖 Définition — Hash"}</p>
-                <p className="text-gray-700 leading-relaxed">
-                  Un hash, c&apos;est comme une empreinte digitale pour les donn&eacute;es.
-                  Peu importe la taille du fichier (un SMS ou un film entier), le hash
-                  sera toujours de la m&ecirc;me longueur. Et si vous changez ne serait-ce
-                  qu&apos;une seule lettre, le hash change compl&egrave;tement. C&apos;est ce qui
-                  rend la blockchain infalsifiable.
-                </p>
-              </motion.div>
-
-              {/* Le saviez-vous: Genesis Block */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
-                className="bg-amber-50 border border-amber-200 rounded-lg p-5 mb-6"
-              >
-                <p className="text-amber-800 font-bold mb-2">{"💡 Le saviez-vous ?"}</p>
-                <p className="text-gray-700 leading-relaxed">
-                  Le premier bloc d&apos;une blockchain s&apos;appelle le Genesis Block
-                  (bloc de gen&egrave;se). Celui de Bitcoin, cr&eacute;&eacute; le 3 janvier 2009,
-                  contenait un message cach&eacute; : le titre d&apos;un article du journal
-                  The Times sur la crise bancaire.
-                </p>
-              </motion.div>
-
               {/* Block Visual Explanation */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -265,21 +232,57 @@ export default function BlockchainContent() {
                 </div>
               </motion.div>
 
-              {/* En pratique: contenu d'un bloc */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                className="bg-emerald-50 border border-emerald-200 rounded-lg p-5 mb-6"
-              >
-                <p className="text-emerald-800 font-bold mb-2">{"🔧 En pratique"}</p>
-                <p className="text-gray-700 leading-relaxed">
-                  Chaque bloc contient : des donn&eacute;es (les transactions), le hash
-                  du bloc pr&eacute;c&eacute;dent (le lien vers le bloc d&apos;avant), et son propre
-                  hash (son empreinte unique). C&apos;est comme une cha&icirc;ne o&ugrave; chaque
-                  maillon est soud&eacute; au pr&eacute;c&eacute;dent.
-                </p>
-              </motion.div>
+              {/* Grouped pedagogical boxes */}
+              <div className="space-y-4 mb-8">
+                {/* Definition: Hash */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="bg-indigo-50 border border-indigo-200 rounded-lg p-5"
+                >
+                  <p className="text-indigo-800 font-bold text-lg mb-2">{"📖 Définition — Hash"}</p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Un hash, c&apos;est comme une empreinte digitale pour les donn&eacute;es.
+                    Peu importe la taille du fichier (un SMS ou un film entier), le hash
+                    sera toujours de la m&ecirc;me longueur. Et si vous changez ne serait-ce
+                    qu&apos;une seule lettre, le hash change compl&egrave;tement. C&apos;est ce qui
+                    rend la blockchain infalsifiable.
+                  </p>
+                </motion.div>
+
+                {/* Notions clés: contenu d'un bloc */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.75 }}
+                  className="bg-purple-50 border border-purple-200 rounded-lg p-5"
+                >
+                  <p className="text-purple-800 font-bold text-lg mb-2">{"🔑 Notions clés"}</p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Chaque bloc contient : des donn&eacute;es (les transactions), le hash
+                    du bloc pr&eacute;c&eacute;dent (le lien vers le bloc d&apos;avant), et son propre
+                    hash (son empreinte unique). C&apos;est comme une cha&icirc;ne o&ugrave; chaque
+                    maillon est soud&eacute; au pr&eacute;c&eacute;dent.
+                  </p>
+                </motion.div>
+
+                {/* Le saviez-vous: Genesis Block */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="bg-amber-50 border border-amber-200 rounded-lg p-5"
+                >
+                  <p className="text-amber-800 font-bold text-lg mb-2">{"💡 Le saviez-vous ?"}</p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Le premier bloc d&apos;une blockchain s&apos;appelle le Genesis Block
+                    (bloc de gen&egrave;se). Celui de Bitcoin, cr&eacute;&eacute; le 3 janvier 2009,
+                    contenait un message cach&eacute; : le titre d&apos;un article du journal
+                    The Times sur la crise bancaire.
+                  </p>
+                </motion.div>
+              </div>
 
               {/* Next Button */}
               <motion.div
@@ -336,20 +339,23 @@ export default function BlockchainContent() {
                 </p>
               </motion.div>
 
-              {/* En pratique: Solana speed */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-                className="bg-emerald-50 border border-emerald-200 rounded-lg p-5 mb-6"
-              >
-                <p className="text-emerald-800 font-bold mb-2">{"🔧 En pratique"}</p>
-                <p className="text-gray-700 leading-relaxed">
-                  Sur Solana, les validateurs (l&apos;&eacute;quivalent des mineurs) cr&eacute;ent
-                  un nouveau bloc toutes les 400 millisecondes. C&apos;est 25 fois plus
-                  rapide qu&apos;Ethereum et 1 500 fois plus rapide que Bitcoin !
-                </p>
-              </motion.div>
+              {/* Grouped pedagogical boxes */}
+              <div className="space-y-4 mb-8">
+                {/* Notions clés: Solana speed */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  className="bg-purple-50 border border-purple-200 rounded-lg p-5"
+                >
+                  <p className="text-purple-800 font-bold text-lg mb-2">{"🔑 Notions clés"}</p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Sur Solana, les validateurs (l&apos;&eacute;quivalent des mineurs) cr&eacute;ent
+                    un nouveau bloc toutes les 400 millisecondes. C&apos;est 25 fois plus
+                    rapide qu&apos;Ethereum et 1 500 fois plus rapide que Bitcoin !
+                  </p>
+                </motion.div>
+              </div>
 
               {/* Blockchain Visualization */}
               <motion.div
@@ -567,53 +573,56 @@ export default function BlockchainContent() {
                 </p>
               </motion.div>
 
-              {/* Definition: Immutabilite */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-indigo-50 border border-indigo-200 rounded-lg p-5 mb-6"
-              >
-                <p className="text-indigo-800 font-bold mb-2">{"📖 Définition — Immutabilité"}</p>
-                <p className="text-gray-700 leading-relaxed">
-                  Une fois qu&apos;un bloc est ajout&eacute; &agrave; la cha&icirc;ne, il est pratiquement
-                  impossible de le modifier. Pour tricher, il faudrait recalculer le
-                  hash de ce bloc ET de tous les blocs suivants, plus vite que
-                  l&apos;ensemble du r&eacute;seau. C&apos;est math&eacute;matiquement quasi-impossible.
-                </p>
-              </motion.div>
+              {/* Grouped pedagogical boxes */}
+              <div className="space-y-4 mb-8">
+                {/* Definition: Immutabilite */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-indigo-50 border border-indigo-200 rounded-lg p-5"
+                >
+                  <p className="text-indigo-800 font-bold text-lg mb-2">{"📖 Définition — Immutabilité"}</p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Une fois qu&apos;un bloc est ajout&eacute; &agrave; la cha&icirc;ne, il est pratiquement
+                    impossible de le modifier. Pour tricher, il faudrait recalculer le
+                    hash de ce bloc ET de tous les blocs suivants, plus vite que
+                    l&apos;ensemble du r&eacute;seau. C&apos;est math&eacute;matiquement quasi-impossible.
+                  </p>
+                </motion.div>
 
-              {/* Le saviez-vous: Proof of History */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
-                className="bg-amber-50 border border-amber-200 rounded-lg p-5 mb-6"
-              >
-                <p className="text-amber-800 font-bold mb-2">{"💡 Le saviez-vous ?"}</p>
-                <p className="text-gray-700 leading-relaxed">
-                  Anatoly Yakovenko, le cr&eacute;ateur de Solana, a invent&eacute; le Proof of
-                  History (Preuve d&apos;Historique). Au lieu que les validateurs se
-                  mettent d&apos;accord sur l&apos;heure de chaque transaction (ce qui prend
-                  du temps), Solana utilise une horloge int&eacute;gr&eacute;e &agrave; la blockchain.
-                  R&eacute;sultat : des transactions quasi-instantan&eacute;es.
-                </p>
-              </motion.div>
+                {/* Notions clés: Recap */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
+                  className="bg-purple-50 border border-purple-200 rounded-lg p-5"
+                >
+                  <p className="text-purple-800 font-bold text-lg mb-2">{"🔑 Notions clés"}</p>
+                  <ul className="list-disc list-inside text-gray-700 space-y-2">
+                    <li>Un hash est une empreinte digitale unique pour chaque bloc</li>
+                    <li>Chaque bloc est li&eacute; au pr&eacute;c&eacute;dent, formant une cha&icirc;ne infalsifiable</li>
+                    <li>Solana utilise le Proof of History pour &ecirc;tre ultra-rapide</li>
+                  </ul>
+                </motion.div>
 
-              {/* Recap */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.38 }}
-                className="bg-gray-50 border border-gray-200 rounded-lg p-5 mb-8"
-              >
-                <p className="text-gray-800 font-bold mb-3">{"📝 Ce que vous avez appris"}</p>
-                <ul className="list-disc list-inside text-gray-700 space-y-2">
-                  <li>Un hash est une empreinte digitale unique pour chaque bloc</li>
-                  <li>Chaque bloc est li&eacute; au pr&eacute;c&eacute;dent, formant une cha&icirc;ne infalsifiable</li>
-                  <li>Solana utilise le Proof of History pour &ecirc;tre ultra-rapide</li>
-                </ul>
-              </motion.div>
+                {/* Le saviez-vous: Proof of History */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="bg-amber-50 border border-amber-200 rounded-lg p-5"
+                >
+                  <p className="text-amber-800 font-bold text-lg mb-2">{"💡 Le saviez-vous ?"}</p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Anatoly Yakovenko, le cr&eacute;ateur de Solana, a invent&eacute; le Proof of
+                    History (Preuve d&apos;Historique). Au lieu que les validateurs se
+                    mettent d&apos;accord sur l&apos;heure de chaque transaction (ce qui prend
+                    du temps), Solana utilise une horloge int&eacute;gr&eacute;e &agrave; la blockchain.
+                    R&eacute;sultat : des transactions quasi-instantan&eacute;es.
+                  </p>
+                </motion.div>
+              </div>
 
               {/* XP Badge */}
               <motion.div

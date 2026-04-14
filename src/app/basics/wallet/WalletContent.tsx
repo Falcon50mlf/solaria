@@ -263,47 +263,49 @@ export default function WalletContent() {
               </div>
 
               {/* Educational boxes */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5 mb-6"
-              >
-                <p className="text-indigo-400 font-bold text-lg mb-2">
-                  📖 Définition — Wallet (Portefeuille)
-                </p>
-                <p className="text-slate-300">
-                  Contrairement à ce que son nom suggère, un wallet ne stocke pas vos cryptos. Il stocke vos clés. Vos cryptos sont sur la blockchain. Le wallet, c'est juste la télécommande qui vous permet d'y accéder.
-                </p>
-              </motion.div>
+              <div className="space-y-4 mb-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5"
+                >
+                  <p className="text-indigo-400 font-bold text-lg mb-2">
+                    📖 Définition — Wallet (Portefeuille)
+                  </p>
+                  <p className="text-slate-300">
+                    Contrairement à ce que son nom suggère, un wallet ne stocke pas vos cryptos. Il stocke vos clés. Vos cryptos sont sur la blockchain. Le wallet, c'est juste la télécommande qui vous permet d'y accéder.
+                  </p>
+                </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5 mb-6"
-              >
-                <p className="text-amber-400 font-bold text-lg mb-2">
-                  💡 Le saviez-vous ?
-                </p>
-                <p className="text-slate-300">
-                  Il existe plusieurs types de wallets : les hot wallets (connectés à Internet, comme Phantom sur votre navigateur) et les cold wallets (hors-ligne, comme une clé USB Ledger). Plus c'est déconnecté d'Internet, plus c'est sécurisé.
-                </p>
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5"
+                >
+                  <p className="text-amber-400 font-bold text-lg mb-2">
+                    💡 Le saviez-vous ?
+                  </p>
+                  <p className="text-slate-300">
+                    Il existe plusieurs types de wallets : les hot wallets (connectés à Internet, comme Phantom sur votre navigateur) et les cold wallets (hors-ligne, comme une clé USB Ledger). Plus c'est déconnecté d'Internet, plus c'est sécurisé.
+                  </p>
+                </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 }}
-                className="bg-emerald-900/30 border border-emerald-500/50 rounded-lg p-5 mb-6"
-              >
-                <p className="text-emerald-400 font-bold text-lg mb-2">
-                  🔧 En pratique
-                </p>
-                <p className="text-slate-300">
-                  Sur Solana, l'extension Phantom est le wallet le plus populaire. En quelques clics, vous pouvez créer un wallet, recevoir des SOL, et interagir avec des applications décentralisées (dApps).
-                </p>
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.9 }}
+                  className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
+                >
+                  <p className="text-purple-400 font-bold text-lg mb-2">
+                    🔑 Notions clés
+                  </p>
+                  <p className="text-slate-300">
+                    Sur Solana, l'extension Phantom est le wallet le plus populaire. En quelques clics, vous pouvez créer un wallet, recevoir des SOL, et interagir avec des applications décentralisées (dApps).
+                  </p>
+                </motion.div>
+              </div>
 
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-6 mb-8">
                 <p className="text-lg text-slate-200 mb-2">
@@ -352,19 +354,21 @@ export default function WalletContent() {
                     </p>
                   </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5 mb-6"
-                  >
-                    <p className="text-indigo-400 font-bold text-lg mb-2">
-                      📖 Définition — Entropie
-                    </p>
-                    <p className="text-slate-300">
-                      L'entropie, c'est le hasard pur. Pour créer une clé privée sécurisée, il faut un nombre vraiment aléatoire. Vos mouvements de souris sont imprévisibles, c'est parfait pour générer ce hasard. C'est comme mélanger un jeu de cartes : plus vous mélangez, plus c'est difficile à deviner.
-                    </p>
-                  </motion.div>
+                  <div className="space-y-4 mb-8">
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5"
+                    >
+                      <p className="text-indigo-400 font-bold text-lg mb-2">
+                        📖 Définition — Entropie
+                      </p>
+                      <p className="text-slate-300">
+                        L'entropie, c'est le hasard pur. Pour créer une clé privée sécurisée, il faut un nombre vraiment aléatoire. Vos mouvements de souris sont imprévisibles, c'est parfait pour générer ce hasard. C'est comme mélanger un jeu de cartes : plus vous mélangez, plus c'est difficile à deviner.
+                      </p>
+                    </motion.div>
+                  </div>
 
                   <div className="mb-6 relative">
                     <canvas
@@ -441,19 +445,21 @@ export default function WalletContent() {
                     </p>
                   </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="bg-emerald-900/30 border border-emerald-500/50 rounded-lg p-5 mb-6"
-                  >
-                    <p className="text-emerald-400 font-bold text-lg mb-2">
-                      🔧 En pratique
-                    </p>
-                    <p className="text-slate-300">
-                      De votre entropie naît la clé privée (votre secret). De la clé privée, on dérive mathématiquement la clé publique (votre adresse). Ce calcul est à sens unique : on peut aller de la clé privée vers la clé publique, mais jamais l'inverse. C'est comme transformer un oeuf en omelette : impossible de revenir en arrière.
-                    </p>
-                  </motion.div>
+                  <div className="space-y-4 mb-8">
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
+                    >
+                      <p className="text-purple-400 font-bold text-lg mb-2">
+                        🔑 Notions clés
+                      </p>
+                      <p className="text-slate-300">
+                        De votre entropie naît la clé privée (votre secret). De la clé privée, on dérive mathématiquement la clé publique (votre adresse). Ce calcul est à sens unique : on peut aller de la clé privée vers la clé publique, mais jamais l'inverse. C'est comme transformer un oeuf en omelette : impossible de revenir en arrière.
+                      </p>
+                    </motion.div>
+                  </div>
 
                   <div className="space-y-8 mb-8">
                     {/* Entropy */}
@@ -680,21 +686,6 @@ export default function WalletContent() {
                 </p>
               </motion.div>
 
-              {/* Le saviez-vous */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5 mb-6"
-              >
-                <p className="text-amber-400 font-bold text-lg mb-2">
-                  💡 Le saviez-vous ?
-                </p>
-                <p className="text-slate-300">
-                  En janvier 2025, l'écosystème Solana compte plus de 2 millions de wallets actifs quotidiennement. C'est l'une des blockchains les plus utilisées au monde.
-                </p>
-              </motion.div>
-
               {/* Narrative */}
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-8 mb-8">
                 <p className="text-lg md:text-xl leading-relaxed text-slate-200 mb-4">
@@ -711,35 +702,51 @@ export default function WalletContent() {
                 </p>
               </div>
 
-              {/* Recap */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="bg-slate-800/50 border border-slate-600/50 rounded-lg p-5 mb-8"
-              >
-                <p className="text-slate-300 font-bold text-lg mb-3">
-                  📝 Ce que vous avez appris
-                </p>
-                <ul className="space-y-2 text-slate-300">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                    <span>Un wallet est une paire de clés : publique (votre adresse) et privée (votre pouvoir)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                    <span>La clé privée ne doit JAMAIS être partagée</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                    <span>L'entropie (le hasard) est la base de la sécurité de votre wallet</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                    <span>Solana utilise le format d'adresse Base58 pour des adresses lisibles</span>
-                  </li>
-                </ul>
-              </motion.div>
+              {/* Educational boxes */}
+              <div className="space-y-4 mb-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5"
+                >
+                  <p className="text-amber-400 font-bold text-lg mb-2">
+                    💡 Le saviez-vous ?
+                  </p>
+                  <p className="text-slate-300">
+                    En janvier 2025, l'écosystème Solana compte plus de 2 millions de wallets actifs quotidiennement. C'est l'une des blockchains les plus utilisées au monde.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
+                >
+                  <p className="text-purple-400 font-bold text-lg mb-3">
+                    🔑 Notions clés
+                  </p>
+                  <ul className="space-y-2 text-slate-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <span>Un wallet est une paire de clés : publique (votre adresse) et privée (votre pouvoir)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <span>La clé privée ne doit JAMAIS être partagée</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <span>L'entropie (le hasard) est la base de la sécurité de votre wallet</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <span>Solana utilise le format d'adresse Base58 pour des adresses lisibles</span>
+                    </li>
+                  </ul>
+                </motion.div>
+              </div>
 
               {/* Check if all modules completed */}
               {gameState?.modules?.filter((m) => m.completed).length === 3 && (
