@@ -7,6 +7,7 @@ import {
   Network,
   Boxes,
   Key,
+  Shield,
   Lock,
   CheckCircle2,
   Trophy,
@@ -68,6 +69,7 @@ export default function BasicsContent() {
     { id: 'decentralisation', title: t.basics.modules.decentralisation.title, subtitle: t.basics.modules.decentralisation.subtitle, icon: Network, maxXp: 100, link: '/basics/decentralisation', step: 1 },
     { id: 'blockchain', title: t.basics.modules.blockchain.title, subtitle: t.basics.modules.blockchain.subtitle, icon: Boxes, maxXp: 150, link: '/basics/blockchain', step: 2 },
     { id: 'wallet', title: t.basics.modules.wallet.title, subtitle: t.basics.modules.wallet.subtitle, icon: Key, maxXp: 120, link: '/basics/wallet', step: 3 },
+    { id: 'seedphrase', title: t.basics.modules.seedphrase.title, subtitle: t.basics.modules.seedphrase.subtitle, icon: Shield, maxXp: 130, link: '/basics/seedphrase', step: 4 },
   ];
 
   const moduleStates = new Map(modules.map((m) => [m.id, m]));

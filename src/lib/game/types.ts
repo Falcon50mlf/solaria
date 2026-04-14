@@ -1,4 +1,4 @@
-export type ModuleId = "decentralisation" | "blockchain" | "wallet";
+export type ModuleId = "decentralisation" | "blockchain" | "wallet" | "seedphrase";
 
 export interface ModuleProgress {
   id: ModuleId;
@@ -28,6 +28,7 @@ export const MODULE_BADGES: Record<ModuleId, string> = {
   decentralisation: "Architecte Réseau",
   blockchain: "Forgeur de Blocs",
   wallet: "Gardien des Clés",
+  seedphrase: "Protecteur de Seeds",
 };
 
 export const MASTER_BADGE = "Maître des Basics";
@@ -36,6 +37,7 @@ export const MODULE_ORDER: ModuleId[] = [
   "decentralisation",
   "blockchain",
   "wallet",
+  "seedphrase",
 ];
 
 export const INITIAL_MODULES: ModuleProgress[] = [
@@ -61,6 +63,14 @@ export const INITIAL_MODULES: ModuleProgress[] = [
     completed: false,
     xpEarned: 0,
     maxXp: 120,
+    unlocked: false,
+  },
+  {
+    id: "seedphrase",
+    title: "La Seed Phrase",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 130,
     unlocked: false,
   },
 ];

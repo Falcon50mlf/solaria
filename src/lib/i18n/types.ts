@@ -50,12 +50,14 @@ export interface TranslationDictionary {
       decentralisation: ModuleTranslations;
       blockchain: ModuleTranslations;
       wallet: ModuleTranslations;
+      seedphrase: ModuleTranslations;
     };
   };
   badges: {
     decentralisation: string;
     blockchain: string;
     wallet: string;
+    seedphrase: string;
     master: string;
   };
   decentralisation: {
@@ -211,5 +213,39 @@ export interface TranslationDictionary {
     keyPoints: string[];
     masterBadgeTitle: string;
     masterBadgeText: string;
+  };
+  seedphrase: {
+    headerTitle: string;
+    headerSubtitle: string;
+    backToBasics: string;
+    storyIntro: string;
+    storyAnalogy: string;
+    defSeedTitle: string;
+    defSeedText: string;
+    keyConceptsTitle: string;
+    keyConceptsText: string;
+    didYouKnowTitle: string;
+    didYouKnowText: string;
+    storySummary: string;
+    storyNextButton: string;
+    phase2Title: string;
+    phase2Subtitle: string;
+    phase2Narrative: string;
+    phase2Memorize: string;
+    phase2Scrambled: string;
+    phase2Instruction: string;
+    phase2Success: string;
+    phase2Retry: string;
+    phase2FinishButton: string;
+    revealTitle: string;
+    revealSubtitle: string;
+    revealNarrative1: string;
+    revealNarrative2: string;
+    didYouKnowRevealTitle: string;
+    didYouKnowRevealText: string;
+    keyPointsTitle: string;
+    keyPoints: string[];
+    allCompletedTitle: string;
+    allCompletedText: string;
   };
 }
