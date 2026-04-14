@@ -2,6 +2,7 @@
 
 import { PrivyProvider } from "@privy-io/react-auth";
 import { useState, useEffect, type ReactNode } from "react";
+import { SessionGuard } from "./SessionGuard";
 
 const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? "";
 
@@ -31,6 +32,7 @@ export function Providers({ children }: { children: ReactNode }) {
         },
       }}
     >
+      <SessionGuard />
       {children}
     </PrivyProvider>
   );
