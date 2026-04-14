@@ -40,6 +40,8 @@ export interface TranslationDictionary {
     statXpToEarn: string;
     statBadges: string;
     startAdventure: string;
+    chaptersTitle: string;
+    chapterModules: string;
   };
   basics: {
     pageTitle: string;

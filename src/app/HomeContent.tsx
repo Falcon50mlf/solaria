@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Zap, Trophy, BookOpen } from "lucide-react";
+import { Zap, Trophy, BookOpen, ChevronRight } from "lucide-react";
 import { useLocale } from "@/lib/useLocale";
 import { TopBar } from "@/components/TopBar";
 
@@ -140,17 +140,39 @@ export default function HomeContent() {
           <StatCard value="5" label={t.home.statBadges} icon={Trophy} delay={0.7} />
         </motion.div>
 
-        {/* CTA Button */}
+        {/* Chapters Section */}
         <motion.div
-          className="flex justify-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          className="w-full max-w-2xl mx-auto mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
+          <h2 className="text-xl sm:text-2xl font-bold text-[var(--sol-text)] text-center mb-6">
+            {t.home.chaptersTitle}
+          </h2>
+
           <Link href="/basics">
-            <button className="btn-primary text-base px-6 py-3 sm:text-lg sm:px-10 sm:py-4 shadow-lg hover:shadow-2xl transition-all duration-300">
-              {t.home.startAdventure}
-            </button>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] hover:border-[var(--sol-purple)]/40 rounded-xl p-5 sm:p-6 transition-colors cursor-pointer"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--sol-purple)]/20 to-[var(--sol-green)]/20 flex items-center justify-center">
+                    <BookOpen size={24} className="text-[var(--sol-purple)]" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[var(--sol-text)] text-base sm:text-lg">
+                      {t.basics.pageTitle}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[var(--sol-text-muted)]">
+                      5 {t.home.chapterModules} — 640 XP
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight size={20} className="text-[var(--sol-text-muted)]" />
+              </div>
+            </motion.div>
           </Link>
         </motion.div>
 

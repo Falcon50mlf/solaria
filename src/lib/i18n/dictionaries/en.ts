@@ -37,6 +37,8 @@ export const en: TranslationDictionary = {
     statXpToEarn: "to earn",
     statBadges: "Badges",
     startAdventure: "Start the adventure",
+    chaptersTitle: "Chapters",
+    chapterModules: "modules",
   },
   basics: {
     pageTitle: "The Basics",
