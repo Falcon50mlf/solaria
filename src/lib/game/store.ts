@@ -2,8 +2,11 @@ import { createStore } from "zustand/vanilla";
 import { persist, createJSONStorage } from "zustand/middleware";
 import {
   type GameStore,
+  type GameState,
   type ModuleId,
+  type ModuleProgress,
   INITIAL_STATE,
+  INITIAL_MODULES,
   MODULE_BADGES,
   MODULE_ORDER,
   MASTER_BADGE,
@@ -71,6 +74,7 @@ export const gameStore = createStore<GameStore>()(
     }),
     {
       name: "solquest-game-state",
+      version: 1,
       storage: createJSONStorage(() =>
         typeof window !== "undefined" ? localStorage : noopStorage
       ),
@@ -81,6 +85,32 @@ export const gameStore = createStore<GameStore>()(
         modules: state.modules,
         badges: state.badges,
       }),
+      merge: (persisted, current) => {
+        const persistedState = persisted as Partial<GameState> | undefined;
+        if (!persistedState?.modules) return { ...current };
+
+        const savedModules = persistedState.modules;
+        const savedIds = new Set(savedModules.map((m) => m.id));
+
+        // Reconcile: keep saved progress, add any new modules from INITIAL_MODULES
+        const mergedModules: ModuleProgress[] = INITIAL_MODULES.map((initial) => {
+          const saved = savedModules.find((m) => m.id === initial.id);
+          if (saved) return { ...saved };
+          // New module: check if the previous module in order was completed
+          const idx = MODULE_ORDER.indexOf(initial.id as ModuleId);
+          const prevId = idx > 0 ? MODULE_ORDER[idx - 1] : null;
+          const prevCompleted = prevId
+            ? savedModules.find((m) => m.id === prevId)?.completed ?? false
+            : true;
+          return { ...initial, unlocked: prevCompleted };
+        });
+
+        return {
+          ...current,
+          ...persistedState,
+          modules: mergedModules,
+        };
+      },
     }
   )
 );
