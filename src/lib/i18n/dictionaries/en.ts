@@ -102,8 +102,8 @@ export const en: TranslationDictionary = {
     phase2KeyConceptsTitle: "Key Concepts",
     phase2KeyConceptsText:
       "In the Solana network, over 1,900 validators spread across the globe verify transactions. If one validator stops, the others continue without interruption.",
-    phase2Connections: "Connections",
-    phase2MinConnections: "minimum",
+    phase2Connections: "Secured nodes:",
+    phase2MinConnections: "Each node needs at least 2 connections to be secured",
     phase2HowToPlay:
       "How to play: Click on a node to select it (it turns yellow), then click on another node to create a connection.",
     // Phase 3

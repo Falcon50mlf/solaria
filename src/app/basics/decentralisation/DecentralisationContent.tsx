@@ -347,8 +347,15 @@ export default function DecentralisationContent() {
             className="bg-gradient-to-r from-purple-900 to-purple-800 rounded-lg p-4 mb-6 border border-purple-600 text-center"
           >
             <p className="text-lg sm:text-2xl font-bold">
-              {t.decentralisation.phase2Connections} <span className="text-emerald-400">{connections.length}</span>/
-              {outerNodeIds.length} minimum
+              {t.decentralisation.phase2Connections} <span className="text-emerald-400">{(() => {
+                const counts = new Map<number, number>();
+                outerNodeIds.forEach(id => counts.set(id, 0));
+                connections.forEach(conn => {
+                  counts.set(conn.from, (counts.get(conn.from) || 0) + 1);
+                  counts.set(conn.to, (counts.get(conn.to) || 0) + 1);
+                });
+                return Array.from(counts.values()).filter(c => c >= 2).length;
+              })()}</span>/{outerNodeIds.length}
             </p>
             <p className="text-sm text-slate-300 mt-2">
               {t.decentralisation.phase2MinConnections}

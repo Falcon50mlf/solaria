@@ -101,8 +101,8 @@ export const fr: TranslationDictionary = {
     phase2KeyConceptsTitle: "🔑 Notions clés",
     phase2KeyConceptsText:
       "Dans le réseau Solana, plus de 1 900 validateurs répartis dans le monde entier vérifient les transactions. Si un validateur s'arrête, les autres continuent sans interruption.",
-    phase2Connections: "Connexions:",
-    phase2MinConnections: "Chaque nœud doit avoir au minimum 2 connexions",
+    phase2Connections: "Nœuds sécurisés :",
+    phase2MinConnections: "Chaque nœud doit avoir au minimum 2 connexions pour être sécurisé",
     phase2HowToPlay:
       "💡 Comment jouer: Cliquez sur un nœud pour le sélectionner (il devient jaune), puis cliquez sur un autre nœud pour créer une connexion.",
     // Phase 3
