@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Trophy,
   Zap,
+  ChevronLeft,
 } from 'lucide-react';
 import '@/styles/basics.css';
 import { useLocale } from '@/lib/useLocale';
@@ -80,6 +81,13 @@ export default function BasicsContent() {
   return (
     <main className="basics-container">
       <TopBar />
+      <Link
+        href="/"
+        className="inline-flex items-center gap-1 text-[var(--sol-text-muted)] hover:text-[var(--sol-text)] transition-colors mb-4 text-sm"
+      >
+        <ChevronLeft size={16} />
+        {t.login.backHome}
+      </Link>
       <motion.div
         className="player-info-bar"
         initial={{ opacity: 0, y: -10 }}
