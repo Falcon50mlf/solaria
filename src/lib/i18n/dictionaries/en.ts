@@ -40,6 +40,7 @@ export const en: TranslationDictionary = {
     chaptersTitle: "Chapters",
     chapterModules: "modules",
     exploreWithoutAccount: "Explore without an account",
+    backToDashboard: "Back to dashboard",
   },
   basics: {
     pageTitle: "The Basics",

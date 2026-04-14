@@ -43,6 +43,7 @@ export interface TranslationDictionary {
     chaptersTitle: string;
     chapterModules: string;
     exploreWithoutAccount: string;
+    backToDashboard: string;
   };
   basics: {
     pageTitle: string;

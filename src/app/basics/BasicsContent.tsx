@@ -1,6 +1,7 @@
 'use client';
 
 import { useGameState } from '@/lib/useGameState';
+import { usePrivy } from '@privy-io/react-auth';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -64,6 +65,7 @@ const cardVariants = {
 
 export default function BasicsContent() {
   const { t } = useLocale();
+  const { authenticated } = usePrivy();
   const { totalXp, level, modules, badges } = useGameState();
 
   const MODULES = [
@@ -86,11 +88,11 @@ export default function BasicsContent() {
     <main className="basics-container">
       <TopBar />
       <Link
-        href="/"
+        href={authenticated ? "/dashboard" : "/"}
         className="inline-flex items-center gap-1 text-[var(--sol-text-muted)] hover:text-[var(--sol-text)] transition-colors mb-4 text-sm"
       >
         <ChevronLeft size={16} />
-        {t.login.backHome}
+        {authenticated ? t.home.backToDashboard : t.login.backHome}
       </Link>
       <motion.div
         className="player-info-bar"
