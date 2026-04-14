@@ -1,11 +1,20 @@
 "use client";
 
 import { PrivyProvider } from "@privy-io/react-auth";
-import type { ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 
-const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID as string;
+const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? "";
 
 export function Providers({ children }: { children: ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  // During SSR/prerendering, render children without Privy to avoid
+  // "invalid app ID" error during static generation
+  if (!mounted || !appId) {
+    return <>{children}</>;
+  }
+
   return (
     <PrivyProvider
       appId={appId}
