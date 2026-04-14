@@ -142,7 +142,7 @@ export default function HomeContent() {
 
         {/* Chapters Section */}
         <motion.div
-          className="w-full max-w-2xl mx-auto mb-12"
+          className="w-full max-w-2xl mx-auto mb-12 flex justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
