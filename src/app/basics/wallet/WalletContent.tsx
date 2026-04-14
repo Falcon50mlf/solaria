@@ -170,7 +170,7 @@ export default function WalletContent() {
             <ChevronRight className="w-4 h-4 rotate-180" />
             {t.wallet.backToBasics}
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">{t.wallet.headerTitle}</h1>
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2">{t.wallet.headerTitle}</h1>
           <p className="text-slate-400">
             {t.wallet.headerSubtitle}
           </p>
@@ -186,8 +186,8 @@ export default function WalletContent() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-8 mb-8">
-                <p className="text-xl md:text-2xl mb-8 leading-relaxed text-slate-200">
+              <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-4 sm:p-8 mb-8">
+                <p className="text-base sm:text-xl md:text-2xl mb-8 leading-relaxed text-slate-200">
                   {t.wallet.storyIntro}
                 </p>
                 <p className="text-lg text-slate-300 mb-8">
@@ -206,7 +206,7 @@ export default function WalletContent() {
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <Mail className="w-8 h-8 text-green-400" />
-                    <h3 className="text-2xl font-bold text-green-400">
+                    <h3 className="text-lg sm:text-2xl font-bold text-green-400">
                       {t.wallet.publicKeyTitle}
                     </h3>
                   </div>
@@ -238,7 +238,7 @@ export default function WalletContent() {
                   </div>
                   <div className="flex items-center gap-3 mb-4 mt-2">
                     <Lock className="w-8 h-8 text-red-400" />
-                    <h3 className="text-2xl font-bold text-red-400">
+                    <h3 className="text-lg sm:text-2xl font-bold text-red-400">
                       {t.wallet.privateKeyTitle}
                     </h3>
                   </div>
@@ -338,7 +338,7 @@ export default function WalletContent() {
               {minigameStep === 'entropy' && (
                 <div>
                   <div className="mb-6">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
                       {t.wallet.entropyTitle}
                     </h2>
                     <p className="text-slate-400">
@@ -429,7 +429,7 @@ export default function WalletContent() {
               {minigameStep === 'derivation' && wallet && (
                 <div>
                   <div className="mb-8">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
                       {t.wallet.derivationTitle}
                     </h2>
                     <p className="text-slate-400">
@@ -544,7 +544,7 @@ export default function WalletContent() {
               {minigameStep === 'wallet' && wallet && (
                 <div>
                   <div className="mb-8">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
                       {t.wallet.walletStepTitle}
                     </h2>
                     <p className="text-slate-400">
@@ -555,7 +555,7 @@ export default function WalletContent() {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="relative bg-gradient-to-br from-purple-900/40 to-slate-900/40 backdrop-blur border border-purple-700/50 rounded-lg p-8 mb-8 shadow-2xl"
+                    className="relative bg-gradient-to-br from-purple-900/40 to-slate-900/40 backdrop-blur border border-purple-700/50 rounded-lg p-4 sm:p-8 mb-8 shadow-2xl"
                   >
                     {/* Glow effect */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-lg blur-xl -z-10" />
@@ -599,7 +599,7 @@ export default function WalletContent() {
                       {/* Balance */}
                       <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700/50">
                         <p className="text-sm text-slate-400 mb-1">{t.wallet.balanceLabel}</p>
-                        <p className="text-3xl font-bold text-purple-400">
+                        <p className="text-2xl sm:text-3xl font-bold text-purple-400">
                           0 SOL
                         </p>
                         <p className="text-xs text-slate-500 mt-1">
@@ -648,9 +648,9 @@ export default function WalletContent() {
                   }}
                   className="inline-block mb-4"
                 >
-                  <Trophy className="w-16 h-16 text-yellow-400" />
+                  <Trophy className="w-12 h-12 sm:w-16 sm:h-16 text-yellow-400" />
                 </motion.div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-2">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
                   {t.common.congratulations}
                 </h2>
                 <p className="text-xl text-slate-300">
@@ -668,7 +668,7 @@ export default function WalletContent() {
                 <div className="inline-block bg-gradient-to-br from-yellow-500 to-amber-500 rounded-full p-4 mb-4">
                   <Lock className="w-8 h-8 text-slate-900" />
                 </div>
-                <h3 className="text-2xl font-bold text-yellow-400 mb-2">
+                <h3 className="text-xl sm:text-2xl font-bold text-yellow-400 mb-2">
                   {t.badges.wallet}
                 </h3>
                 <p className="text-slate-300 mb-2">+120 XP</p>
@@ -678,7 +678,7 @@ export default function WalletContent() {
               </motion.div>
 
               {/* Narrative */}
-              <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-8 mb-8">
+              <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-4 sm:p-8 mb-8">
                 <p className="text-lg md:text-xl leading-relaxed text-slate-200 mb-4">
                   {t.wallet.revealNarrative1}
                 </p>
@@ -728,7 +728,7 @@ export default function WalletContent() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-gradient-to-r from-purple-900/40 to-blue-900/40 border border-purple-700/50 rounded-lg p-8 mb-8 text-center"
+                  className="bg-gradient-to-r from-purple-900/40 to-blue-900/40 border border-purple-700/50 rounded-lg p-4 sm:p-8 mb-8 text-center"
                 >
                   <motion.div
                     animate={{ y: [0, -10, 0] }}
@@ -737,7 +737,7 @@ export default function WalletContent() {
                   >
                     <Zap className="w-12 h-12 text-yellow-400 mx-auto" />
                   </motion.div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-2">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-2">
                     {t.badges.master}
                   </h2>
                   <p className="text-slate-300">

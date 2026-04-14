@@ -121,7 +121,7 @@ export default function BlockchainContent() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">
             {t.blockchain.headerTitle}
           </h1>
           <p className="text-lg text-gray-600">
@@ -307,7 +307,7 @@ export default function BlockchainContent() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                <h2 className="text-xl sm:text-3xl font-bold text-gray-900 mb-2">
                   {t.blockchain.phase2Title}
                 </h2>
                 <p className="text-gray-600">
@@ -348,9 +348,9 @@ export default function BlockchainContent() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white rounded-lg shadow-lg p-8 overflow-x-auto"
+                className="bg-white rounded-lg shadow-lg p-4 sm:p-8 overflow-x-auto"
               >
-                <div className="flex items-center space-x-4 min-w-max pb-4">
+                <div className="flex flex-col sm:flex-row items-center gap-4 sm:space-x-4 sm:gap-0 pb-4">
                   {blocks.map((block, index) => (
                     <motion.div
                       key={index}
@@ -372,7 +372,7 @@ export default function BlockchainContent() {
                               : 'border-gray-300 bg-gray-50'
                           }`}
                         >
-                          <div className="text-sm font-mono space-y-2 w-64">
+                          <div className="text-sm font-mono space-y-2 w-full sm:w-64">
                             <div>
                               <span className="font-bold text-gray-700">
                                 Index:
@@ -413,7 +413,7 @@ export default function BlockchainContent() {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.1 + 0.3 }}
-                          className="mx-2 text-indigo-600 font-bold text-2xl"
+                          className="mx-2 text-indigo-600 font-bold text-2xl sm:rotate-0 rotate-90"
                         >
                           →
                         </motion.div>
@@ -441,9 +441,9 @@ export default function BlockchainContent() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="bg-white rounded-lg shadow-lg p-8"
+                  className="bg-white rounded-lg shadow-lg p-4 sm:p-8"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
                     {t.blockchain.phase2BlockLabel}{blocks.length}
                   </h3>
 
@@ -477,7 +477,7 @@ export default function BlockchainContent() {
                       <p className="text-sm text-indigo-900 font-semibold mb-3">
                         {t.blockchain.phase2Mining}
                       </p>
-                      <div className="font-mono text-2xl text-indigo-600 tracking-widest">
+                      <div className="font-mono text-lg sm:text-2xl text-indigo-600 tracking-widest">
                         {miningNumbers || '000000'}
                       </div>
                       <motion.div

@@ -48,12 +48,12 @@ export default function LoginContent() {
           transition={{ delay: 0.1 }}
           className="text-center mb-10"
         >
-          <h1 className="text-5xl font-bold mb-3">
+          <h1 className="text-3xl sm:text-5xl font-bold mb-3">
             <span className="bg-gradient-to-r from-[var(--sol-purple)] via-[var(--sol-blue)] to-[var(--sol-green)] bg-clip-text text-transparent">
               SolQuest
             </span>
           </h1>
-          <h2 className="text-2xl font-semibold text-[var(--sol-text)] mb-2">
+          <h2 className="text-xl sm:text-2xl font-semibold text-[var(--sol-text)] mb-2">
             {t.login.title}
           </h2>
           <p className="text-[var(--sol-text-muted)]">{t.login.subtitle}</p>

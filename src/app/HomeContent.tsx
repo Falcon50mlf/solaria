@@ -56,7 +56,7 @@ const StatCard = ({
   delay: number;
 }) => (
   <motion.div
-    className="game-card p-6 flex flex-col items-center gap-3 min-w-[140px]"
+    className="game-card p-6 flex flex-col items-center gap-3 min-w-[100px] sm:min-w-[140px]"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay, duration: 0.6 }}
@@ -94,7 +94,7 @@ export default function HomeContent() {
       </div>
 
       {/* Glow effect top right */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--sol-purple)] rounded-full blur-3xl opacity-10 -z-10" />
+      <div className="absolute top-0 right-0 w-48 h-48 sm:w-96 sm:h-96 bg-[var(--sol-purple)] rounded-full blur-3xl opacity-10 -z-10" />
 
       {/* Main content */}
       <main className="relative z-10 px-4 sm:px-6 lg:px-8 py-12 sm:py-20 max-w-6xl mx-auto w-full flex flex-col">
@@ -105,12 +105,12 @@ export default function HomeContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-5xl sm:text-7xl font-bold mb-6 tracking-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 tracking-tight">
             <span className="bg-gradient-to-r from-[var(--sol-purple)] via-[var(--sol-blue)] to-[var(--sol-green)] bg-clip-text text-transparent drop-shadow-lg">
               SolQuest
             </span>
           </h1>
-          <p className="text-xl sm:text-2xl text-[var(--sol-text-muted)] font-light">
+          <p className="text-base sm:text-xl md:text-2xl text-[var(--sol-text-muted)] font-light">
             {t.home.subtitle}
           </p>
         </motion.div>
@@ -148,15 +148,15 @@ export default function HomeContent() {
           transition={{ delay: 0.8, duration: 0.6 }}
         >
           <Link href="/basics">
-            <button className="btn-primary text-lg px-10 py-4 shadow-lg hover:shadow-2xl transition-all duration-300">
+            <button className="btn-primary text-base px-6 py-3 sm:text-lg sm:px-10 sm:py-4 shadow-lg hover:shadow-2xl transition-all duration-300">
               {t.home.startAdventure}
             </button>
           </Link>
         </motion.div>
 
         {/* Floating accent shapes */}
-        <div className="absolute top-1/4 left-10 w-32 h-32 bg-[var(--sol-purple)] rounded-full blur-3xl opacity-5" />
-        <div className="absolute bottom-1/4 right-10 w-40 h-40 bg-[var(--sol-green)] rounded-full blur-3xl opacity-5" />
+        <div className="absolute top-1/4 left-10 w-16 h-16 sm:w-32 sm:h-32 bg-[var(--sol-purple)] rounded-full blur-3xl opacity-5" />
+        <div className="absolute bottom-1/4 right-10 w-20 h-20 sm:w-40 sm:h-40 bg-[var(--sol-green)] rounded-full blur-3xl opacity-5" />
       </main>
     </div>
   );

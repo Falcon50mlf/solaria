@@ -105,7 +105,7 @@ export default function DashboardContent() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-10"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2">
             <span className="bg-gradient-to-r from-[var(--sol-purple)] to-[var(--sol-green)] bg-clip-text text-transparent">
               {t.dashboard.title}
             </span>
@@ -128,8 +128,8 @@ export default function DashboardContent() {
 
           <div className="space-y-3">
             {email && (
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-[var(--sol-text-muted)] w-32">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
+                <span className="text-sm text-[var(--sol-text-muted)] w-auto sm:w-32">
                   {t.dashboard.emailLabel}
                 </span>
                 <span className="text-sm font-mono text-[var(--sol-text)]">
@@ -139,11 +139,11 @@ export default function DashboardContent() {
             )}
 
             {walletAddress && (
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-[var(--sol-text-muted)] w-32">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
+                <span className="text-sm text-[var(--sol-text-muted)] w-auto sm:w-32">
                   {t.dashboard.walletLabel}
                 </span>
-                <span className="text-sm font-mono text-[var(--sol-green)] truncate max-w-[200px]">
+                <span className="text-sm font-mono text-[var(--sol-green)] truncate max-w-[120px] sm:max-w-[200px]">
                   {walletAddress}
                 </span>
                 <button
@@ -162,7 +162,7 @@ export default function DashboardContent() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-3 gap-4 mb-8"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8"
         >
           <div className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center">
             <Zap size={24} className="text-[var(--sol-green)] mx-auto mb-2" />

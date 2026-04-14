@@ -107,7 +107,7 @@ export default function DecentralisationContent() {
 
   const renderNetworkDiagram = (interactive: boolean = false, showCentralNode: boolean = true) => {
     return (
-      <svg viewBox="0 0 100 100" className="w-full h-full" style={{ minHeight: '400px' }}>
+      <svg viewBox="0 0 100 100" className="w-full h-[250px] sm:h-[400px]">
         {/* Render connections */}
         {connections.map((conn, idx) => {
           const fromNode = nodes.find(n => n.id === conn.from);
@@ -201,11 +201,11 @@ export default function DecentralisationContent() {
           transition={{ duration: 0.5 }}
           className="max-w-2xl mx-auto"
         >
-          <h1 className="text-4xl font-bold mb-8 text-center">{t.decentralisation.phase1Title}</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold mb-8 text-center">{t.decentralisation.phase1Title}</h1>
 
           {/* Centralized Network Diagram */}
           <div className="bg-slate-800 rounded-lg p-8 mb-8 border border-slate-700">
-            <div style={{ height: '400px' }}>{renderNetworkDiagram(false)}</div>
+            <div className="h-[250px] sm:h-[400px]">{renderNetworkDiagram(false)}</div>
           </div>
 
           {/* Narrative Box */}
@@ -301,7 +301,7 @@ export default function DecentralisationContent() {
           transition={{ duration: 0.5 }}
           className="max-w-2xl mx-auto"
         >
-          <h1 className="text-4xl font-bold mb-2 text-center">{t.decentralisation.phase2Title}</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold mb-2 text-center">{t.decentralisation.phase2Title}</h1>
 
           <p className="text-center text-slate-300 mb-6 text-lg">
             {t.decentralisation.phase2Subtitle}
@@ -337,7 +337,7 @@ export default function DecentralisationContent() {
 
           {/* Game Area */}
           <div className="bg-slate-800 rounded-lg p-8 mb-6 border border-slate-700">
-            <div style={{ height: '500px' }}>{renderNetworkDiagram(true, true)}</div>
+            <div className="h-[300px] sm:h-[500px]">{renderNetworkDiagram(true, true)}</div>
           </div>
 
           {/* Progress Counter */}
@@ -346,7 +346,7 @@ export default function DecentralisationContent() {
             animate={{ y: 0, opacity: 1 }}
             className="bg-gradient-to-r from-purple-900 to-purple-800 rounded-lg p-4 mb-6 border border-purple-600 text-center"
           >
-            <p className="text-2xl font-bold">
+            <p className="text-lg sm:text-2xl font-bold">
               {t.decentralisation.phase2Connections} <span className="text-emerald-400">{connections.length}</span>/
               {outerNodeIds.length} minimum
             </p>
@@ -386,7 +386,7 @@ export default function DecentralisationContent() {
               animate={{ opacity: 1, scale: 1 }}
               className="fixed inset-0 pointer-events-none flex items-center justify-center"
             >
-              <div className="text-6xl font-bold text-emerald-400">+100 XP</div>
+              <div className="text-4xl sm:text-6xl font-bold text-emerald-400">+100 XP</div>
             </motion.div>
           )}
         </motion.div>
@@ -400,7 +400,7 @@ export default function DecentralisationContent() {
           transition={{ duration: 0.5 }}
           className="max-w-2xl mx-auto"
         >
-          <h1 className="text-4xl font-bold mb-4 text-center text-emerald-400">{t.decentralisation.phase3Title}</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold mb-4 text-center text-emerald-400">{t.decentralisation.phase3Title}</h1>
 
           {isAlreadyCompleted && (
             <motion.div
@@ -414,7 +414,7 @@ export default function DecentralisationContent() {
 
           {/* Decentralized Network Diagram */}
           <div className="bg-slate-800 rounded-lg p-8 mb-8 border border-slate-700">
-            <div style={{ height: '400px' }}>{renderNetworkDiagram(false, false)}</div>
+            <div className="h-[250px] sm:h-[400px]">{renderNetworkDiagram(false, false)}</div>
           </div>
 
           {/* Narrative */}
@@ -487,7 +487,7 @@ export default function DecentralisationContent() {
             className="bg-gradient-to-r from-amber-600 to-yellow-600 rounded-lg p-6 mb-8 text-center border border-yellow-500"
           >
             <div className="text-5xl mb-2">🏆</div>
-            <h2 className="text-2xl font-bold text-white">{t.badges.decentralisation}</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-white">{t.badges.decentralisation}</h2>
             <p className="text-yellow-100 mt-2">+100 {t.common.xp}</p>
           </motion.div>
 
