@@ -112,7 +112,7 @@ export default function BlockchainContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-4 md:p-8">
       <TopBar />
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -121,10 +121,10 @@ export default function BlockchainContent() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl sm:text-4xl font-bold text-white mb-2">
             {t.blockchain.headerTitle}
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-slate-400">
             {t.blockchain.headerSubtitle}
           </p>
         </motion.div>
@@ -144,9 +144,9 @@ export default function BlockchainContent() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-indigo-600"
+                className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-lg p-6 sm:p-8 border border-purple-600/30"
               >
-                <p className="text-lg text-gray-800 leading-relaxed italic">
+                <p className="text-lg text-slate-200 leading-relaxed italic">
                   {t.blockchain.phase1Narrative}
                 </p>
               </motion.div>
@@ -163,7 +163,7 @@ export default function BlockchainContent() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6, staggerChildren: 0.1 }}
-                    className="space-y-4 p-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg shadow-xl text-white"
+                    className="space-y-4 p-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg text-white"
                   >
                     <motion.div
                       initial={{ x: -20, opacity: 0 }}
@@ -240,10 +240,10 @@ export default function BlockchainContent() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  className="bg-indigo-50 border border-indigo-200 rounded-lg p-5"
+                  className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5"
                 >
-                  <p className="text-indigo-800 font-bold text-lg mb-2">{t.blockchain.defHashTitle}</p>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-indigo-400 font-bold text-lg mb-2">{t.blockchain.defHashTitle}</p>
+                  <p className="text-slate-300 leading-relaxed">
                     {t.blockchain.defHashText}
                   </p>
                 </motion.div>
@@ -253,10 +253,10 @@ export default function BlockchainContent() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.75 }}
-                  className="bg-purple-50 border border-purple-200 rounded-lg p-5"
+                  className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
                 >
-                  <p className="text-purple-800 font-bold text-lg mb-2">{t.blockchain.keyConceptsBlockTitle}</p>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-purple-400 font-bold text-lg mb-2">{t.blockchain.keyConceptsBlockTitle}</p>
+                  <p className="text-slate-300 leading-relaxed">
                     {t.blockchain.keyConceptsBlockText}
                   </p>
                 </motion.div>
@@ -266,10 +266,10 @@ export default function BlockchainContent() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
-                  className="bg-amber-50 border border-amber-200 rounded-lg p-5"
+                  className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5"
                 >
-                  <p className="text-amber-800 font-bold text-lg mb-2">{t.blockchain.didYouKnowGenesisTitle}</p>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-amber-400 font-bold text-lg mb-2">{t.blockchain.didYouKnowGenesisTitle}</p>
+                  <p className="text-slate-300 leading-relaxed">
                     {t.blockchain.didYouKnowGenesisText}
                   </p>
                 </motion.div>
@@ -284,7 +284,7 @@ export default function BlockchainContent() {
               >
                 <button
                   onClick={() => setPhase(2)}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-200 transform hover:scale-105"
+                  className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white px-8 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-200 transform hover:scale-105"
                 >
                   <span>{t.common.next}</span>
                   <ChevronRight size={20} />
@@ -307,10 +307,10 @@ export default function BlockchainContent() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                <h2 className="text-xl sm:text-3xl font-bold text-gray-900 mb-2">
+                <h2 className="text-xl sm:text-3xl font-bold text-white mb-2">
                   {t.blockchain.phase2Title}
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-slate-400">
                   {t.blockchain.phase2Subtitle}
                 </p>
               </motion.div>
@@ -320,9 +320,9 @@ export default function BlockchainContent() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-indigo-600"
+                className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-lg p-6 sm:p-8 border border-purple-600/30"
               >
-                <p className="text-lg text-gray-800 leading-relaxed italic">
+                <p className="text-lg text-slate-200 leading-relaxed italic">
                   {t.blockchain.phase2Narrative}
                 </p>
               </motion.div>
@@ -334,10 +334,10 @@ export default function BlockchainContent() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 }}
-                  className="bg-purple-50 border border-purple-200 rounded-lg p-5"
+                  className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
                 >
-                  <p className="text-purple-800 font-bold text-lg mb-2">{t.blockchain.phase2KeyConceptsTitle}</p>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-purple-400 font-bold text-lg mb-2">{t.blockchain.phase2KeyConceptsTitle}</p>
+                  <p className="text-slate-300 leading-relaxed">
                     {t.blockchain.phase2KeyConceptsText}
                   </p>
                 </motion.div>
@@ -348,7 +348,7 @@ export default function BlockchainContent() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white rounded-lg shadow-lg p-4 sm:p-8 overflow-x-auto"
+                className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-4 sm:p-8 overflow-x-auto"
               >
                 <div className="flex flex-col sm:flex-row items-center gap-4 sm:space-x-4 sm:gap-0 pb-4">
                   {blocks.map((block, index) => (
@@ -368,19 +368,19 @@ export default function BlockchainContent() {
                         <div
                           className={`p-4 rounded-lg border-2 ${
                             index === 0 || index < blocks.length
-                              ? 'border-green-500 bg-green-50'
-                              : 'border-gray-300 bg-gray-50'
+                              ? 'border-green-500/50 bg-green-900/20'
+                              : 'border-slate-600 bg-slate-800/50'
                           }`}
                         >
                           <div className="text-sm font-mono space-y-2 w-full sm:w-64">
                             <div>
-                              <span className="font-bold text-gray-700">
+                              <span className="font-bold text-slate-400">
                                 Index:
                               </span>{' '}
                               <span>{block.index}</span>
                             </div>
                             <div>
-                              <span className="font-bold text-gray-700">
+                              <span className="font-bold text-slate-400">
                                 Data:
                               </span>{' '}
                               <span className="break-words text-xs">
@@ -388,7 +388,7 @@ export default function BlockchainContent() {
                               </span>
                             </div>
                             <div>
-                              <span className="font-bold text-gray-700">
+                              <span className="font-bold text-slate-400">
                                 Prev Hash:
                               </span>{' '}
                               <span className="text-xs">
@@ -396,7 +396,7 @@ export default function BlockchainContent() {
                               </span>
                             </div>
                             <div className="border-t pt-2">
-                              <span className="font-bold text-gray-700">
+                              <span className="font-bold text-slate-400">
                                 Hash:
                               </span>{' '}
                               <span className="text-xs break-all">
@@ -413,7 +413,7 @@ export default function BlockchainContent() {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.1 + 0.3 }}
-                          className="mx-2 text-indigo-600 font-bold text-2xl sm:rotate-0 rotate-90"
+                          className="mx-2 text-purple-400 font-bold text-2xl sm:rotate-0 rotate-90"
                         >
                           →
                         </motion.div>
@@ -427,7 +427,7 @@ export default function BlockchainContent() {
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: blocks.length * 0.1 }}
-                      className="text-gray-400 text-2xl font-bold"
+                      className="text-slate-500 text-2xl font-bold"
                     >
                       +
                     </motion.div>
@@ -441,15 +441,15 @@ export default function BlockchainContent() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="bg-white rounded-lg shadow-lg p-4 sm:p-8"
+                  className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-4 sm:p-8"
                 >
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-4">
                     {t.blockchain.phase2BlockLabel}{blocks.length}
                   </h3>
 
                   {/* Transaction Input */}
                   <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-slate-300 mb-2">
                       {t.blockchain.phase2InputLabel}
                     </label>
                     <input
@@ -463,7 +463,7 @@ export default function BlockchainContent() {
                       }}
                       disabled={isMining}
                       placeholder={t.blockchain.phase2InputPlaceholder}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                      className="w-full px-4 py-2 bg-slate-900/50 border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed placeholder-slate-500"
                     />
                   </div>
 
@@ -472,19 +472,19 @@ export default function BlockchainContent() {
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="mb-6 p-4 bg-indigo-50 border border-indigo-200 rounded-lg"
+                      className="mb-6 p-4 bg-purple-900/30 border border-purple-500/50 rounded-lg"
                     >
-                      <p className="text-sm text-indigo-900 font-semibold mb-3">
+                      <p className="text-sm text-purple-300 font-semibold mb-3">
                         {t.blockchain.phase2Mining}
                       </p>
-                      <div className="font-mono text-lg sm:text-2xl text-indigo-600 tracking-widest">
+                      <div className="font-mono text-lg sm:text-2xl text-purple-400 tracking-widest">
                         {miningNumbers || '000000'}
                       </div>
                       <motion.div
                         initial={{ width: '0%' }}
                         animate={{ width: '100%' }}
                         transition={{ duration: 2 }}
-                        className="mt-3 h-1 bg-indigo-600 rounded"
+                        className="mt-3 h-1 bg-purple-500 rounded"
                       />
                     </motion.div>
                   )}
@@ -493,7 +493,7 @@ export default function BlockchainContent() {
                   <button
                     onClick={handleMineBlock}
                     disabled={isMining || !currentInput.trim()}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105"
+                    className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105"
                   >
                     {isMining ? t.blockchain.phase2Mining : t.blockchain.phase2MineButton}
                   </button>
@@ -505,7 +505,7 @@ export default function BlockchainContent() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-500 rounded-lg shadow-lg p-8 text-center"
+                  className="bg-green-900/30 border-2 border-green-500/50 rounded-lg p-8 text-center"
                 >
                   <motion.div
                     initial={{ scale: 0 }}
@@ -513,17 +513,17 @@ export default function BlockchainContent() {
                     transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
                     className="mb-4"
                   >
-                    <Award size={64} className="text-green-600 mx-auto" />
+                    <Award size={64} className="text-green-400 mx-auto" />
                   </motion.div>
-                  <h3 className="text-2xl font-bold text-green-900 mb-2">
+                  <h3 className="text-2xl font-bold text-green-400 mb-2">
                     {t.blockchain.phase2ChainComplete}
                   </h3>
-                  <p className="text-gray-700 mb-6">
+                  <p className="text-slate-300 mb-6">
                     {t.blockchain.phase2ChainCompleteText}
                   </p>
                   <button
                     onClick={handlePhase3}
-                    className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all duration-200 transform hover:scale-105 mx-auto"
+                    className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all duration-200 transform hover:scale-105 mx-auto"
                   >
                     <span>{t.blockchain.phase2Revelation}</span>
                     <ChevronRight size={20} />
@@ -547,9 +547,9 @@ export default function BlockchainContent() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-purple-600"
+                className="bg-gradient-to-r from-purple-900/50 to-blue-900/50 rounded-lg p-6 sm:p-8 border border-purple-600/30"
               >
-                <p className="text-lg text-gray-800 leading-relaxed italic">
+                <p className="text-lg text-slate-200 leading-relaxed italic">
                   {t.blockchain.phase3Narrative}
                 </p>
               </motion.div>
@@ -561,10 +561,10 @@ export default function BlockchainContent() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="bg-indigo-50 border border-indigo-200 rounded-lg p-5"
+                  className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5"
                 >
-                  <p className="text-indigo-800 font-bold text-lg mb-2">{t.blockchain.defImmutabilityTitle}</p>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-indigo-400 font-bold text-lg mb-2">{t.blockchain.defImmutabilityTitle}</p>
+                  <p className="text-slate-300 leading-relaxed">
                     {t.blockchain.defImmutabilityText}
                   </p>
                 </motion.div>
@@ -574,10 +574,10 @@ export default function BlockchainContent() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 }}
-                  className="bg-purple-50 border border-purple-200 rounded-lg p-5"
+                  className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
                 >
-                  <p className="text-purple-800 font-bold text-lg mb-2">{t.blockchain.phase3KeyPointsTitle}</p>
-                  <ul className="list-disc list-inside text-gray-700 space-y-2">
+                  <p className="text-purple-400 font-bold text-lg mb-2">{t.blockchain.phase3KeyPointsTitle}</p>
+                  <ul className="list-disc list-inside text-slate-300 space-y-2">
                     {t.blockchain.phase3KeyPoints.map((point: string, i: number) => (
                       <li key={i}>{point}</li>
                     ))}
@@ -589,10 +589,10 @@ export default function BlockchainContent() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="bg-amber-50 border border-amber-200 rounded-lg p-5"
+                  className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5"
                 >
-                  <p className="text-amber-800 font-bold text-lg mb-2">{t.blockchain.phase3DidYouKnowTitle}</p>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-amber-400 font-bold text-lg mb-2">{t.blockchain.phase3DidYouKnowTitle}</p>
+                  <p className="text-slate-300 leading-relaxed">
                     {t.blockchain.phase3DidYouKnowText}
                   </p>
                 </motion.div>
@@ -614,7 +614,7 @@ export default function BlockchainContent() {
                     stiffness: 200,
                     damping: 15,
                   }}
-                  className="bg-gradient-to-br from-amber-100 to-amber-50 border-2 border-amber-500 rounded-full p-8 shadow-xl"
+                  className="bg-gradient-to-br from-yellow-900/40 to-amber-900/40 border-2 border-yellow-700/50 rounded-full p-8"
                 >
                   <div className="text-center">
                     <motion.div
@@ -625,16 +625,16 @@ export default function BlockchainContent() {
                       }}
                       className="mb-4"
                     >
-                      <Award size={64} className="text-amber-600 mx-auto" />
+                      <Award size={64} className="text-amber-400 mx-auto" />
                     </motion.div>
-                    <h3 className="text-2xl font-bold text-amber-900 mb-2">
+                    <h3 className="text-2xl font-bold text-amber-400 mb-2">
                       {t.badges.blockchain}
                     </h3>
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.8 }}
-                      className="text-3xl font-bold text-amber-600"
+                      className="text-3xl font-bold text-amber-400"
                     >
                       +150 XP
                     </motion.p>
@@ -650,14 +650,14 @@ export default function BlockchainContent() {
                 className="flex gap-4 justify-center flex-wrap"
               >
                 <Link href="/basics">
-                  <button className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-200 transform hover:scale-105">
+                  <button className="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-200 transform hover:scale-105">
                     <Home size={20} />
                     <span>{t.blockchain.backToBasics}</span>
                   </button>
                 </Link>
 
                 <Link href="/basics/wallet">
-                  <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-200 transform hover:scale-105">
+                  <button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-200 transform hover:scale-105">
                     <span>{t.blockchain.nextWallet}</span>
                     <ArrowRight size={20} />
                   </button>
