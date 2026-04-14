@@ -1,6 +1,8 @@
 "use client";
 
 import { usePrivy } from "@privy-io/react-auth";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { LogIn, User } from "lucide-react";
 import Link from "next/link";
@@ -9,6 +11,19 @@ import { useLocale } from "@/lib/useLocale";
 export function AuthButton() {
   const { authenticated, ready, login } = usePrivy();
   const { t } = useLocale();
+  const router = useRouter();
+  const wasAuthenticated = useRef(false);
+
+  // Redirect to dashboard when user just logged in
+  useEffect(() => {
+    if (ready && authenticated && !wasAuthenticated.current) {
+      wasAuthenticated.current = true;
+      router.push("/dashboard");
+    }
+    if (ready && !authenticated) {
+      wasAuthenticated.current = false;
+    }
+  }, [ready, authenticated, router]);
 
   if (!ready) return null;
 
