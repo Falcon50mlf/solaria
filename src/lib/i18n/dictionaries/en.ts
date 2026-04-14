@@ -63,6 +63,9 @@ export const en: TranslationDictionary = {
       },
       seedphrase: { title: "The Seed Phrase", subtitle: "Your ultimate backup key" },
       transactions: { title: "Transactions", subtitle: "Send and receive SOL" },
+      consensus: { title: "Consensus", subtitle: "How the network agrees" },
+      validators: { title: "Validators", subtitle: "The guardians of the Solana network" },
+      explorer: { title: "Blockchain Explorer", subtitle: "Read the blockchain like an open book" },
     },
   },
   badges: {
@@ -71,6 +74,9 @@ export const en: TranslationDictionary = {
     wallet: "Key Guardian",
     seedphrase: "Seed Protector",
     transactions: "Transaction Master",
+    consensus: "Consensus Master",
+    validators: "Network Guardian",
+    explorer: "On-Chain Detective",
     master: "Basics Master",
   },
   decentralisation: {
@@ -387,5 +393,313 @@ export const en: TranslationDictionary = {
       "Each transaction has a unique signature to trace it on the blockchain",
       "A confirmed transaction is irreversible — always verify before signing",
     ],
+  },
+  consensus: {
+    headerTitle: "Consensus",
+    headerSubtitle: "How the network agrees on the truth",
+    backToBasics: "Back to Basics",
+    // Phase 1 - Story
+    storyIntro:
+      "You know what a blockchain is and how transactions work. But how do thousands of machines around the world agree on the same version of the truth, without a referee? This is the consensus problem.",
+    storyAnalogy:
+      "Imagine 1,900 referees spread across different stadiums, all having to agree on the exact same score at the exact same time, with no phone to call each other. That is the challenge of consensus in a decentralized network.",
+    defConsensusTitle: "Definition — Consensus",
+    defConsensusText:
+      "Consensus is the mechanism by which all participants in a decentralized network agree on a single version of the truth. Without a central authority, the network needs mathematical rules to determine which transactions are valid and in what order they are recorded.",
+    powVsPosTitle: "Proof of Work vs. Proof of Stake",
+    powVsPosText:
+      "Bitcoin uses Proof of Work (PoW): miners solve complex mathematical puzzles to validate blocks — it is secure but energy-intensive. Solana uses Proof of Stake (PoS): validators lock up (stake) SOL tokens as collateral. The more SOL staked, the greater the chance of being selected to validate a block. It is thousands of times more energy-efficient than PoW.",
+    pohTitle: "Proof of History (PoH)",
+    pohText:
+      "Invented by Anatoly Yakovenko in 2017, Proof of History is Solana's secret weapon. It is a cryptographic clock that timestamps every event before it reaches consensus. Instead of validators asking each other \"what time is it?\", PoH provides an indisputable chronological order. Result: 65,000 TPS and 400ms finality.",
+    keyConceptsTitle: "Key Concepts",
+    keyConceptsText:
+      "Solana combines Proof of Stake (for security) with Proof of History (for speed). This unique combination enables 65,000 transactions per second with 400-millisecond finality — without sacrificing decentralization. It is one of the fastest blockchains ever designed.",
+    didYouKnowTitle: "Did you know?",
+    didYouKnowText:
+      "Anatoly Yakovenko published the Solana whitepaper in 2017. His key insight was that if all validators could agree on the passage of time without communicating, consensus becomes almost instantaneous. This simple idea is what makes Solana thousands of times faster than Bitcoin.",
+    storySummary:
+      "Consensus = the set of rules that allow a network without a leader to agree on one shared truth. Solana's PoH + PoS makes this faster than any other blockchain.",
+    storyNextButton: "Next: Test your knowledge",
+    // Phase 2 - Quiz
+    phase2Title: "Consensus Quiz",
+    phase2Subtitle: "Test your understanding of consensus mechanisms",
+    phase2Narrative:
+      "Let's see if you have mastered the fundamental concepts of consensus. Answer these 4 questions to earn your badge.",
+    quizQuestions: [
+      {
+        question: "What is Proof of History (PoH)?",
+        options: [
+          "A system where miners solve mathematical puzzles",
+          "A cryptographic clock that timestamps events before consensus",
+          "A protocol that stores the complete transaction history",
+          "An algorithm that selects validators randomly",
+        ],
+        correctIndex: 1,
+        explanation:
+          "Proof of History is a cryptographic clock invented by Anatoly Yakovenko that creates a verifiable order of events before they reach consensus, making Solana extremely fast.",
+      },
+      {
+        question: "What consensus mechanism does Solana use for security?",
+        options: [
+          "Proof of Work (PoW)",
+          "Proof of Authority (PoA)",
+          "Proof of Stake (PoS)",
+          "Delegated Proof of Stake (DPoS)",
+        ],
+        correctIndex: 2,
+        explanation:
+          "Solana uses Proof of Stake (PoS) for security: validators lock up SOL tokens as collateral to participate in consensus. This is combined with PoH for speed.",
+      },
+      {
+        question: "How many transactions per second can Solana theoretically process?",
+        options: [
+          "1,000 TPS",
+          "7 TPS",
+          "15,000 TPS",
+          "65,000 TPS",
+        ],
+        correctIndex: 3,
+        explanation:
+          "Thanks to the combination of PoH and PoS, Solana can theoretically process up to 65,000 transactions per second with 400ms finality.",
+      },
+      {
+        question: "In Proof of Stake, what do validators need to do to participate?",
+        options: [
+          "Solve complex mathematical equations",
+          "Stake (lock up) SOL tokens as collateral",
+          "Own specialized mining hardware",
+          "Be approved by the Solana Foundation",
+        ],
+        correctIndex: 1,
+        explanation:
+          "In PoS, validators must stake SOL tokens as collateral. The more SOL staked, the higher the chance of being selected to validate blocks. This is energy-efficient and secure.",
+      },
+    ],
+    phase2Success: "Excellent! You have mastered consensus mechanisms!",
+    phase2FinishButton: "Finish and Earn the Badge",
+    // Phase 3 - Reveal
+    revealTitle: "Congratulations!",
+    revealSubtitle: "You understand how the network reaches agreement",
+    revealNarrative1:
+      "You now understand how thousands of machines reach agreement without a central authority. Solana's unique combination of Proof of History and Proof of Stake is what makes it the fastest blockchain in the world.",
+    revealNarrative2:
+      "Anatoly Yakovenko's brilliant insight was simple: if everyone agrees on the passage of time, consensus becomes almost instantaneous. This is the foundation on which the entire Solana ecosystem is built.",
+    didYouKnowRevealTitle: "Did you know?",
+    didYouKnowRevealText:
+      "Solana's Proof of History generates a unique hash every 400 milliseconds, creating an unbreakable cryptographic chain of time. This clock runs even when no transactions are being processed, ensuring the network is always ready.",
+    keyPointsTitle: "Key Concepts",
+    keyPoints: [
+      "Consensus allows a decentralized network to agree on a single truth",
+      "Proof of Stake (PoS) secures the network through staked SOL collateral",
+      "Proof of History (PoH) timestamps events before consensus for extreme speed",
+      "Solana achieves 65,000 TPS with 400ms finality thanks to PoH + PoS",
+    ],
+  },
+  validators: {
+    headerTitle: "Validators",
+    headerSubtitle: "The guardians of the Solana network",
+    backToBasics: "Back to Basics",
+    // Phase 1 - Story
+    storyIntro:
+      "You understand consensus. But who are the people behind the machines that keep Solana running 24/7? Meet the validators: the unsung heroes of the blockchain.",
+    storyAnalogy:
+      "Think of validators as the notaries of the blockchain. They verify every transaction, sign every block, and guarantee the integrity of the network. But unlike traditional notaries, there are over 1,900 of them spread across the globe, and anyone can become one.",
+    defValidatorTitle: "Definition — Validator",
+    defValidatorText:
+      "A validator is a computer (node) that participates in the Solana consensus. It verifies transactions, proposes and votes on new blocks, and maintains a copy of the entire blockchain. In exchange, the validator earns rewards in SOL. To become a validator, you need to stake SOL as collateral — a guarantee of good behavior.",
+    stakingTitle: "Staking and Delegation",
+    stakingText:
+      "You don't need to run a validator yourself to participate. You can delegate your SOL to an existing validator. In return, you receive a share of their rewards. This is called staking. By delegating, you help secure the network while earning passive income — currently around 6-8% APY on Solana.",
+    keyConceptsTitle: "Key Concepts",
+    keyConceptsText:
+      "Solana currently has over 1,900 active validators spread across every continent. A validator needs powerful hardware (high-performance CPU, 128+ GB RAM, fast SSD) and a high-speed internet connection. The more SOL delegated to a validator, the more influence it has on the network — but also the more responsibility it carries.",
+    didYouKnowTitle: "Did you know?",
+    didYouKnowText:
+      "The Solana Foundation runs a Delegation Program that distributes SOL to promising validators to encourage decentralization. The goal is to have as many independent validators as possible, spread across different countries and providers.",
+    storySummary:
+      "Validators are the backbone of Solana. They verify, validate, and secure every transaction. Anyone can participate by delegating SOL to a validator.",
+    storyNextButton: "Next: Test your knowledge",
+    // Phase 2 - Quiz
+    phase2Title: "Validators Quiz",
+    phase2Subtitle: "Test your understanding of the validator ecosystem",
+    phase2Narrative:
+      "Let's see if you truly understand the role of validators. Answer these 4 questions to earn your badge.",
+    quizQuestions: [
+      {
+        question: "How many active validators does Solana currently have?",
+        options: [
+          "About 100",
+          "About 500",
+          "Over 1,900",
+          "Over 10,000",
+        ],
+        correctIndex: 2,
+        explanation:
+          "Solana currently has over 1,900 active validators distributed across the globe, making it one of the most decentralized proof-of-stake networks.",
+      },
+      {
+        question: "What do you need to become a Solana validator?",
+        options: [
+          "Just a standard laptop",
+          "Powerful hardware, fast internet, and staked SOL",
+          "An official license from the Solana Foundation",
+          "A GPU mining rig",
+        ],
+        correctIndex: 1,
+        explanation:
+          "Running a validator requires powerful hardware (high-performance CPU, 128+ GB RAM, fast SSD), a high-speed internet connection, and staked SOL as collateral.",
+      },
+      {
+        question: "What is delegation in the context of Solana?",
+        options: [
+          "Transferring SOL permanently to a validator",
+          "Entrusting your SOL to a validator to earn staking rewards",
+          "Giving your private key to a validator",
+          "Voting on governance proposals",
+        ],
+        correctIndex: 1,
+        explanation:
+          "Delegation means entrusting your SOL to a validator. You keep ownership of your tokens while earning a share of the validator's rewards (around 6-8% APY).",
+      },
+      {
+        question: "What happens if a validator behaves maliciously?",
+        options: [
+          "Nothing, there are no consequences",
+          "They receive a warning email",
+          "Their staked SOL can be slashed (partially confiscated)",
+          "They are permanently banned from the internet",
+        ],
+        correctIndex: 2,
+        explanation:
+          "Slashing is a penalty mechanism: if a validator acts maliciously or fails to perform its duties, a portion of its staked SOL can be confiscated. This aligns incentives with honest behavior.",
+      },
+    ],
+    phase2Success: "Excellent! You are a true network guardian!",
+    phase2FinishButton: "Finish and Earn the Badge",
+    // Phase 3 - Reveal
+    revealTitle: "Congratulations!",
+    revealSubtitle: "You know the guardians of the network",
+    revealNarrative1:
+      "You now understand the critical role validators play in the Solana ecosystem. They are the backbone that keeps the network secure, fast, and decentralized. Without them, no transactions, no blocks, no blockchain.",
+    revealNarrative2:
+      "By delegating your SOL, you too can participate in securing the network while earning rewards. It is the beauty of proof-of-stake: everyone can contribute to the network's security.",
+    didYouKnowRevealTitle: "Did you know?",
+    didYouKnowRevealText:
+      "Some Solana validators process over 50 million transactions per day. The most reliable validators have an uptime exceeding 99.9%, running continuously without interruption for months at a time.",
+    keyPointsTitle: "Key Concepts",
+    keyPoints: [
+      "A validator is a node that verifies transactions and produces blocks",
+      "Over 1,900 validators secure the Solana network worldwide",
+      "Delegation lets you stake SOL with a validator and earn ~6-8% APY",
+      "Slashing penalizes malicious or negligent validators by confiscating staked SOL",
+    ],
+  },
+  explorer: {
+    headerTitle: "Blockchain Explorer",
+    headerSubtitle: "Read the blockchain like an open book",
+    backToBasics: "Back to Basics",
+    // Phase 1 - Story
+    storyIntro:
+      "You know how to send transactions and how validators secure them. But how can you verify that a transaction actually happened? How can you explore the blockchain's history? This is where blockchain explorers come in.",
+    storyAnalogy:
+      "A blockchain explorer is like a search engine for the blockchain. Just as Google lets you search the web, a blockchain explorer lets you search every transaction, every block, and every address on Solana. Everything is public, transparent, and verifiable by anyone.",
+    defExplorerTitle: "Definition — Blockchain Explorer",
+    defExplorerText:
+      "A blockchain explorer is a web tool that lets you browse the contents of a blockchain in real time. You can search for a transaction by its signature, view an address's balance and history, or inspect the contents of any block. On Solana, the two most popular explorers are Solscan (solscan.io) and Solana Explorer (explorer.solana.com).",
+    solscanTitle: "Solscan and Solana Explorer",
+    solscanText:
+      "Solscan.io is the most popular Solana explorer, with a clean and intuitive interface. Solana Explorer (explorer.solana.com) is the official explorer maintained by Solana Labs. Both let you search transactions, addresses, tokens, and programs. They are your window into everything happening on the blockchain.",
+    readTxTitle: "Reading a Transaction",
+    readTxText:
+      "Every transaction on Solana contains: a unique signature (hash), the sender and receiver addresses, the amount transferred, the network fees paid (typically 0.000005 SOL), the timestamp, and the status (success or failure). All of this information is public and permanently recorded.",
+    keyConceptsTitle: "Key Concepts",
+    keyConceptsText:
+      "Blockchain transparency is a fundamental principle: every transaction ever made on Solana is visible to anyone. This makes the network auditable and trustworthy. Since Solana's launch, over 250 billion transactions have been recorded — and every single one is searchable through an explorer.",
+    didYouKnowTitle: "Did you know?",
+    didYouKnowText:
+      "Solscan.io receives millions of visits per month. Developers, traders, and curious users all use it to track their transactions, verify smart contracts, or analyze the activity of a specific address. It is the indispensable tool of the Solana ecosystem.",
+    storySummary:
+      "A blockchain explorer lets you search, verify, and analyze everything that happens on Solana. It is the ultimate transparency tool.",
+    storyNextButton: "Next: Test your knowledge",
+    // Phase 2 - Quiz
+    phase2Title: "Explorer Quiz",
+    phase2Subtitle: "Test your understanding of blockchain explorers",
+    phase2Narrative:
+      "Let's see if you can navigate the blockchain like a pro. Answer these 4 questions to earn your badge.",
+    yourWalletTitle: "Your Wallet on the Explorer",
+    yourWalletText:
+      "In a real scenario, you could paste your wallet address into Solscan or Solana Explorer and see your entire transaction history: every SOL sent, every SOL received, every token interaction. Everything is transparent and verifiable.",
+    quizQuestions: [
+      {
+        question: "What is the primary role of a blockchain explorer?",
+        options: [
+          "To mine new blocks",
+          "To browse and search the contents of a blockchain",
+          "To create new wallets",
+          "To validate transactions",
+        ],
+        correctIndex: 1,
+        explanation:
+          "A blockchain explorer is a web tool that lets you browse, search, and verify all data on the blockchain: transactions, addresses, blocks, and more.",
+      },
+      {
+        question: "Which are the two most popular Solana explorers?",
+        options: [
+          "Etherscan and Polygonscan",
+          "Solscan (solscan.io) and Solana Explorer (explorer.solana.com)",
+          "Blockchain.com and Blockchair",
+          "CoinGecko and CoinMarketCap",
+        ],
+        correctIndex: 1,
+        explanation:
+          "Solscan.io is the most popular community explorer, and explorer.solana.com is the official explorer maintained by Solana Labs. Both provide full access to Solana's on-chain data.",
+      },
+      {
+        question: "What information can you find in a Solana transaction?",
+        options: [
+          "Only the amount transferred",
+          "The signature, sender, receiver, amount, fees, timestamp, and status",
+          "Only the sender and receiver addresses",
+          "The private keys of the participants",
+        ],
+        correctIndex: 1,
+        explanation:
+          "Every Solana transaction contains a unique signature, sender and receiver addresses, amount transferred, network fees (~0.000005 SOL), timestamp, and status. Private keys are never exposed.",
+      },
+      {
+        question: "Why can anyone view transactions on a blockchain explorer?",
+        options: [
+          "Because the blockchain has a security flaw",
+          "Because you need to pay a subscription to access it",
+          "Because the blockchain is public and transparent by design",
+          "Because only validators can see the transactions",
+        ],
+        correctIndex: 2,
+        explanation:
+          "Transparency is a fundamental principle of public blockchains. Every transaction is visible to anyone, making the network auditable and trustworthy. Over 250 billion transactions are searchable on Solana.",
+      },
+    ],
+    phase2Success: "Excellent! You are a true on-chain detective!",
+    phase2FinishButton: "Finish and Earn the Badge",
+    // Phase 3 - Reveal
+    revealTitle: "Congratulations!",
+    revealSubtitle: "You can read the blockchain like an open book",
+    revealNarrative1:
+      "You now know how to use a blockchain explorer to verify any transaction on Solana. This transparency is what makes blockchain revolutionary: no hidden transaction, no secret manipulation. Everything is visible, forever.",
+    revealNarrative2:
+      "Whether you are a developer debugging a smart contract, a trader tracking a whale's movements, or simply a curious user verifying a transfer, the blockchain explorer is your indispensable tool.",
+    didYouKnowRevealTitle: "Did you know?",
+    didYouKnowRevealText:
+      "Since its launch, Solana has processed over 250 billion transactions. Each one is permanently recorded and searchable. That is more transactions than all the emails sent worldwide in a single day!",
+    keyPointsTitle: "Key Concepts",
+    keyPoints: [
+      "A blockchain explorer lets you search and verify any transaction, address, or block",
+      "Solscan.io and explorer.solana.com are the two main Solana explorers",
+      "Every transaction contains: signature, addresses, amount, fees, timestamp, and status",
+      "Blockchain transparency means anyone can audit the network at any time",
+    ],
+    allCompletedTitle: "Basics Master",
+    allCompletedText: "You have completed all eight fundamental modules! You've mastered the basics of the Solana ecosystem.",
   },
 };

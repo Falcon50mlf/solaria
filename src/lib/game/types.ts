@@ -1,4 +1,4 @@
-export type ModuleId = "decentralisation" | "blockchain" | "wallet" | "seedphrase" | "transactions";
+export type ModuleId = "decentralisation" | "blockchain" | "wallet" | "seedphrase" | "transactions" | "consensus" | "validators" | "explorer";
 
 export interface ModuleProgress {
   id: ModuleId;
@@ -30,6 +30,9 @@ export const MODULE_BADGES: Record<ModuleId, string> = {
   wallet: "Gardien des Clés",
   seedphrase: "Protecteur de Seeds",
   transactions: "Maître des Transactions",
+  consensus: "Maître du Consensus",
+  validators: "Gardien du Réseau",
+  explorer: "Détective On-Chain",
 };
 
 export const MASTER_BADGE = "Maître des Basics";
@@ -40,6 +43,9 @@ export const MODULE_ORDER: ModuleId[] = [
   "wallet",
   "seedphrase",
   "transactions",
+  "consensus",
+  "validators",
+  "explorer",
 ];
 
 export const INITIAL_MODULES: ModuleProgress[] = [
@@ -81,6 +87,30 @@ export const INITIAL_MODULES: ModuleProgress[] = [
     completed: false,
     xpEarned: 0,
     maxXp: 140,
+    unlocked: false,
+  },
+  {
+    id: "consensus",
+    title: "Le Consensus",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 160,
+    unlocked: false,
+  },
+  {
+    id: "validators",
+    title: "Les Validateurs",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 170,
+    unlocked: false,
+  },
+  {
+    id: "explorer",
+    title: "L'Explorateur Blockchain",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 180,
     unlocked: false,
   },
 ];

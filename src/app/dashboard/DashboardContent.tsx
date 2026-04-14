@@ -16,6 +16,9 @@ import {
   Copy,
   Check,
   ChevronRight,
+  Brain,
+  Server,
+  Search,
 } from "lucide-react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
@@ -36,6 +39,9 @@ const MODULE_ICONS: Record<string, typeof Network> = {
   wallet: Key,
   seedphrase: Shield,
   transactions: Send,
+  consensus: Brain,
+  validators: Server,
+  explorer: Search,
 };
 
 interface Chapter {
@@ -49,8 +55,8 @@ const CHAPTERS: Chapter[] = [
   {
     id: "basics",
     link: "/basics",
-    moduleIds: ["decentralisation", "blockchain", "wallet", "seedphrase", "transactions"],
-    totalXp: 640,
+    moduleIds: ["decentralisation", "blockchain", "wallet", "seedphrase", "transactions", "consensus", "validators", "explorer"],
+    totalXp: 1150,
   },
 ];
 
