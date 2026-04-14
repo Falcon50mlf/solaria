@@ -74,8 +74,8 @@ export default function BasicsContent() {
 
   const moduleStates = new Map(modules.map((m) => [m.id, m]));
 
-  const xpForCurrentLevel = level * 100;
-  const xpForNextLevel = (level + 1) * 100;
+  const xpForCurrentLevel = (level - 1) * 100;
+  const xpForNextLevel = level * 100;
   const currentLevelXp = totalXp - xpForCurrentLevel;
   const xpNeeded = xpForNextLevel - xpForCurrentLevel;
   const xpProgress = Math.max(0, Math.min(100, (currentLevelXp / xpNeeded) * 100));
