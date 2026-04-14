@@ -7,8 +7,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight, RotateCcw } from 'lucide-react';
 import { useLocale } from '@/lib/useLocale';
-import { LanguageToggle } from '@/components/LanguageToggle';
-import { AuthButton } from '@/components/AuthButton';
+import { TopBar } from '@/components/TopBar';
 
 
 interface Node {
@@ -193,8 +192,7 @@ export default function DecentralisationContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white p-6">
-      <LanguageToggle />
-      <AuthButton />
+      <TopBar />
       {/* Phase 1: Story Intro */}
       {phase === 1 && (
         <motion.div

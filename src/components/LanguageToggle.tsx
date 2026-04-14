@@ -9,7 +9,7 @@ export function LanguageToggle() {
   return (
     <motion.button
       onClick={toggleLocale}
-      className="fixed top-4 right-4 z-50 flex items-center gap-1.5 bg-[var(--sol-darker)]/80 backdrop-blur-sm border border-[var(--sol-purple)]/30 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--sol-text)] hover:border-[var(--sol-purple)]/60 transition-colors cursor-pointer"
+      className="flex items-center gap-1.5 bg-[var(--sol-darker)]/80 backdrop-blur-sm border border-[var(--sol-purple)]/30 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--sol-text)] hover:border-[var(--sol-purple)]/60 transition-colors cursor-pointer"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       aria-label="Toggle language"

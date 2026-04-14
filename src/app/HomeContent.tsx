@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Zap, Trophy, BookOpen } from "lucide-react";
 import { useLocale } from "@/lib/useLocale";
-import { LanguageToggle } from "@/components/LanguageToggle";
-import { AuthButton } from "@/components/AuthButton";
+import { TopBar } from "@/components/TopBar";
 
 const Particles = () => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number }>>([]);
@@ -75,8 +74,7 @@ export default function HomeContent() {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      <LanguageToggle />
-      <AuthButton />
+      <TopBar />
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[var(--sol-dark)] via-[var(--sol-darker)] to-[var(--sol-dark)] -z-10" />
 
