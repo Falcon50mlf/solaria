@@ -6,6 +6,8 @@ import { useGameState } from '@/lib/useGameState';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Award, ArrowRight, Home } from 'lucide-react';
+import { useLocale } from '@/lib/useLocale';
+import { LanguageToggle } from '@/components/LanguageToggle';
 
 
 // Fake hash generation function
@@ -35,6 +37,7 @@ export default function BlockchainContent() {
   const [miningNumbers, setMiningNumbers] = useState('');
   const [completedModule, setCompletedModule] = useState(false);
   const gameState = useGameState();
+  const { t } = useLocale();
 
   // Initialize genesis block and check if module already completed
   useEffect(() => {
@@ -110,6 +113,7 @@ export default function BlockchainContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6">
+      <LanguageToggle />
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -118,10 +122,10 @@ export default function BlockchainContent() {
           className="mb-8"
         >
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            La Blockchain
+            {t.blockchain.headerTitle}
           </h1>
           <p className="text-lg text-gray-600">
-            Apprenez les secrets de la technologie révolutionnaire
+            {t.blockchain.headerSubtitle}
           </p>
         </motion.div>
 
@@ -143,10 +147,7 @@ export default function BlockchainContent() {
                 className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-indigo-600"
               >
                 <p className="text-lg text-gray-800 leading-relaxed italic">
-                  "Maintenant que vous comprenez la décentralisation, une
-                  question se pose : comment faire confiance aux autres sans
-                  intermédiaire ? La réponse : une chaîne de blocs, où chaque
-                  maillon prouve l'intégrité du précédent."
+                  {t.blockchain.phase1Narrative}
                 </p>
               </motion.div>
 
@@ -241,13 +242,9 @@ export default function BlockchainContent() {
                   transition={{ delay: 0.7 }}
                   className="bg-indigo-50 border border-indigo-200 rounded-lg p-5"
                 >
-                  <p className="text-indigo-800 font-bold text-lg mb-2">{"📖 Définition — Hash"}</p>
+                  <p className="text-indigo-800 font-bold text-lg mb-2">{t.blockchain.defHashTitle}</p>
                   <p className="text-gray-700 leading-relaxed">
-                    Un hash, c&apos;est comme une empreinte digitale pour les donn&eacute;es.
-                    Peu importe la taille du fichier (un SMS ou un film entier), le hash
-                    sera toujours de la m&ecirc;me longueur. Et si vous changez ne serait-ce
-                    qu&apos;une seule lettre, le hash change compl&egrave;tement. C&apos;est ce qui
-                    rend la blockchain infalsifiable.
+                    {t.blockchain.defHashText}
                   </p>
                 </motion.div>
 
@@ -258,12 +255,9 @@ export default function BlockchainContent() {
                   transition={{ delay: 0.75 }}
                   className="bg-purple-50 border border-purple-200 rounded-lg p-5"
                 >
-                  <p className="text-purple-800 font-bold text-lg mb-2">{"🔑 Notions clés"}</p>
+                  <p className="text-purple-800 font-bold text-lg mb-2">{t.blockchain.keyConceptsBlockTitle}</p>
                   <p className="text-gray-700 leading-relaxed">
-                    Chaque bloc contient : des donn&eacute;es (les transactions), le hash
-                    du bloc pr&eacute;c&eacute;dent (le lien vers le bloc d&apos;avant), et son propre
-                    hash (son empreinte unique). C&apos;est comme une cha&icirc;ne o&ugrave; chaque
-                    maillon est soud&eacute; au pr&eacute;c&eacute;dent.
+                    {t.blockchain.keyConceptsBlockText}
                   </p>
                 </motion.div>
 
@@ -274,12 +268,9 @@ export default function BlockchainContent() {
                   transition={{ delay: 0.8 }}
                   className="bg-amber-50 border border-amber-200 rounded-lg p-5"
                 >
-                  <p className="text-amber-800 font-bold text-lg mb-2">{"💡 Le saviez-vous ?"}</p>
+                  <p className="text-amber-800 font-bold text-lg mb-2">{t.blockchain.didYouKnowGenesisTitle}</p>
                   <p className="text-gray-700 leading-relaxed">
-                    Le premier bloc d&apos;une blockchain s&apos;appelle le Genesis Block
-                    (bloc de gen&egrave;se). Celui de Bitcoin, cr&eacute;&eacute; le 3 janvier 2009,
-                    contenait un message cach&eacute; : le titre d&apos;un article du journal
-                    The Times sur la crise bancaire.
+                    {t.blockchain.didYouKnowGenesisText}
                   </p>
                 </motion.div>
               </div>
@@ -295,7 +286,7 @@ export default function BlockchainContent() {
                   onClick={() => setPhase(2)}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-200 transform hover:scale-105"
                 >
-                  <span>Suivant</span>
+                  <span>{t.common.next}</span>
                   <ChevronRight size={20} />
                 </button>
               </motion.div>
@@ -317,11 +308,10 @@ export default function BlockchainContent() {
                 animate={{ opacity: 1 }}
               >
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  Le Mini-Jeu — Forgez la Chaîne
+                  {t.blockchain.phase2Title}
                 </h2>
                 <p className="text-gray-600">
-                  Construisez une blockchain de 4 blocs en entrant des données
-                  de transaction
+                  {t.blockchain.phase2Subtitle}
                 </p>
               </motion.div>
 
@@ -333,9 +323,7 @@ export default function BlockchainContent() {
                 className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-indigo-600"
               >
                 <p className="text-lg text-gray-800 leading-relaxed italic">
-                  "Vous &ecirc;tes maintenant un mineur. Votre travail : prendre les
-                  transactions en attente, les regrouper dans un bloc, et calculer
-                  le hash qui scellera ce bloc pour toujours dans la cha&icirc;ne."
+                  {t.blockchain.phase2Narrative}
                 </p>
               </motion.div>
 
@@ -348,11 +336,9 @@ export default function BlockchainContent() {
                   transition={{ delay: 0.15 }}
                   className="bg-purple-50 border border-purple-200 rounded-lg p-5"
                 >
-                  <p className="text-purple-800 font-bold text-lg mb-2">{"🔑 Notions clés"}</p>
+                  <p className="text-purple-800 font-bold text-lg mb-2">{t.blockchain.phase2KeyConceptsTitle}</p>
                   <p className="text-gray-700 leading-relaxed">
-                    Sur Solana, les validateurs (l&apos;&eacute;quivalent des mineurs) cr&eacute;ent
-                    un nouveau bloc toutes les 400 millisecondes. C&apos;est 25 fois plus
-                    rapide qu&apos;Ethereum et 1 500 fois plus rapide que Bitcoin !
+                    {t.blockchain.phase2KeyConceptsText}
                   </p>
                 </motion.div>
               </div>
@@ -458,13 +444,13 @@ export default function BlockchainContent() {
                   className="bg-white rounded-lg shadow-lg p-8"
                 >
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                    Bloc #{blocks.length}
+                    {t.blockchain.phase2BlockLabel}{blocks.length}
                   </h3>
 
                   {/* Transaction Input */}
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Données de transaction
+                      {t.blockchain.phase2InputLabel}
                     </label>
                     <input
                       type="text"
@@ -476,7 +462,7 @@ export default function BlockchainContent() {
                         }
                       }}
                       disabled={isMining}
-                      placeholder="ex: Alice envoie 5 SOL à Bob"
+                      placeholder={t.blockchain.phase2InputPlaceholder}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
                     />
                   </div>
@@ -489,7 +475,7 @@ export default function BlockchainContent() {
                       className="mb-6 p-4 bg-indigo-50 border border-indigo-200 rounded-lg"
                     >
                       <p className="text-sm text-indigo-900 font-semibold mb-3">
-                        Mining en cours...
+                        {t.blockchain.phase2Mining}
                       </p>
                       <div className="font-mono text-2xl text-indigo-600 tracking-widest">
                         {miningNumbers || '000000'}
@@ -509,7 +495,7 @@ export default function BlockchainContent() {
                     disabled={isMining || !currentInput.trim()}
                     className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105"
                   >
-                    {isMining ? 'Mining...' : 'Miner le bloc'}
+                    {isMining ? t.blockchain.phase2Mining : t.blockchain.phase2MineButton}
                   </button>
                 </motion.div>
               )}
@@ -530,16 +516,16 @@ export default function BlockchainContent() {
                     <Award size={64} className="text-green-600 mx-auto" />
                   </motion.div>
                   <h3 className="text-2xl font-bold text-green-900 mb-2">
-                    Chaîne Complète !
+                    {t.blockchain.phase2ChainComplete}
                   </h3>
                   <p className="text-gray-700 mb-6">
-                    Vous avez forgé votre première blockchain avec succès !
+                    {t.blockchain.phase2ChainCompleteText}
                   </p>
                   <button
                     onClick={handlePhase3}
                     className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all duration-200 transform hover:scale-105 mx-auto"
                   >
-                    <span>La Révélation</span>
+                    <span>{t.blockchain.phase2Revelation}</span>
                     <ChevronRight size={20} />
                   </button>
                 </motion.div>
@@ -564,12 +550,7 @@ export default function BlockchainContent() {
                 className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-purple-600"
               >
                 <p className="text-lg text-gray-800 leading-relaxed italic">
-                  "Vous venez de forger votre première blockchain ! Chaque bloc
-                  est lié au précédent par son hash. Modifier un seul bloc
-                  casserait toute la chaîne. C'est cette immutabilité qui rend
-                  la blockchain révolutionnaire. Anatoly Yakovenko a vu cela et
-                  s'est dit : comment rendre cette chaîne 1000 fois plus
-                  rapide ?"
+                  {t.blockchain.phase3Narrative}
                 </p>
               </motion.div>
 
@@ -582,12 +563,9 @@ export default function BlockchainContent() {
                   transition={{ delay: 0.3 }}
                   className="bg-indigo-50 border border-indigo-200 rounded-lg p-5"
                 >
-                  <p className="text-indigo-800 font-bold text-lg mb-2">{"📖 Définition — Immutabilité"}</p>
+                  <p className="text-indigo-800 font-bold text-lg mb-2">{t.blockchain.defImmutabilityTitle}</p>
                   <p className="text-gray-700 leading-relaxed">
-                    Une fois qu&apos;un bloc est ajout&eacute; &agrave; la cha&icirc;ne, il est pratiquement
-                    impossible de le modifier. Pour tricher, il faudrait recalculer le
-                    hash de ce bloc ET de tous les blocs suivants, plus vite que
-                    l&apos;ensemble du r&eacute;seau. C&apos;est math&eacute;matiquement quasi-impossible.
+                    {t.blockchain.defImmutabilityText}
                   </p>
                 </motion.div>
 
@@ -598,11 +576,11 @@ export default function BlockchainContent() {
                   transition={{ delay: 0.35 }}
                   className="bg-purple-50 border border-purple-200 rounded-lg p-5"
                 >
-                  <p className="text-purple-800 font-bold text-lg mb-2">{"🔑 Notions clés"}</p>
+                  <p className="text-purple-800 font-bold text-lg mb-2">{t.blockchain.phase3KeyPointsTitle}</p>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Un hash est une empreinte digitale unique pour chaque bloc</li>
-                    <li>Chaque bloc est li&eacute; au pr&eacute;c&eacute;dent, formant une cha&icirc;ne infalsifiable</li>
-                    <li>Solana utilise le Proof of History pour &ecirc;tre ultra-rapide</li>
+                    {t.blockchain.phase3KeyPoints.map((point: string, i: number) => (
+                      <li key={i}>{point}</li>
+                    ))}
                   </ul>
                 </motion.div>
 
@@ -613,13 +591,9 @@ export default function BlockchainContent() {
                   transition={{ delay: 0.4 }}
                   className="bg-amber-50 border border-amber-200 rounded-lg p-5"
                 >
-                  <p className="text-amber-800 font-bold text-lg mb-2">{"💡 Le saviez-vous ?"}</p>
+                  <p className="text-amber-800 font-bold text-lg mb-2">{t.blockchain.phase3DidYouKnowTitle}</p>
                   <p className="text-gray-700 leading-relaxed">
-                    Anatoly Yakovenko, le cr&eacute;ateur de Solana, a invent&eacute; le Proof of
-                    History (Preuve d&apos;Historique). Au lieu que les validateurs se
-                    mettent d&apos;accord sur l&apos;heure de chaque transaction (ce qui prend
-                    du temps), Solana utilise une horloge int&eacute;gr&eacute;e &agrave; la blockchain.
-                    R&eacute;sultat : des transactions quasi-instantan&eacute;es.
+                    {t.blockchain.phase3DidYouKnowText}
                   </p>
                 </motion.div>
               </div>
@@ -654,7 +628,7 @@ export default function BlockchainContent() {
                       <Award size={64} className="text-amber-600 mx-auto" />
                     </motion.div>
                     <h3 className="text-2xl font-bold text-amber-900 mb-2">
-                      Forgeur de Blocs
+                      {t.badges.blockchain}
                     </h3>
                     <motion.p
                       initial={{ opacity: 0 }}
@@ -678,13 +652,13 @@ export default function BlockchainContent() {
                 <Link href="/basics">
                   <button className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-200 transform hover:scale-105">
                     <Home size={20} />
-                    <span>Retour aux Bases</span>
+                    <span>{t.blockchain.backToBasics}</span>
                   </button>
                 </Link>
 
                 <Link href="/basics/wallet">
                   <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-200 transform hover:scale-105">
-                    <span>Suivant : Les Portefeuilles</span>
+                    <span>{t.blockchain.nextWallet}</span>
                     <ArrowRight size={20} />
                   </button>
                 </Link>

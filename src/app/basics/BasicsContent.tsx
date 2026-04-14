@@ -13,36 +13,10 @@ import {
   Zap,
 } from 'lucide-react';
 import '@/styles/basics.css';
+import { useLocale } from '@/lib/useLocale';
+import { LanguageToggle } from '@/components/LanguageToggle';
 
-const MODULES = [
-  {
-    id: 'decentralisation',
-    title: 'La Décentralisation',
-    subtitle: 'Pourquoi distribuer le pouvoir ?',
-    icon: Network,
-    maxXp: 100,
-    link: '/basics/decentralisation',
-    step: 1,
-  },
-  {
-    id: 'blockchain',
-    title: 'La Blockchain',
-    subtitle: 'Comment créer une chaîne de confiance ?',
-    icon: Boxes,
-    maxXp: 150,
-    link: '/basics/blockchain',
-    step: 2,
-  },
-  {
-    id: 'wallet',
-    title: 'Le Wallet',
-    subtitle: 'Votre identité dans le monde crypto',
-    icon: Key,
-    maxXp: 120,
-    link: '/basics/wallet',
-    step: 3,
-  },
-];
+/* MODULES is now defined inside the component to access i18n translations */
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -86,7 +60,14 @@ const cardVariants = {
 };
 
 export default function BasicsContent() {
+  const { t } = useLocale();
   const { totalXp, level, modules, badges } = useGameState();
+
+  const MODULES = [
+    { id: 'decentralisation', title: t.basics.modules.decentralisation.title, subtitle: t.basics.modules.decentralisation.subtitle, icon: Network, maxXp: 100, link: '/basics/decentralisation', step: 1 },
+    { id: 'blockchain', title: t.basics.modules.blockchain.title, subtitle: t.basics.modules.blockchain.subtitle, icon: Boxes, maxXp: 150, link: '/basics/blockchain', step: 2 },
+    { id: 'wallet', title: t.basics.modules.wallet.title, subtitle: t.basics.modules.wallet.subtitle, icon: Key, maxXp: 120, link: '/basics/wallet', step: 3 },
+  ];
 
   const moduleStates = new Map(modules.map((m) => [m.id, m]));
 
@@ -98,6 +79,7 @@ export default function BasicsContent() {
 
   return (
     <main className="basics-container">
+      <LanguageToggle />
       <motion.div
         className="player-info-bar"
         initial={{ opacity: 0, y: -10 }}
@@ -107,12 +89,12 @@ export default function BasicsContent() {
         <div className="player-stats">
           <div className="level-badge">
             <span className="level-number">{level}</span>
-            <span className="level-label">LVL</span>
+            <span className="level-label">{t.common.lvl}</span>
           </div>
 
           <div className="xp-section">
             <div className="xp-header">
-              <span className="xp-label">XP</span>
+              <span className="xp-label">{t.common.xp}</span>
               <span className="xp-value">
                 {totalXp} / {xpForNextLevel}
               </span>
@@ -153,9 +135,9 @@ export default function BasicsContent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <h1 className="page-title">Les Basics</h1>
+        <h1 className="page-title">{t.basics.pageTitle}</h1>
         <p className="page-subtitle">
-          Les fondations de la révolution Solana
+          {t.basics.pageSubtitle}
         </p>
       </motion.div>
 
@@ -167,12 +149,10 @@ export default function BasicsContent() {
       >
         <div className="narrative-header">
           <Zap size={20} className="narrative-icon" />
-          <h2>Chapitre 1 : Les Basics</h2>
+          <h2>{t.basics.chapterTitle}</h2>
         </div>
         <p>
-          Avant de construire Solana, il faut comprendre les piliers sur
-          lesquels repose toute blockchain. Chaque étape vous rapproche de la
-          vision d&apos;Anatoly Yakovenko.
+          {t.basics.chapterText}
         </p>
       </motion.div>
 
@@ -224,7 +204,7 @@ export default function BasicsContent() {
                     whileHover={!isLocked ? 'hover' : undefined}
                   >
                     <div className="step-number">
-                      Étape {moduleConfig.step}
+                      {t.common.step} {moduleConfig.step}
                     </div>
 
                     <div className="card-icon-wrapper">
@@ -250,35 +230,35 @@ export default function BasicsContent() {
                       {isCompleted ? (
                         <div className="xp-earned">
                           <span className="xp-badge">
-                            +{moduleState.xpEarned} XP
+                            +{moduleState.xpEarned} {t.common.xp}
                           </span>
                         </div>
                       ) : (
                         <div className="xp-available">
                           <Zap size={14} />
-                          <span>{moduleConfig.maxXp} XP</span>
+                          <span>{moduleConfig.maxXp} {t.common.xp}</span>
                         </div>
                       )}
                     </div>
 
                     {isLocked && (
                       <p className="lock-message">
-                        Complétez l&apos;étape précédente
+                        {t.common.completePrevious}
                       </p>
                     )}
 
                     <div className="card-action">
                       {isCompleted ? (
                         <button className="btn-primary completed">
-                          Terminé
+                          {t.common.completed}
                         </button>
                       ) : isLocked ? (
                         <button className="btn-primary locked" disabled>
-                          Verrouillé
+                          {t.common.locked}
                         </button>
                       ) : (
                         <button className="btn-primary">
-                          Commencer
+                          {t.common.start}
                         </button>
                       )}
                     </div>
@@ -298,13 +278,13 @@ export default function BasicsContent() {
       >
         <div className="summary-content">
           <div className="summary-stat">
-            <span className="summary-label">Modules complétés</span>
+            <span className="summary-label">{t.common.modulesCompleted}</span>
             <span className="summary-value">
               {modules.filter((m) => m.completed).length} / {MODULES.length}
             </span>
           </div>
           <div className="summary-stat">
-            <span className="summary-label">Progression</span>
+            <span className="summary-label">{t.common.progression}</span>
             <span className="summary-value">
               {Math.round(
                 (modules.filter((m) => m.completed).length / MODULES.length) *
@@ -314,7 +294,7 @@ export default function BasicsContent() {
             </span>
           </div>
           <div className="summary-stat">
-            <span className="summary-label">XP gagné</span>
+            <span className="summary-label">{t.common.xpEarned}</span>
             <span className="summary-value">
               {modules.reduce((sum, m) => sum + m.xpEarned, 0)} /{' '}
               {MODULES.reduce((sum, m) => sum + m.maxXp, 0)}

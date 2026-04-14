@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Zap, Trophy, BookOpen } from "lucide-react";
+import { useLocale } from "@/lib/useLocale";
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 const Particles = () => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number }>>([]);
@@ -68,8 +70,11 @@ const StatCard = ({
 );
 
 export default function HomeContent() {
+  const { t } = useLocale();
+
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      <LanguageToggle />
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[var(--sol-dark)] via-[var(--sol-darker)] to-[var(--sol-dark)] -z-10" />
 
@@ -106,7 +111,7 @@ export default function HomeContent() {
             </span>
           </h1>
           <p className="text-xl sm:text-2xl text-[var(--sol-text-muted)] font-light">
-            Revivez la création de Solana. Devenez le fondateur.
+            {t.home.subtitle}
           </p>
         </motion.div>
 
@@ -117,10 +122,9 @@ export default function HomeContent() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <span className="narrator">Acte I - La Genèse</span>
+          <span className="narrator">{t.home.narratorLabel}</span>
           <p>
-            2017. Vous êtes un ingénieur passionné. Vous avez une vision : créer la blockchain la plus
-            rapide au monde. Mais avant de révolutionner le monde, il faut maîtriser les fondations...
+            {t.home.narratorText}
           </p>
         </motion.div>
 
@@ -131,9 +135,9 @@ export default function HomeContent() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          <StatCard value="3" label="Modules" icon={BookOpen} delay={0.5} />
-          <StatCard value="370 XP" label="à gagner" icon={Zap} delay={0.6} />
-          <StatCard value="3" label="Badges" icon={Trophy} delay={0.7} />
+          <StatCard value="3" label={t.home.statModules} icon={BookOpen} delay={0.5} />
+          <StatCard value="370 XP" label={t.home.statXpToEarn} icon={Zap} delay={0.6} />
+          <StatCard value="3" label={t.home.statBadges} icon={Trophy} delay={0.7} />
         </motion.div>
 
         {/* CTA Button */}
@@ -145,7 +149,7 @@ export default function HomeContent() {
         >
           <Link href="/basics">
             <button className="btn-primary text-lg px-10 py-4 shadow-lg hover:shadow-2xl transition-all duration-300">
-              Commencer l&apos;aventure
+              {t.home.startAdventure}
             </button>
           </Link>
         </motion.div>

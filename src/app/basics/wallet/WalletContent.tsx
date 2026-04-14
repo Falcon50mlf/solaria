@@ -14,6 +14,8 @@ import {
 import Link from 'next/link';
 import { completeModule } from '@/lib/gameState';
 import { useGameState } from '@/lib/useGameState';
+import { useLocale } from '@/lib/useLocale';
+import { LanguageToggle } from '@/components/LanguageToggle';
 
 type Phase = 'story' | 'minigame' | 'reveal';
 type MinigameStep = 'entropy' | 'derivation' | 'wallet';
@@ -46,6 +48,7 @@ const truncateKey = (key: string, visible: number = 6): string => {
 };
 
 export default function WalletContent() {
+  const { t } = useLocale();
   const gameState = useGameState();
   const [phase, setPhase] = useState<Phase>('story');
   const [minigameStep, setMinigameStep] = useState<MinigameStep>('entropy');
@@ -156,6 +159,7 @@ export default function WalletContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-4 md:p-8">
+      <LanguageToggle />
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -164,11 +168,11 @@ export default function WalletContent() {
             className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 mb-4"
           >
             <ChevronRight className="w-4 h-4 rotate-180" />
-            Retour aux Basics
+            {t.wallet.backToBasics}
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">Le Wallet</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-2">{t.wallet.headerTitle}</h1>
           <p className="text-slate-400">
-            Maîtrisez les clés de votre identité numérique
+            {t.wallet.headerSubtitle}
           </p>
         </div>
 
@@ -184,17 +188,10 @@ export default function WalletContent() {
             >
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-8 mb-8">
                 <p className="text-xl md:text-2xl mb-8 leading-relaxed text-slate-200">
-                  Vous avez compris la décentralisation et la blockchain. Mais
-                  comment prouver que{' '}
-                  <span className="text-purple-400 font-semibold">VOUS</span>{' '}
-                  êtes bien vous dans ce monde sans autorité centrale ?
+                  {t.wallet.storyIntro}
                 </p>
                 <p className="text-lg text-slate-300 mb-8">
-                  Il faut un système d'identité révolutionnaire :{' '}
-                  <span className="text-yellow-400 font-semibold">
-                    la cryptographie à clé publique
-                  </span>
-                  .
+                  {t.wallet.storyKeySystem}
                 </p>
               </div>
 
@@ -210,11 +207,11 @@ export default function WalletContent() {
                   <div className="flex items-center gap-3 mb-4">
                     <Mail className="w-8 h-8 text-green-400" />
                     <h3 className="text-2xl font-bold text-green-400">
-                      Clé Publique
+                      {t.wallet.publicKeyTitle}
                     </h3>
                   </div>
                   <p className="text-slate-300 mb-6">
-                    L'adresse de votre boîte aux lettres
+                    {t.wallet.publicKeyDesc}
                   </p>
                   <div className="bg-slate-900/50 rounded p-4 mb-4">
                     <p className="text-sm text-slate-400 mb-2">Exemple:</p>
@@ -223,9 +220,9 @@ export default function WalletContent() {
                     </p>
                   </div>
                   <ul className="space-y-2 text-slate-300 text-sm">
-                    <li>✓ Tout le monde la connaît</li>
-                    <li>✓ N'importe qui peut vous envoyer des fonds</li>
-                    <li>✓ C'est votre identité publique</li>
+                    {t.wallet.publicKeyProps.map((prop, i) => (
+                      <li key={i}>{prop}</li>
+                    ))}
                   </ul>
                 </motion.div>
 
@@ -237,16 +234,16 @@ export default function WalletContent() {
                   className="bg-gradient-to-br from-red-900/30 to-red-800/20 border border-red-700/50 rounded-lg p-6 relative"
                 >
                   <div className="absolute -top-3 right-4 bg-red-600 px-3 py-1 rounded-full text-xs font-bold">
-                    ⚠️ SECRET
+                    {t.wallet.secretLabel}
                   </div>
                   <div className="flex items-center gap-3 mb-4 mt-2">
                     <Lock className="w-8 h-8 text-red-400" />
                     <h3 className="text-2xl font-bold text-red-400">
-                      Clé Privée
+                      {t.wallet.privateKeyTitle}
                     </h3>
                   </div>
                   <p className="text-slate-300 mb-6">
-                    La clé qui ouvre votre boîte
+                    {t.wallet.privateKeyDesc}
                   </p>
                   <div className="bg-slate-900/50 rounded p-4 mb-4">
                     <p className="text-sm text-slate-400 mb-2">Exemple:</p>
@@ -255,9 +252,9 @@ export default function WalletContent() {
                     </p>
                   </div>
                   <ul className="space-y-2 text-slate-300 text-sm">
-                    <li>✓ SEULEMENT vous la connaissez</li>
-                    <li>✓ Elle contrôle vos fonds</li>
-                    <li>✗ JAMAIS la partager</li>
+                    {t.wallet.privateKeyProps.map((prop, i) => (
+                      <li key={i}>{prop}</li>
+                    ))}
                   </ul>
                 </motion.div>
               </div>
@@ -271,10 +268,10 @@ export default function WalletContent() {
                   className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5"
                 >
                   <p className="text-indigo-400 font-bold text-lg mb-2">
-                    📖 Définition — Wallet (Portefeuille)
+                    {t.wallet.defWalletTitle}
                   </p>
                   <p className="text-slate-300">
-                    Contrairement à ce que son nom suggère, un wallet ne stocke pas vos cryptos. Il stocke vos clés. Vos cryptos sont sur la blockchain. Le wallet, c'est juste la télécommande qui vous permet d'y accéder.
+                    {t.wallet.defWalletText}
                   </p>
                 </motion.div>
 
@@ -285,10 +282,10 @@ export default function WalletContent() {
                   className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5"
                 >
                   <p className="text-amber-400 font-bold text-lg mb-2">
-                    💡 Le saviez-vous ?
+                    {t.wallet.didYouKnowWalletsTitle}
                   </p>
                   <p className="text-slate-300">
-                    Il existe plusieurs types de wallets : les hot wallets (connectés à Internet, comme Phantom sur votre navigateur) et les cold wallets (hors-ligne, comme une clé USB Ledger). Plus c'est déconnecté d'Internet, plus c'est sécurisé.
+                    {t.wallet.didYouKnowWalletsText}
                   </p>
                 </motion.div>
 
@@ -299,21 +296,17 @@ export default function WalletContent() {
                   className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
                 >
                   <p className="text-purple-400 font-bold text-lg mb-2">
-                    🔑 Notions clés
+                    {t.wallet.keyConceptsPhantomTitle}
                   </p>
                   <p className="text-slate-300">
-                    Sur Solana, l'extension Phantom est le wallet le plus populaire. En quelques clics, vous pouvez créer un wallet, recevoir des SOL, et interagir avec des applications décentralisées (dApps).
+                    {t.wallet.keyConceptsPhantomText}
                   </p>
                 </motion.div>
               </div>
 
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-6 mb-8">
                 <p className="text-lg text-slate-200 mb-2">
-                  <span className="font-bold text-purple-400">
-                    Votre wallet, c'est cette paire de clés.
-                  </span>{' '}
-                  La clé publique est votre adresse, la clé privée votre
-                  pouvoir.
+                  {t.wallet.storySummary}
                 </p>
               </div>
 
@@ -326,7 +319,7 @@ export default function WalletContent() {
                 }}
                 className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 py-4 rounded-lg font-bold text-lg transition-colors"
               >
-                Suivant: Créez Votre Wallet
+                {t.wallet.storyNextButton}
                 <ArrowRight className="inline ml-2 w-5 h-5" />
               </motion.button>
             </motion.div>
@@ -346,11 +339,10 @@ export default function WalletContent() {
                 <div>
                   <div className="mb-6">
                     <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                      Étape 1: Générer l'Entropie
+                      {t.wallet.entropyTitle}
                     </h2>
                     <p className="text-slate-400">
-                      Bougez votre souris de manière aléatoire pour créer de
-                      l'entropie (au moins 30 mouvements uniques)
+                      {t.wallet.entropySubtitle}
                     </p>
                   </div>
 
@@ -362,10 +354,10 @@ export default function WalletContent() {
                       className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-5"
                     >
                       <p className="text-indigo-400 font-bold text-lg mb-2">
-                        📖 Définition — Entropie
+                        {t.wallet.defEntropyTitle}
                       </p>
                       <p className="text-slate-300">
-                        L'entropie, c'est le hasard pur. Pour créer une clé privée sécurisée, il faut un nombre vraiment aléatoire. Vos mouvements de souris sont imprévisibles, c'est parfait pour générer ce hasard. C'est comme mélanger un jeu de cartes : plus vous mélangez, plus c'est difficile à deviner.
+                        {t.wallet.defEntropyText}
                       </p>
                     </motion.div>
                   </div>
@@ -383,7 +375,7 @@ export default function WalletContent() {
 
                   <div className="mb-6 bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-semibold">Entropie collectée</span>
+                      <span className="font-semibold">{t.wallet.entropyCollected}</span>
                       <span className="text-purple-400 font-bold">
                         {mousePositions.size}/30
                       </span>
@@ -410,7 +402,7 @@ export default function WalletContent() {
                         className="mb-6 bg-green-900/30 border border-green-700/50 rounded-lg p-4"
                       >
                         <p className="text-green-400 font-bold text-center">
-                          ✓ Entropie suffisante !
+                          {t.wallet.entropyReady}
                         </p>
                       </motion.div>
                     )}
@@ -427,7 +419,7 @@ export default function WalletContent() {
                         : 'bg-slate-700 text-slate-500 cursor-not-allowed'
                     }`}
                   >
-                    Continuer
+                    {t.common.continue}
                     <ArrowRight className="inline ml-2 w-5 h-5" />
                   </motion.button>
                 </div>
@@ -438,10 +430,10 @@ export default function WalletContent() {
                 <div>
                   <div className="mb-8">
                     <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                      Étape 2: Dériver les Clés
+                      {t.wallet.derivationTitle}
                     </h2>
                     <p className="text-slate-400">
-                      Observez comment l'entropie génère vos clés
+                      {t.wallet.derivationSubtitle}
                     </p>
                   </div>
 
@@ -453,10 +445,10 @@ export default function WalletContent() {
                       className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
                     >
                       <p className="text-purple-400 font-bold text-lg mb-2">
-                        🔑 Notions clés
+                        {t.wallet.keyConceptsDerivationTitle}
                       </p>
                       <p className="text-slate-300">
-                        De votre entropie naît la clé privée (votre secret). De la clé privée, on dérive mathématiquement la clé publique (votre adresse). Ce calcul est à sens unique : on peut aller de la clé privée vers la clé publique, mais jamais l'inverse. C'est comme transformer un oeuf en omelette : impossible de revenir en arrière.
+                        {t.wallet.keyConceptsDerivationText}
                       </p>
                     </motion.div>
                   </div>
@@ -468,7 +460,7 @@ export default function WalletContent() {
                       animate={{ opacity: 1 }}
                       className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-6"
                     >
-                      <p className="text-sm text-slate-400 mb-2">Entropie</p>
+                      <p className="text-sm text-slate-400 mb-2">{t.wallet.entropyLabel}</p>
                       <p className="font-mono text-slate-300 break-all text-sm">
                         {wallet.entropy}
                       </p>
@@ -493,7 +485,7 @@ export default function WalletContent() {
                       transition={{ delay: 0.5 }}
                       className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-6"
                     >
-                      <p className="text-sm text-slate-400 mb-2">Clé Privée</p>
+                      <p className="text-sm text-slate-400 mb-2">{t.wallet.privateKeyLabel}</p>
                       <p className="font-mono text-yellow-400 break-all text-sm">
                         {wallet.privateKey.substring(0, privKeyChars)}
                         {privKeyChars < 64 && (
@@ -521,7 +513,7 @@ export default function WalletContent() {
                       transition={{ delay: 1.5 }}
                       className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-6"
                     >
-                      <p className="text-sm text-slate-400 mb-2">Clé Publique</p>
+                      <p className="text-sm text-slate-400 mb-2">{t.wallet.publicKeyLabel}</p>
                       <p className="font-mono text-green-400 break-all text-sm">
                         {wallet.publicKey.substring(0, pubKeyChars)}
                         {pubKeyChars < 64 && (
@@ -542,7 +534,7 @@ export default function WalletContent() {
                         : 'bg-slate-700 text-slate-500 cursor-not-allowed'
                     }`}
                   >
-                    Continuer
+                    {t.common.continue}
                     <ArrowRight className="inline ml-2 w-5 h-5" />
                   </motion.button>
                 </div>
@@ -553,10 +545,10 @@ export default function WalletContent() {
                 <div>
                   <div className="mb-8">
                     <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                      Étape 3: Votre Wallet
+                      {t.wallet.walletStepTitle}
                     </h2>
                     <p className="text-slate-400">
-                      Voici votre première adresse Solana
+                      {t.wallet.walletStepSubtitle}
                     </p>
                   </div>
 
@@ -572,20 +564,20 @@ export default function WalletContent() {
                     <div className="space-y-6">
                       {/* Address */}
                       <div>
-                        <p className="text-sm text-slate-400 mb-2">Adresse</p>
+                        <p className="text-sm text-slate-400 mb-2">{t.wallet.addressLabel}</p>
                         <div className="bg-slate-900/50 rounded p-3 border border-slate-700/50">
                           <p className="font-mono text-green-400 break-all text-xs md:text-sm">
                             {wallet.address}
                           </p>
                         </div>
                         <p className="text-xs text-slate-500 mt-1">
-                          💡 Partagez cette adresse pour recevoir des SOL
+                          {t.wallet.addressHint}
                         </p>
                       </div>
 
                       {/* Public Key */}
                       <div>
-                        <p className="text-sm text-slate-400 mb-2">Clé Publique</p>
+                        <p className="text-sm text-slate-400 mb-2">{t.wallet.publicKeyLabel}</p>
                         <div className="bg-slate-900/50 rounded p-3 border border-slate-700/50">
                           <p className="font-mono text-green-400 break-all text-xs md:text-sm">
                             {truncateKey(wallet.publicKey, 8)}
@@ -597,22 +589,21 @@ export default function WalletContent() {
                       <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-4">
                         <p className="text-sm text-red-400 font-bold flex items-center gap-2 mb-2">
                           <Lock className="w-4 h-4" />
-                          Secret: Ne JAMAIS partager votre clé privée
+                          {t.wallet.privateKeyWarningTitle}
                         </p>
                         <p className="text-xs text-slate-300">
-                          Votre clé privée est masquée pour votre sécurité.
-                          Quiconque possède cette clé contrôle vos fonds.
+                          {t.wallet.privateKeyWarningText}
                         </p>
                       </div>
 
                       {/* Balance */}
                       <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700/50">
-                        <p className="text-sm text-slate-400 mb-1">Balance</p>
+                        <p className="text-sm text-slate-400 mb-1">{t.wallet.balanceLabel}</p>
                         <p className="text-3xl font-bold text-purple-400">
                           0 SOL
                         </p>
                         <p className="text-xs text-slate-500 mt-1">
-                          Prêt à recevoir des tokens !
+                          {t.wallet.balanceReady}
                         </p>
                       </div>
                     </div>
@@ -624,7 +615,7 @@ export default function WalletContent() {
                     onClick={handleWalletComplete}
                     className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 py-4 rounded-lg font-bold text-lg transition-colors"
                   >
-                    Terminer et Recevoir le Badge
+                    {t.wallet.finishButton}
                     <Trophy className="inline ml-2 w-5 h-5" />
                   </motion.button>
                 </div>
@@ -660,10 +651,10 @@ export default function WalletContent() {
                   <Trophy className="w-16 h-16 text-yellow-400" />
                 </motion.div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-2">
-                  Félicitations !
+                  {t.common.congratulations}
                 </h2>
                 <p className="text-xl text-slate-300">
-                  Vous possédez maintenant votre propre wallet
+                  {t.wallet.revealSubtitle}
                 </p>
               </motion.div>
 
@@ -678,7 +669,7 @@ export default function WalletContent() {
                   <Lock className="w-8 h-8 text-slate-900" />
                 </div>
                 <h3 className="text-2xl font-bold text-yellow-400 mb-2">
-                  Gardien des Clés
+                  {t.badges.wallet}
                 </h3>
                 <p className="text-slate-300 mb-2">+120 XP</p>
                 <p className="text-sm text-slate-400">
@@ -689,16 +680,10 @@ export default function WalletContent() {
               {/* Narrative */}
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-8 mb-8">
                 <p className="text-lg md:text-xl leading-relaxed text-slate-200 mb-4">
-                  Dans l'univers Solana, cette paire de clés est votre
-                  passeport.{' '}
-                  <span className="text-purple-400 font-semibold">
-                    Anatoly Yakovenko
-                  </span>{' '}
-                  a conçu Solana pour que des millions de wallets puissent
-                  interagir simultanément, à la vitesse de la lumière.
+                  {t.wallet.revealNarrative1}
                 </p>
                 <p className="text-slate-300">
-                  Vous êtes maintenant prêt à explorer l'écosystème Solana.
+                  {t.wallet.revealNarrative2}
                 </p>
               </div>
 
@@ -711,10 +696,10 @@ export default function WalletContent() {
                   className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-5"
                 >
                   <p className="text-amber-400 font-bold text-lg mb-2">
-                    💡 Le saviez-vous ?
+                    {t.wallet.didYouKnowActiveTitle}
                   </p>
                   <p className="text-slate-300">
-                    En janvier 2025, l'écosystème Solana compte plus de 2 millions de wallets actifs quotidiennement. C'est l'une des blockchains les plus utilisées au monde.
+                    {t.wallet.didYouKnowActiveText}
                   </p>
                 </motion.div>
 
@@ -725,25 +710,15 @@ export default function WalletContent() {
                   className="bg-purple-900/30 border border-purple-500/50 rounded-lg p-5"
                 >
                   <p className="text-purple-400 font-bold text-lg mb-3">
-                    🔑 Notions clés
+                    {t.wallet.keyPointsTitle}
                   </p>
                   <ul className="space-y-2 text-slate-300">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                      <span>Un wallet est une paire de clés : publique (votre adresse) et privée (votre pouvoir)</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                      <span>La clé privée ne doit JAMAIS être partagée</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                      <span>L'entropie (le hasard) est la base de la sécurité de votre wallet</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                      <span>Solana utilise le format d'adresse Base58 pour des adresses lisibles</span>
-                    </li>
+                    {t.wallet.keyPoints.map((point, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
                   </ul>
                 </motion.div>
               </div>
@@ -763,10 +738,10 @@ export default function WalletContent() {
                     <Zap className="w-12 h-12 text-yellow-400 mx-auto" />
                   </motion.div>
                   <h2 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-2">
-                    Maître des Basics
+                    {t.badges.master}
                   </h2>
                   <p className="text-slate-300">
-                    Vous avez complété les trois modules fondamentaux !
+                    {t.wallet.masterBadgeText}
                   </p>
                 </motion.div>
               )}
@@ -777,7 +752,7 @@ export default function WalletContent() {
                   href="/basics"
                   className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 py-4 rounded-lg font-bold text-lg text-center transition-colors"
                 >
-                  ← Retour aux Basics
+                  {t.wallet.backToBasics}
                 </Link>
               </div>
             </motion.div>
