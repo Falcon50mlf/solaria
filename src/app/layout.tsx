@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "SolQuest - Apprends Solana en Jouant",
@@ -24,7 +25,7 @@ export default function RootLayout({
           fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif",
         }}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
