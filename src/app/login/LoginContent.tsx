@@ -8,6 +8,7 @@ import { LogIn, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useLocale } from "@/lib/useLocale";
 import { LanguageToggle } from "@/components/LanguageToggle";
+import { SolariaLogo } from "@/components/SolariaLogo";
 
 export default function LoginContent() {
   const { t } = useLocale();
@@ -51,8 +52,8 @@ export default function LoginContent() {
       >
         <div className="text-center mb-10">
           <Link href="/" className="inline-flex items-center gap-2 mb-8">
-            <div className="w-9 h-9 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
-            <span className="font-semibold text-2xl">SolQuest</span>
+            <SolariaLogo size={36} fill="white" />
+            <span className="font-semibold text-2xl">Solaria</span>
           </Link>
           <h1 className="text-2xl sm:text-3xl font-bold mb-3">{t.login.title}</h1>
           <p className="text-[#919191]">{t.login.subtitle}</p>

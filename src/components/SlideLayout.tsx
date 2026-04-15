@@ -6,6 +6,7 @@ import { ChevronLeft, ArrowRight, Lock } from "lucide-react";
 import Link from "next/link";
 import { useLocale } from "@/lib/useLocale";
 import { LanguageToggle } from "./LanguageToggle";
+import { SolariaLogo } from "./SolariaLogo";
 
 interface SlideLayoutProps {
   moduleTitle: string;
@@ -66,8 +67,8 @@ export function SlideLayout({
 
       <nav className="relative z-30 flex items-center justify-between px-6 sm:px-12 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
-          <span className="font-semibold text-xl">SolQuest</span>
+          <SolariaLogo size={26} fill="white" />
+          <span className="font-semibold text-xl">Solaria</span>
         </Link>
         <LanguageToggle />
       </nav>

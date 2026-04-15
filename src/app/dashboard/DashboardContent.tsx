@@ -27,6 +27,7 @@ import { supabase } from "@/lib/supabase";
 import { useUser } from "@/hooks/useUser";
 import { useLocale } from "@/lib/useLocale";
 import { LanguageToggle } from "@/components/LanguageToggle";
+import { SolariaLogo } from "@/components/SolariaLogo";
 
 interface ProgressRow {
   module_id: string;
@@ -109,8 +110,8 @@ export default function DashboardContent() {
       {/* Navbar */}
       <nav className="relative z-30 flex items-center justify-between px-6 sm:px-12 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
-          <span className="font-semibold text-xl tracking-tight">SolQuest</span>
+          <SolariaLogo size={26} fill="white" />
+          <span className="font-semibold text-xl tracking-tight">Solaria</span>
         </Link>
         <div className="flex items-center gap-3">
           <LanguageToggle />

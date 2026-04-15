@@ -11,7 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "SolQuest - Apprends Solana en Jouant",
+  title: "Solaria — From zero to Solana",
   description:
     "Revivez la création de Solana et maîtrisez la blockchain la plus rapide du monde. Un jeu éducatif gamifié pour apprendre Solana en s'amusant.",
   keywords: ["Solana", "blockchain", "apprentissage", "gamifié", "crypto"],

@@ -7,6 +7,7 @@ import { usePrivy } from "@privy-io/react-auth";
 import { Wallet, Building2, Layers, ShieldCheck, LogIn } from "lucide-react";
 import { useLocale } from "@/lib/useLocale";
 import { LanguageToggle } from "@/components/LanguageToggle";
+import { SolariaLogo } from "@/components/SolariaLogo";
 
 const Particles = () => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; o: number }>>([]);
@@ -44,8 +45,8 @@ export default function HomeContent() {
       {/* Top navbar */}
       <nav className="relative z-20 flex items-center justify-between px-6 sm:px-12 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
-          <span className="font-semibold text-xl tracking-tight">SolQuest</span>
+          <SolariaLogo size={26} fill="white" />
+          <span className="font-semibold text-xl tracking-tight">Solaria</span>
         </Link>
         <div className="flex items-center gap-3">
           <LanguageToggle />
@@ -152,9 +153,9 @@ export default function HomeContent() {
       {/* Bottom navbar */}
       <footer className="relative z-10 flex items-center justify-between px-6 sm:px-12 py-5 border-t border-white/5">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
+          <SolariaLogo size={42} fill="white" />
           <div>
-            <div className="font-semibold text-2xl leading-tight">SolQuest</div>
+            <div className="font-semibold text-2xl leading-tight">Solaria</div>
             <div className="text-[11px] tracking-[0.2em] uppercase text-white/60">from zero to solana</div>
           </div>
         </div>

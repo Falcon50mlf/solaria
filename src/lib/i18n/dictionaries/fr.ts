@@ -25,12 +25,12 @@ export const fr: TranslationDictionary = {
     congratulations: "Félicitations !",
   },
   meta: {
-    title: "SolQuest - Apprends Solana en Jouant",
+    title: "Solaria - Apprends Solana en Jouant",
     description:
       "Revivez la création de Solana et maîtrisez la blockchain la plus rapide du monde. Un jeu éducatif gamifié pour apprendre Solana en s'amusant.",
   },
   home: {
-    title: "SolQuest",
+    title: "Solaria",
     subtitle: "Revivez la création de Solana. Devenez le fondateur.",
     narratorLabel: "Acte I - La Genèse",
     narratorText:

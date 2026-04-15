@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { useLocale } from '@/lib/useLocale';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import { SolariaLogo } from '@/components/SolariaLogo';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -64,8 +65,8 @@ export default function BasicsContent() {
 
       <nav className="relative z-20 flex items-center justify-between px-6 sm:px-12 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
-          <span className="font-semibold text-xl">SolQuest</span>
+          <SolariaLogo size={26} fill="white" />
+          <span className="font-semibold text-xl">Solaria</span>
         </Link>
         <LanguageToggle />
       </nav>
