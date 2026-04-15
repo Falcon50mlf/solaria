@@ -18,89 +18,69 @@ export default function LoginContent() {
   const redirect = searchParams.get("redirect") || "/dashboard";
 
   useEffect(() => {
-    if (ready && authenticated) {
-      router.push(redirect);
-    }
+    if (ready && authenticated) router.push(redirect);
   }, [ready, authenticated, router, redirect]);
 
   if (!ready) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-[var(--sol-text-muted)]">...</div>
+      <div className="min-h-screen flex items-center justify-center bg-[#111]">
+        <div className="animate-pulse text-[#919191]">...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 relative">
-      <LanguageToggle />
+    <div className="relative min-h-screen flex flex-col items-center justify-center p-6 bg-[#111] text-white font-poppins overflow-hidden">
+      <div
+        className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[667px] h-[667px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(153,69,255,0.3) 0%, rgba(153,69,255,0.08) 40%, rgba(17,17,17,0) 70%)",
+        }}
+      />
+
+      <div className="absolute top-4 right-4 z-20">
+        <LanguageToggle />
+      </div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
+        className="relative z-10 w-full max-w-md"
       >
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1 }}
-          className="text-center mb-10"
-        >
-          <h1 className="text-3xl sm:text-5xl font-bold mb-3">
-            <span className="bg-gradient-to-r from-[var(--sol-purple)] via-[var(--sol-blue)] to-[var(--sol-green)] bg-clip-text text-transparent">
-              SolQuest
-            </span>
-          </h1>
-          <h2 className="text-xl sm:text-2xl font-semibold text-[var(--sol-text)] mb-2">
-            {t.login.title}
-          </h2>
-          <p className="text-[var(--sol-text-muted)]">{t.login.subtitle}</p>
-        </motion.div>
+        <div className="text-center mb-10">
+          <Link href="/" className="inline-flex items-center gap-2 mb-8">
+            <div className="w-9 h-9 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
+            <span className="font-semibold text-2xl">SolQuest</span>
+          </Link>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-3">{t.login.title}</h1>
+          <p className="text-[#919191]">{t.login.subtitle}</p>
+        </div>
 
-        {/* Login button */}
         <motion.button
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={login}
-          className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[var(--sol-purple)] to-[var(--sol-blue)] hover:opacity-90 text-white font-bold py-4 px-6 rounded-lg transition-opacity cursor-pointer"
+          className="pill-purple w-full inline-flex items-center justify-center gap-3 !py-4 !text-base cursor-pointer"
         >
           <LogIn size={20} />
           {t.login.loginButton}
         </motion.button>
 
-        {/* Divider */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="flex items-center gap-4 my-6"
-        >
-          <div className="flex-1 h-px bg-[var(--sol-card)]" />
-          <span className="text-sm text-[var(--sol-text-muted)]">
-            {t.login.orContinue}
-          </span>
-          <div className="flex-1 h-px bg-[var(--sol-card)]" />
-        </motion.div>
+        <div className="flex items-center gap-4 my-6">
+          <div className="flex-1 h-px bg-white/10" />
+          <span className="text-sm text-[#919191]">{t.login.orContinue}</span>
+          <div className="flex-1 h-px bg-white/10" />
+        </div>
 
-        {/* Back to home */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+        <Link
+          href="/"
+          className="w-full flex items-center justify-center gap-2 border border-white/10 hover:border-[#9945ff]/50 text-[#919191] hover:text-white font-medium py-3 px-6 rounded-full transition-colors"
         >
-          <Link
-            href="/"
-            className="w-full flex items-center justify-center gap-2 border border-[var(--sol-card)] hover:border-[var(--sol-purple)]/50 text-[var(--sol-text-muted)] hover:text-[var(--sol-text)] font-medium py-3 px-6 rounded-lg transition-colors"
-          >
-            <ArrowLeft size={18} />
-            {t.login.backHome}
-          </Link>
-        </motion.div>
+          <ArrowLeft size={18} />
+          {t.login.backHome}
+        </Link>
       </motion.div>
     </div>
   );

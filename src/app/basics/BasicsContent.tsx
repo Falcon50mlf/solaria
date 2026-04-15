@@ -14,408 +14,192 @@ import {
   Trophy,
   Zap,
   ChevronLeft,
+  ArrowRight,
   Send,
   Brain,
   Server,
   Search,
 } from 'lucide-react';
-import '@/styles/basics.css';
 import { useLocale } from '@/lib/useLocale';
-import { TopBar } from '@/components/TopBar';
-
-/* MODULES is now defined inside the component to access i18n translations */
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut" as const,
-    },
-  },
-};
+import { LanguageToggle } from '@/components/LanguageToggle';
 
 const cardVariants = {
-  hidden: { opacity: 0, scale: 0.9, y: 20 },
-  visible: {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
     opacity: 1,
-    scale: 1,
     y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut" as const,
-    },
-  },
-  hover: {
-    scale: 1.03,
-    transition: {
-      duration: 0.2,
-    },
-  },
+    transition: { delay: i * 0.05, duration: 0.4, ease: "easeOut" as const },
+  }),
 };
 
 export default function BasicsContent() {
   const { t } = useLocale();
   const { authenticated } = usePrivy();
   const { totalXp, level, modules, badges } = useGameState();
-  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const MODULES = [
-    { id: 'decentralisation', title: t.basics.modules.decentralisation.title, subtitle: t.basics.modules.decentralisation.subtitle, backDescription: t.basics.modules.decentralisation.backDescription, icon: Network, maxXp: 100, link: '/basics/decentralisation', step: 1 },
-    { id: 'blockchain', title: t.basics.modules.blockchain.title, subtitle: t.basics.modules.blockchain.subtitle, backDescription: t.basics.modules.blockchain.backDescription, icon: Boxes, maxXp: 150, link: '/basics/blockchain', step: 2 },
-    { id: 'wallet', title: t.basics.modules.wallet.title, subtitle: t.basics.modules.wallet.subtitle, backDescription: t.basics.modules.wallet.backDescription, icon: Key, maxXp: 120, link: '/basics/wallet', step: 3 },
-    { id: 'seedphrase', title: t.basics.modules.seedphrase.title, subtitle: t.basics.modules.seedphrase.subtitle, backDescription: t.basics.modules.seedphrase.backDescription, icon: Shield, maxXp: 130, link: '/basics/seedphrase', step: 4 },
-    { id: 'transactions', title: t.basics.modules.transactions.title, subtitle: t.basics.modules.transactions.subtitle, backDescription: t.basics.modules.transactions.backDescription, icon: Send, maxXp: 140, link: '/basics/transactions', step: 5 },
-    { id: 'consensus', title: t.basics.modules.consensus.title, subtitle: t.basics.modules.consensus.subtitle, backDescription: t.basics.modules.consensus.backDescription, icon: Brain, maxXp: 160, link: '/basics/consensus', step: 6 },
-    { id: 'validators', title: t.basics.modules.validators.title, subtitle: t.basics.modules.validators.subtitle, backDescription: t.basics.modules.validators.backDescription, icon: Server, maxXp: 170, link: '/basics/validators', step: 7 },
-    { id: 'explorer', title: t.basics.modules.explorer.title, subtitle: t.basics.modules.explorer.subtitle, backDescription: t.basics.modules.explorer.backDescription, icon: Search, maxXp: 180, link: '/basics/explorer', step: 8 },
+    { id: 'decentralisation', title: t.basics.modules.decentralisation.title, subtitle: t.basics.modules.decentralisation.subtitle, icon: Network, maxXp: 100, link: '/basics/decentralisation', step: 1 },
+    { id: 'blockchain', title: t.basics.modules.blockchain.title, subtitle: t.basics.modules.blockchain.subtitle, icon: Boxes, maxXp: 150, link: '/basics/blockchain', step: 2 },
+    { id: 'wallet', title: t.basics.modules.wallet.title, subtitle: t.basics.modules.wallet.subtitle, icon: Key, maxXp: 120, link: '/basics/wallet', step: 3 },
+    { id: 'seedphrase', title: t.basics.modules.seedphrase.title, subtitle: t.basics.modules.seedphrase.subtitle, icon: Shield, maxXp: 130, link: '/basics/seedphrase', step: 4 },
+    { id: 'transactions', title: t.basics.modules.transactions.title, subtitle: t.basics.modules.transactions.subtitle, icon: Send, maxXp: 140, link: '/basics/transactions', step: 5 },
+    { id: 'consensus', title: t.basics.modules.consensus.title, subtitle: t.basics.modules.consensus.subtitle, icon: Brain, maxXp: 160, link: '/basics/consensus', step: 6 },
+    { id: 'validators', title: t.basics.modules.validators.title, subtitle: t.basics.modules.validators.subtitle, icon: Server, maxXp: 170, link: '/basics/validators', step: 7 },
+    { id: 'explorer', title: t.basics.modules.explorer.title, subtitle: t.basics.modules.explorer.subtitle, icon: Search, maxXp: 180, link: '/basics/explorer', step: 8 },
   ];
 
   const moduleStates = new Map(modules.map((m) => [m.id, m]));
-
-  const xpForCurrentLevel = (level - 1) * 100;
   const xpForNextLevel = level * 100;
-  const currentLevelXp = totalXp - xpForCurrentLevel;
-  const xpNeeded = xpForNextLevel - xpForCurrentLevel;
-  const xpProgress = Math.max(0, Math.min(100, (currentLevelXp / xpNeeded) * 100));
+  const xpProgress = Math.max(0, Math.min(100, ((totalXp - (level - 1) * 100) / 100) * 100));
 
   return (
-    <main className="basics-container">
-      <TopBar />
-      <Link
-        href={authenticated ? "/dashboard" : "/"}
-        className="inline-flex items-center gap-1 text-[var(--sol-text-muted)] hover:text-[var(--sol-text)] transition-colors mb-4 text-sm"
-      >
-        <ChevronLeft size={16} />
-        {authenticated ? t.home.backToDashboard : t.login.backHome}
-      </Link>
-      <motion.div
-        className="player-info-bar"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        <div className="player-stats">
-          <div className="level-badge">
-            <span className="level-number">{level}</span>
-            <span className="level-label">{t.common.lvl}</span>
-          </div>
+    <div className="relative min-h-screen bg-[#111] text-white font-poppins overflow-hidden">
+      <div
+        className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[667px] h-[667px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(153,69,255,0.2) 0%, rgba(153,69,255,0.05) 40%, rgba(17,17,17,0) 70%)",
+        }}
+      />
 
-          <div className="xp-section">
-            <div className="xp-header">
-              <span className="xp-label">{t.common.xp}</span>
-              <span className="xp-value">
-                {totalXp} / {xpForNextLevel}
-              </span>
+      <nav className="relative z-20 flex items-center justify-between px-6 sm:px-12 py-4">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
+          <span className="font-semibold text-xl">SolQuest</span>
+        </Link>
+        <LanguageToggle />
+      </nav>
+
+      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 pt-4 pb-16">
+        <Link
+          href={authenticated ? "/dashboard" : "/chapters"}
+          className="inline-flex items-center gap-1 text-[#919191] hover:text-white transition-colors mb-6 text-sm"
+        >
+          <ChevronLeft size={16} />
+          {authenticated ? t.home.backToDashboard : t.login.backHome}
+        </Link>
+
+        {/* Player bar */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fg-card-purple relative rounded-[28px] p-6 sm:p-8 mb-8 flex flex-wrap items-center justify-between gap-6 overflow-hidden"
+        >
+          <div className="flex items-center gap-6">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#9945ff] to-[#14f195] flex flex-col items-center justify-center">
+              <span className="text-2xl font-bold leading-none">{level}</span>
+              <span className="text-[9px] uppercase tracking-wider text-white/80">{t.common.lvl}</span>
             </div>
-            <div className="xp-bar relative overflow-hidden">
-              <motion.div
-                className="xp-fill"
-                initial={{ width: 0 }}
-                animate={{ width: `${xpProgress}%` }}
-                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              />
-              {!prefersReducedMotion && xpProgress > 0 && (
+            <div className="min-w-[180px]">
+              <div className="flex justify-between text-sm mb-1.5">
+                <span className="text-[#919191]">{t.common.xp}</span>
+                <span className="font-medium text-white">{totalXp} / {xpForNextLevel}</span>
+              </div>
+              <div className="h-2 rounded-full bg-white/10 overflow-hidden w-60">
                 <motion.div
-                  className="absolute inset-0 rounded-full overflow-hidden pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.2 }}
-                >
-                  <motion.div
-                    className="h-full w-[30%] bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                    animate={{ x: ["-100%", "400%"] }}
-                    transition={{ duration: 1.5, delay: 1.3, ease: "easeInOut" }}
-                  />
-                </motion.div>
-              )}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${xpProgress}%` }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="h-full rounded-full bg-gradient-to-r from-[#9945ff] to-[#14f195]"
+                />
+              </div>
             </div>
           </div>
-        </div>
+          {badges.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {badges.map((b, i) => (
+                <span key={i} className="badge-blue inline-flex items-center gap-1.5">
+                  <Trophy size={12} /> {b}
+                </span>
+              ))}
+            </div>
+          )}
+        </motion.div>
 
-        {badges && badges.length > 0 && (
-          <div className="badges-container">
-            {badges.map((badge, idx) => (
+        {/* Page title */}
+        <motion.header
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mb-10"
+        >
+          <h1 className="text-3xl sm:text-5xl font-bold mb-2">
+            <span className="bg-gradient-to-r from-[#9945ff] to-[#14f195] bg-clip-text text-transparent">
+              {t.basics.pageTitle}
+            </span>
+          </h1>
+          <p className="text-[#919191] text-base sm:text-lg">{t.basics.pageSubtitle}</p>
+        </motion.header>
+
+        {/* Modules grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {MODULES.map((m, idx) => {
+            const state = moduleStates.get(m.id) || { completed: false, unlocked: idx === 0, xpEarned: 0 };
+            const Icon = m.icon;
+            const isLocked = !state.unlocked;
+            const isCompleted = state.completed;
+
+            const variantClass = isCompleted ? "fg-card-green" : isLocked ? "fg-card-blue" : "fg-card-purple";
+
+            const card = (
               <motion.div
-                key={idx}
-                className="badge"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 + idx * 0.1, duration: 0.3, type: "spring" }}
-                whileHover={{
-                  scale: 1.1,
-                  rotateY: 15,
-                  transition: { duration: 0.2 },
-                }}
-                style={{ transformStyle: "preserve-3d" }}
-                title={badge}
+                custom={idx}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover={isLocked ? {} : { y: -4 }}
+                className={`${variantClass} relative rounded-[32px] p-6 sm:p-8 h-full min-h-[320px] flex flex-col gap-4 overflow-hidden ${
+                  isLocked ? "opacity-70" : "cursor-pointer"
+                }`}
               >
-                <Trophy size={16} />
-                <span className="badge-text">{badge}</span>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </motion.div>
-
-      <motion.div
-        className="page-header"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
-        <h1 className="page-title">{t.basics.pageTitle}</h1>
-        <p className="page-subtitle">
-          {t.basics.pageSubtitle}
-        </p>
-      </motion.div>
-
-      <motion.div
-        className="narrative-box"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <div className="narrative-header">
-          <Zap size={20} className="narrative-icon" />
-          <h2>{t.basics.chapterTitle}</h2>
-        </div>
-        <p>
-          {t.basics.chapterText}
-        </p>
-      </motion.div>
-
-      <motion.div
-        className="learning-path"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className="path-lines">
-          {MODULES.map((_, idx) => (
-            idx < MODULES.length - 1 && (
-              <div key={`line-${idx}`} className="path-line" />
-            )
-          ))}
-        </div>
-
-        <div className="modules-grid">
-          {MODULES.map((moduleConfig, idx) => {
-            const moduleState = moduleStates.get(moduleConfig.id) || {
-              completed: false,
-              unlocked: idx === 0,
-              xpEarned: 0,
-            };
-
-            const Icon = moduleConfig.icon;
-            const isLocked = !moduleState.unlocked;
-            const isCompleted = moduleState.completed;
-            const isActive = moduleState.unlocked && !isCompleted;
-
-            return (
-              <motion.div
-                key={moduleConfig.id}
-                className="module-step relative"
-                variants={itemVariants}
-              >
-                {isLocked ? (
-                <div className="w-full max-w-[420px] mx-auto">
-                  <Link
-                    href="#"
-                    className="game-card locked"
-                    style={{ pointerEvents: 'none' }}
-                  >
-                    <motion.div
-                      className="card-content"
-                      variants={cardVariants}
-                    >
-                      <div className="step-number">
-                        {t.common.step} {moduleConfig.step}
-                      </div>
-
-                      <div className="card-icon-wrapper">
-                        <div className="card-icon" style={{ filter: "blur(1px)" }}>
-                          <Icon size={36} />
-                        </div>
-                        <div className="lock-overlay">
-                          <Lock size={20} />
-                        </div>
-                      </div>
-
-                      <h3 className="card-title">{moduleConfig.title}</h3>
-                      <p className="card-subtitle">{moduleConfig.subtitle}</p>
-
-                      <div className="card-xp">
-                        <div className="xp-available">
-                          <Zap size={14} />
-                          <span>{moduleConfig.maxXp} {t.common.xp}</span>
-                        </div>
-                      </div>
-
-                      <p className="lock-message">
-                        {t.common.completePrevious}
-                      </p>
-
-                      <div className="card-action">
-                        <button className="btn-primary locked" disabled>
-                          {t.common.locked}
-                        </button>
-                      </div>
-                    </motion.div>
-                  </Link>
-                </div>
-              ) : (
-                <div className="flip-card w-full max-w-[420px] mx-auto min-h-[380px]">
-                  <div className="flip-card-inner min-h-[380px]">
-                    {/* FRONT */}
-                    <div className="flip-card-front">
-                      <Link
-                        href={moduleConfig.link}
-                        className={`game-card h-full ${
-                          isCompleted ? 'completed' : ''
-                        } ${isActive ? 'active' : ''}`}
-                      >
-                        <motion.div
-                          className="card-content h-full"
-                          variants={cardVariants}
-                        >
-                          <div className="step-number">
-                            {t.common.step} {moduleConfig.step}
-                          </div>
-
-                          <div className="card-icon-wrapper">
-                            <div className="card-icon">
-                              <Icon size={36} />
-                            </div>
-                            {isCompleted && (
-                              <div className="complete-overlay">
-                                <motion.div
-                                  initial={{ scale: 0, rotate: -180 }}
-                                  animate={{ scale: 1, rotate: 0 }}
-                                  transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.3 }}
-                                >
-                                  <CheckCircle2 size={24} />
-                                </motion.div>
-                              </div>
-                            )}
-                          </div>
-
-                          <h3 className="card-title">{moduleConfig.title}</h3>
-                          <p className="card-subtitle">{moduleConfig.subtitle}</p>
-
-                          <div className="card-xp">
-                            {isCompleted ? (
-                              <div className="xp-earned">
-                                <span className="xp-badge">
-                                  +{moduleState.xpEarned} {t.common.xp}
-                                </span>
-                              </div>
-                            ) : (
-                              <div className="xp-available">
-                                <Zap size={14} />
-                                <span>{moduleConfig.maxXp} {t.common.xp}</span>
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="card-action">
-                            {isCompleted ? (
-                              <button className="btn-primary completed">
-                                {t.common.completed}
-                              </button>
-                            ) : (
-                              <button className="btn-primary">
-                                {t.common.start}
-                              </button>
-                            )}
-                          </div>
-                        </motion.div>
-                      </Link>
-                    </div>
-
-                    {/* BACK */}
-                    <div className="flip-card-back">
-                      <Link
-                        href={moduleConfig.link}
-                        className={`game-card h-full ${
-                          isCompleted ? 'completed' : ''
-                        } ${isActive ? 'active' : ''}`}
-                        style={{ display: 'flex' }}
-                      >
-                        <div className="h-full w-full flex flex-col items-center justify-between text-center px-6 py-8 sm:px-8">
-                          <div className="flex flex-col items-center">
-                            <div className="card-icon mb-3" style={{ width: '56px', height: '56px' }}>
-                              <Icon size={28} />
-                            </div>
-                            <h3 className="text-lg sm:text-xl font-bold mb-3" style={{ color: 'var(--color-text-primary, #fff)' }}>
-                              {moduleConfig.title}
-                            </h3>
-                            <p className="text-sm sm:text-base leading-relaxed max-w-[320px]" style={{ color: 'var(--color-text-secondary, #b0b5c8)' }}>
-                              {moduleConfig.backDescription}
-                            </p>
-                          </div>
-                          <div className="mt-5">
-                            <button className="btn-primary text-sm px-6 py-2.5">
-                              {isCompleted ? t.common.completed : t.common.start}
-                            </button>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] uppercase tracking-wider text-white/60">
+                    {t.common.step} {m.step}
                   </div>
+                  {isCompleted && <CheckCircle2 size={20} className="text-[#14f195]" />}
+                  {isLocked && <Lock size={18} className="text-white/50" />}
                 </div>
-              )}
+
+                <div className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center">
+                  <Icon size={28} className={isCompleted ? "text-[#14f195]" : "text-white"} />
+                </div>
+
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold mb-1.5">{m.title}</h3>
+                  <p className="text-sm text-[#919191]">{m.subtitle}</p>
+                </div>
+
+                <div className="flex items-center justify-between pt-2">
+                  <span className="inline-flex items-center gap-1.5 text-sm">
+                    <Zap size={14} className={isCompleted ? "text-[#14f195]" : "text-[#9945ff]"} />
+                    {isCompleted ? `+${state.xpEarned}` : m.maxXp} XP
+                  </span>
+                  {isLocked ? (
+                    <span className="text-xs text-white/40 uppercase tracking-wider">{t.common.locked}</span>
+                  ) : (
+                    <span
+                      className={`inline-flex items-center gap-1 text-sm font-medium ${
+                        isCompleted ? "text-[#14f195]" : "text-[#9945ff]"
+                      }`}
+                    >
+                      {isCompleted ? t.common.completed : t.common.start}
+                      <ArrowRight size={14} />
+                    </span>
+                  )}
+                </div>
               </motion.div>
+            );
+
+            return isLocked ? (
+              <div key={m.id}>{card}</div>
+            ) : (
+              <Link key={m.id} href={m.link} className="block">
+                {card}
+              </Link>
             );
           })}
         </div>
-      </motion.div>
-
-      <motion.div
-        className="progress-summary"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-      >
-        <div className="summary-content">
-          <div className="summary-stat">
-            <span className="summary-label">{t.common.modulesCompleted}</span>
-            <span className="summary-value">
-              {modules.filter((m) => m.completed).length} / {MODULES.length}
-            </span>
-          </div>
-          <div className="summary-stat">
-            <span className="summary-label">{t.common.progression}</span>
-            <span className="summary-value">
-              {Math.round(
-                (modules.filter((m) => m.completed).length / MODULES.length) *
-                  100
-              )}
-              %
-            </span>
-          </div>
-          <div className="summary-stat">
-            <span className="summary-label">{t.common.xpEarned}</span>
-            <span className="summary-value">
-              {modules.reduce((sum, m) => sum + m.xpEarned, 0)} /{' '}
-              {MODULES.reduce((sum, m) => sum + m.maxXp, 0)}
-            </span>
-          </div>
-        </div>
-      </motion.div>
-    </main>
+      </main>
+    </div>
   );
 }
