@@ -18,6 +18,33 @@ const noopStorage = {
   removeItem: () => {},
 };
 
+function hasPrivySession() {
+  if (typeof document === "undefined") return false;
+  return document.cookie
+    .split("; ")
+    .some((c) => c.startsWith("privy-id=") || c.startsWith("privy-token="));
+}
+
+const authGatedStorage = {
+  getItem: (name: string) => {
+    if (typeof window === "undefined") return null;
+    if (!hasPrivySession()) {
+      window.localStorage.removeItem(name);
+      return null;
+    }
+    return window.localStorage.getItem(name);
+  },
+  setItem: (name: string, value: string) => {
+    if (typeof window === "undefined") return;
+    if (!hasPrivySession()) return;
+    window.localStorage.setItem(name, value);
+  },
+  removeItem: (name: string) => {
+    if (typeof window === "undefined") return;
+    window.localStorage.removeItem(name);
+  },
+};
+
 export const gameStore = createStore<GameStore>()(
   persist(
     (set) => ({
@@ -76,7 +103,7 @@ export const gameStore = createStore<GameStore>()(
       name: "solquest-game-state",
       version: 1,
       storage: createJSONStorage(() =>
-        typeof window !== "undefined" ? localStorage : noopStorage
+        typeof window !== "undefined" ? authGatedStorage : noopStorage
       ),
       partialize: (state) => ({
         playerName: state.playerName,
