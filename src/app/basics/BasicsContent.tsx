@@ -74,14 +74,14 @@ export default function BasicsContent() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const MODULES = [
-    { id: 'decentralisation', title: t.basics.modules.decentralisation.title, subtitle: t.basics.modules.decentralisation.subtitle, icon: Network, maxXp: 100, link: '/basics/decentralisation', step: 1 },
-    { id: 'blockchain', title: t.basics.modules.blockchain.title, subtitle: t.basics.modules.blockchain.subtitle, icon: Boxes, maxXp: 150, link: '/basics/blockchain', step: 2 },
-    { id: 'wallet', title: t.basics.modules.wallet.title, subtitle: t.basics.modules.wallet.subtitle, icon: Key, maxXp: 120, link: '/basics/wallet', step: 3 },
-    { id: 'seedphrase', title: t.basics.modules.seedphrase.title, subtitle: t.basics.modules.seedphrase.subtitle, icon: Shield, maxXp: 130, link: '/basics/seedphrase', step: 4 },
-    { id: 'transactions', title: t.basics.modules.transactions.title, subtitle: t.basics.modules.transactions.subtitle, icon: Send, maxXp: 140, link: '/basics/transactions', step: 5 },
-    { id: 'consensus', title: t.basics.modules.consensus.title, subtitle: t.basics.modules.consensus.subtitle, icon: Brain, maxXp: 160, link: '/basics/consensus', step: 6 },
-    { id: 'validators', title: t.basics.modules.validators.title, subtitle: t.basics.modules.validators.subtitle, icon: Server, maxXp: 170, link: '/basics/validators', step: 7 },
-    { id: 'explorer', title: t.basics.modules.explorer.title, subtitle: t.basics.modules.explorer.subtitle, icon: Search, maxXp: 180, link: '/basics/explorer', step: 8 },
+    { id: 'decentralisation', title: t.basics.modules.decentralisation.title, subtitle: t.basics.modules.decentralisation.subtitle, backDescription: t.basics.modules.decentralisation.backDescription, icon: Network, maxXp: 100, link: '/basics/decentralisation', step: 1 },
+    { id: 'blockchain', title: t.basics.modules.blockchain.title, subtitle: t.basics.modules.blockchain.subtitle, backDescription: t.basics.modules.blockchain.backDescription, icon: Boxes, maxXp: 150, link: '/basics/blockchain', step: 2 },
+    { id: 'wallet', title: t.basics.modules.wallet.title, subtitle: t.basics.modules.wallet.subtitle, backDescription: t.basics.modules.wallet.backDescription, icon: Key, maxXp: 120, link: '/basics/wallet', step: 3 },
+    { id: 'seedphrase', title: t.basics.modules.seedphrase.title, subtitle: t.basics.modules.seedphrase.subtitle, backDescription: t.basics.modules.seedphrase.backDescription, icon: Shield, maxXp: 130, link: '/basics/seedphrase', step: 4 },
+    { id: 'transactions', title: t.basics.modules.transactions.title, subtitle: t.basics.modules.transactions.subtitle, backDescription: t.basics.modules.transactions.backDescription, icon: Send, maxXp: 140, link: '/basics/transactions', step: 5 },
+    { id: 'consensus', title: t.basics.modules.consensus.title, subtitle: t.basics.modules.consensus.subtitle, backDescription: t.basics.modules.consensus.backDescription, icon: Brain, maxXp: 160, link: '/basics/consensus', step: 6 },
+    { id: 'validators', title: t.basics.modules.validators.title, subtitle: t.basics.modules.validators.subtitle, backDescription: t.basics.modules.validators.backDescription, icon: Server, maxXp: 170, link: '/basics/validators', step: 7 },
+    { id: 'explorer', title: t.basics.modules.explorer.title, subtitle: t.basics.modules.explorer.subtitle, backDescription: t.basics.modules.explorer.backDescription, icon: Search, maxXp: 180, link: '/basics/explorer', step: 8 },
   ];
 
   const moduleStates = new Map(modules.map((m) => [m.id, m]));
@@ -245,91 +245,120 @@ export default function BasicsContent() {
                     style={{ borderRadius: "inherit" }}
                   />
                 )}
-                <Link
-                  href={isLocked ? '#' : moduleConfig.link}
-                  className={`game-card ${isLocked ? 'locked' : ''} ${
-                    isCompleted ? 'completed' : ''
-                  } ${isActive ? 'active' : ''}`}
-                  style={{
-                    pointerEvents: isLocked ? 'none' : 'auto',
-                  }}
-                >
-                  <motion.div
-                    className="card-content"
-                    variants={cardVariants}
-                    whileHover={!isLocked ? 'hover' : undefined}
-                  >
-                    <div className="step-number">
-                      {t.common.step} {moduleConfig.step}
+                <div className={`${isLocked ? '' : 'flip-card'}`} style={{ minHeight: '320px' }}>
+                  <div className="flip-card-inner" style={{ minHeight: '320px' }}>
+                    {/* FRONT */}
+                    <div className="flip-card-front">
+                      <Link
+                        href={isLocked ? '#' : moduleConfig.link}
+                        className={`game-card h-full ${isLocked ? 'locked' : ''} ${
+                          isCompleted ? 'completed' : ''
+                        } ${isActive ? 'active' : ''}`}
+                        style={{
+                          pointerEvents: isLocked ? 'none' : 'auto',
+                        }}
+                      >
+                        <motion.div
+                          className="card-content h-full"
+                          variants={cardVariants}
+                        >
+                          <div className="step-number">
+                            {t.common.step} {moduleConfig.step}
+                          </div>
+
+                          <div className="card-icon-wrapper">
+                            <div className="card-icon" style={{ filter: isLocked ? "blur(1px)" : "none" }}>
+                              <Icon size={36} />
+                            </div>
+                            {isLocked && (
+                              <div className="lock-overlay">
+                                <Lock size={20} />
+                              </div>
+                            )}
+                            {isCompleted && (
+                              <div className="complete-overlay">
+                                <motion.div
+                                  initial={{ scale: 0, rotate: -180 }}
+                                  animate={{ scale: 1, rotate: 0 }}
+                                  transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.3 }}
+                                >
+                                  <CheckCircle2 size={24} />
+                                </motion.div>
+                              </div>
+                            )}
+                          </div>
+
+                          <h3 className="card-title">{moduleConfig.title}</h3>
+                          <p className="card-subtitle">{moduleConfig.subtitle}</p>
+
+                          <div className="card-xp">
+                            {isCompleted ? (
+                              <div className="xp-earned">
+                                <span className="xp-badge">
+                                  +{moduleState.xpEarned} {t.common.xp}
+                                </span>
+                              </div>
+                            ) : (
+                              <div className="xp-available">
+                                <Zap size={14} />
+                                <span>{moduleConfig.maxXp} {t.common.xp}</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {isLocked && (
+                            <p className="lock-message">
+                              {t.common.completePrevious}
+                            </p>
+                          )}
+
+                          <div className="card-action">
+                            {isCompleted ? (
+                              <button className="btn-primary completed">
+                                {t.common.completed}
+                              </button>
+                            ) : isLocked ? (
+                              <button className="btn-primary locked" disabled>
+                                {t.common.locked}
+                              </button>
+                            ) : (
+                              <button className="btn-primary">
+                                {t.common.start}
+                              </button>
+                            )}
+                          </div>
+                        </motion.div>
+                      </Link>
                     </div>
 
-                    <div className="card-icon-wrapper">
-                      <div className="card-icon" style={{ filter: isLocked ? "blur(1px)" : "none" }}>
-                        <Icon size={36} />
+                    {/* BACK */}
+                    {!isLocked && (
+                      <div className="flip-card-back">
+                        <Link
+                          href={moduleConfig.link}
+                          className={`game-card h-full flex flex-col items-center justify-center text-center ${
+                            isCompleted ? 'completed' : ''
+                          } ${isActive ? 'active' : ''}`}
+                        >
+                          <div className="card-content h-full flex flex-col items-center justify-center p-6">
+                            <div className="card-icon mb-4">
+                              <Icon size={32} />
+                            </div>
+                            <h3 className="card-title text-lg mb-3">{moduleConfig.title}</h3>
+                            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary, #b0b5c8)' }}>
+                              {moduleConfig.backDescription}
+                            </p>
+                            <div className="mt-4">
+                              <button className="btn-primary text-sm px-4 py-2">
+                                {isCompleted ? t.common.completed : t.common.start}
+                              </button>
+                            </div>
+                          </div>
+                        </Link>
                       </div>
-                      {isLocked && (
-                        <div className="lock-overlay">
-                          <motion.div
-                            whileHover={{ rotate: [0, -10, 10, -10, 0], transition: { duration: 0.5 } }}
-                          >
-                            <Lock size={20} />
-                          </motion.div>
-                        </div>
-                      )}
-                      {isCompleted && (
-                        <div className="complete-overlay">
-                          <motion.div
-                            initial={{ scale: 0, rotate: -180 }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.3 }}
-                          >
-                            <CheckCircle2 size={24} />
-                          </motion.div>
-                        </div>
-                      )}
-                    </div>
-
-                    <h3 className="card-title">{moduleConfig.title}</h3>
-                    <p className="card-subtitle">{moduleConfig.subtitle}</p>
-
-                    <div className="card-xp">
-                      {isCompleted ? (
-                        <div className="xp-earned">
-                          <span className="xp-badge">
-                            +{moduleState.xpEarned} {t.common.xp}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="xp-available">
-                          <Zap size={14} />
-                          <span>{moduleConfig.maxXp} {t.common.xp}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    {isLocked && (
-                      <p className="lock-message">
-                        {t.common.completePrevious}
-                      </p>
                     )}
-
-                    <div className="card-action">
-                      {isCompleted ? (
-                        <button className="btn-primary completed">
-                          {t.common.completed}
-                        </button>
-                      ) : isLocked ? (
-                        <button className="btn-primary locked" disabled>
-                          {t.common.locked}
-                        </button>
-                      ) : (
-                        <button className="btn-primary">
-                          {t.common.start}
-                        </button>
-                      )}
-                    </div>
-                  </motion.div>
-                </Link>
+                  </div>
+                </div>
               </motion.div>
             );
           })}

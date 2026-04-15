@@ -52,20 +52,23 @@ export const en: TranslationDictionary = {
       decentralisation: {
         title: "Decentralization",
         subtitle: "Why distribute power?",
+        backDescription: "Discover why distributing power makes a network more resilient. You'll build a decentralized network by connecting nodes together.",
       },
       blockchain: {
         title: "The Blockchain",
         subtitle: "How to build a chain of trust?",
+        backDescription: "Understand how blocks form a tamper-proof chain. You'll mine your own blocks and create a mini-blockchain.",
       },
       wallet: {
         title: "The Wallet",
         subtitle: "Your identity in the crypto world",
+        backDescription: "Learn the public/private key system. You'll generate your own wallet by creating entropy with your mouse.",
       },
-      seedphrase: { title: "The Seed Phrase", subtitle: "Your ultimate backup key" },
-      transactions: { title: "Transactions", subtitle: "Send and receive SOL" },
-      consensus: { title: "Consensus", subtitle: "How the network agrees" },
-      validators: { title: "Validators", subtitle: "The guardians of the Solana network" },
-      explorer: { title: "Blockchain Explorer", subtitle: "Read the blockchain like an open book" },
+      seedphrase: { title: "The Seed Phrase", subtitle: "Your ultimate backup key", backDescription: "Master the recovery phrase that protects all your wallets. You'll memorize and reconstruct a 12-word seed phrase." },
+      transactions: { title: "Transactions", subtitle: "Send and receive SOL", backDescription: "Simulate sending SOL on the Solana network. You'll sign a transaction and see the confirmation in real time." },
+      consensus: { title: "Consensus", subtitle: "How the network agrees", backDescription: "Understand how Solana agrees through Proof of History. Quiz on consensus, PoS, and Solana's 65,000 TPS." },
+      validators: { title: "Validators", subtitle: "The guardians of the Solana network", backDescription: "Discover the guardians of the Solana network. Quiz on staking, delegation, and the network's 1,900+ validators." },
+      explorer: { title: "Blockchain Explorer", subtitle: "Read the blockchain like an open book", backDescription: "Learn to read the blockchain with Solscan. You'll discover your own wallet address on the Solana blockchain." },
     },
   },
   badges: {

@@ -52,20 +52,23 @@ export const fr: TranslationDictionary = {
       decentralisation: {
         title: "La Décentralisation",
         subtitle: "Pourquoi distribuer le pouvoir ?",
+        backDescription: "Découvrez pourquoi distribuer le pouvoir rend un réseau plus résistant. Vous construirez un réseau décentralisé en connectant des nœuds entre eux.",
       },
       blockchain: {
         title: "La Blockchain",
         subtitle: "Comment créer une chaîne de confiance ?",
+        backDescription: "Comprenez comment les blocs forment une chaîne infalsifiable. Vous minerez vos propres blocs et créerez une mini-blockchain.",
       },
       wallet: {
         title: "Le Wallet",
         subtitle: "Votre identité dans le monde crypto",
+        backDescription: "Apprenez le système de clés publique/privée. Vous générerez votre propre wallet en créant de l'entropie avec votre souris.",
       },
-      seedphrase: { title: "La Seed Phrase", subtitle: "Votre clé de secours ultime" },
-      transactions: { title: "Les Transactions", subtitle: "Envoyer et recevoir des SOL" },
-      consensus: { title: "Le Consensus", subtitle: "Comment le réseau se met d'accord" },
-      validators: { title: "Les Validateurs", subtitle: "Les gardiens du réseau Solana" },
-      explorer: { title: "L'Explorateur Blockchain", subtitle: "Lisez la blockchain comme un livre ouvert" },
+      seedphrase: { title: "La Seed Phrase", subtitle: "Votre clé de secours ultime", backDescription: "Maîtrisez la phrase de récupération qui protège tous vos wallets. Vous devrez mémoriser et reconstituer une seed phrase de 12 mots." },
+      transactions: { title: "Les Transactions", subtitle: "Envoyer et recevoir des SOL", backDescription: "Simulez l'envoi de SOL sur le réseau Solana. Vous signerez une transaction et verrez la confirmation en temps réel." },
+      consensus: { title: "Le Consensus", subtitle: "Comment le réseau se met d'accord", backDescription: "Comprenez comment Solana se met d'accord grâce au Proof of History. Quiz sur le consensus, le PoS et les 65 000 TPS de Solana." },
+      validators: { title: "Les Validateurs", subtitle: "Les gardiens du réseau Solana", backDescription: "Découvrez les gardiens du réseau Solana. Quiz sur le staking, la délégation et les 1 900+ validateurs du réseau." },
+      explorer: { title: "L'Explorateur Blockchain", subtitle: "Lisez la blockchain comme un livre ouvert", backDescription: "Apprenez à lire la blockchain avec Solscan. Vous découvrirez votre propre adresse wallet sur la blockchain Solana." },
     },
   },
   badges: {

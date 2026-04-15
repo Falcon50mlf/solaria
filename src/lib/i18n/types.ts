@@ -3,6 +3,7 @@ export type Locale = "fr" | "en";
 export interface ModuleTranslations {
   title: string;
   subtitle: string;
+  backDescription: string;
 }
 
 export interface TranslationDictionary {
