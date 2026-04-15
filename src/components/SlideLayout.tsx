@@ -14,6 +14,7 @@ interface SlideLayoutProps {
   slides: ReactNode[];
   onComplete?: () => void;
   icon: ReactNode;
+  canAdvance?: boolean[];
 }
 
 export function SlideLayout({
@@ -23,13 +24,16 @@ export function SlideLayout({
   backLabel,
   slides,
   icon,
+  canAdvance,
 }: SlideLayoutProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
   const total = slides.length;
 
+  const isNextBlocked = canAdvance ? canAdvance[currentSlide] === false : false;
+
   const goNext = () => {
-    if (currentSlide < total - 1) {
+    if (currentSlide < total - 1 && !isNextBlocked) {
       setDirection(1);
       setCurrentSlide((s) => s + 1);
     }
@@ -140,8 +144,12 @@ export function SlideLayout({
 
           <button
             onClick={goNext}
-            disabled={currentSlide === total - 1}
-            className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-20 disabled:cursor-default text-[var(--sol-green)] hover:bg-[var(--sol-green)]/10 hover:shadow-[0_0_15px_rgba(20,241,149,0.2)] cursor-pointer"
+            disabled={currentSlide === total - 1 || isNextBlocked}
+            className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:cursor-default cursor-pointer ${
+              isNextBlocked
+                ? "disabled:opacity-30 text-slate-500"
+                : "disabled:opacity-20 text-[var(--sol-green)] hover:bg-[var(--sol-green)]/10 hover:shadow-[0_0_15px_rgba(20,241,149,0.2)]"
+            }`}
           >
             <ChevronRight size={18} />
           </button>

@@ -445,6 +445,9 @@ export default function DecentralisationContent() {
       backLink="/basics"
       backLabel={t.common.backToCourse}
       slides={slides}
+      canAdvance={isAlreadyCompleted || moduleCompleted
+        ? [true, true, true, true]
+        : [true, true, gameWon, true]}
       icon={<Network size={18} className="text-[var(--sol-green)]" />}
     />
   );

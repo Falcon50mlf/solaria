@@ -657,6 +657,7 @@ export default function WalletContent() {
       backLabel={t.wallet.backToBasics}
       icon={<Key size={18} className="text-[var(--sol-purple)]" />}
       slides={slides}
+      canAdvance={[true, true, wallet !== null, pubKeyChars >= 64, walletCompleted || (gameState?.modules?.find(m => m.id === 'wallet')?.completed ?? false), true]}
     />
   );
 }

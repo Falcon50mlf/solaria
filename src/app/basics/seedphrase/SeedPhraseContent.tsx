@@ -379,6 +379,9 @@ export default function SeedPhraseContent() {
       backLabel={t.seedphrase.backToBasics}
       icon={<Shield size={18} className="text-[var(--sol-purple)]" />}
       slides={slides}
+      canAdvance={moduleComplete
+        ? [true, true, true, true, true, true]
+        : [true, true, true, true, false]}
     />
   );
 }

@@ -309,6 +309,9 @@ export default function TransactionsContent() {
       backLabel={t.transactions.backToBasics}
       icon={<Send size={18} className="text-purple-400" />}
       slides={slides}
+      canAdvance={isAlreadyCompleted || moduleCompleted
+        ? [true, true, true, true, true]
+        : [true, true, true, false]}
     />
   );
 }

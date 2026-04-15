@@ -630,6 +630,7 @@ export default function BlockchainContent() {
         backLink="/basics"
         backLabel={t.blockchain.backToBasics}
         slides={slides}
+        canAdvance={showSlide4 ? [true, true, true, true] : [true, true, false]}
         icon={<Boxes size={18} className="text-[var(--sol-green)]" />}
       />
 

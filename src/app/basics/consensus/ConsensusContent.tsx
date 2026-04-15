@@ -252,6 +252,9 @@ export default function ConsensusContent() {
       backLabel={t.consensus.backToBasics}
       icon={<Brain size={18} className="text-[var(--sol-purple)]" />}
       slides={slides}
+      canAdvance={gameState?.modules?.find(m => m.id === 'consensus')?.completed
+        ? [true, true, true, true, true, true]
+        : [true, true, true, true, quizComplete, true]}
     />
   );
 }

@@ -450,6 +450,9 @@ export default function ExplorerContent() {
       backLink="/basics"
       backLabel={t.explorer.backToBasics}
       slides={slides}
+      canAdvance={showReveal
+        ? [true, true, true, true, true, true]
+        : [true, true, true, true, false]}
       icon={<Search size={18} className="text-purple-400" />}
     />
   );

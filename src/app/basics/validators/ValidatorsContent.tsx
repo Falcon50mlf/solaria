@@ -448,6 +448,9 @@ export default function ValidatorsContent() {
       backLabel={t.validators.backToBasics}
       icon={<Server size={18} className="text-purple-400" />}
       slides={slides}
+      canAdvance={moduleComplete
+        ? [true, true, true, true, true, true]
+        : [true, true, true, true, false]}
     />
   );
 }
