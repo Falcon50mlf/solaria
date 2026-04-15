@@ -38,6 +38,15 @@ export default function ExplorerContent() {
   }, [gameState]);
 
   const questions = t.explorer.quizQuestions;
+  const passed = quizComplete && correctAnswers / questions.length >= 0.7;
+
+  const handleRetryQuiz = () => {
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setShowExplanation(false);
+    setCorrectAnswers(0);
+    setQuizComplete(false);
+  };
 
   const handleAnswer = (index: number) => {
     if (showExplanation) return;
@@ -330,34 +339,49 @@ export default function ExplorerContent() {
           transition={{ type: 'spring', stiffness: 200, damping: 15 }}
         >
           <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6 text-center mb-6">
-            <Trophy className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold mb-2">
-              {t.explorer.phase2Success}
-            </h3>
             <motion.span
-              className="text-4xl sm:text-5xl font-bold text-[var(--sol-green)] animate-count-up block mb-2"
+              className={`text-4xl sm:text-5xl font-bold block mb-4 animate-count-up ${passed ? "text-[var(--sol-green)]" : "text-[var(--sol-accent)]"}`}
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
             >
               {correctAnswers}/{questions.length}
             </motion.span>
-            <p className="text-slate-300 mb-2">correct answers</p>
-            <p className="text-purple-400 font-semibold">+180 XP</p>
+            {passed ? (
+              <>
+                <h3 className="text-2xl font-bold mb-2">
+                  {t.explorer.phase2Success}
+                </h3>
+                <p className="text-slate-300 mb-2">correct answers</p>
+                <p className="text-purple-400 font-semibold">+180 XP</p>
+              </>
+            ) : (
+              <div>
+                <p className="text-[var(--sol-accent)] mb-2">{t.common.quizMinScore}</p>
+                <button
+                  onClick={handleRetryQuiz}
+                  className="mt-4 px-6 py-2.5 bg-[var(--sol-purple)] hover:bg-[var(--sol-purple)]/80 rounded-lg text-sm font-medium cursor-pointer"
+                >
+                  {t.common.quizRetry}
+                </button>
+              </div>
+            )}
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={async () => {
-              await completeModule('explorer', 180);
-              setShowReveal(true);
-            }}
-            className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 py-4 rounded-lg font-bold text-lg transition-colors"
-          >
-            {t.explorer.phase2FinishButton}
-            <Trophy className="inline ml-2 w-5 h-5" />
-          </motion.button>
+          {passed && (
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={async () => {
+                await completeModule('explorer', 180);
+                setShowReveal(true);
+              }}
+              className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 py-4 rounded-lg font-bold text-lg transition-colors"
+            >
+              {t.explorer.phase2FinishButton}
+              <Trophy className="inline ml-2 w-5 h-5" />
+            </motion.button>
+          )}
         </motion.div>
       )}
     </div>
@@ -452,7 +476,7 @@ export default function ExplorerContent() {
       slides={slides}
       canAdvance={showReveal
         ? [true, true, true, true, true, true]
-        : [true, true, true, true, false]}
+        : [true, true, true, true, passed]}
       icon={<Search size={18} className="text-purple-400" />}
     />
   );

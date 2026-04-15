@@ -20,6 +20,15 @@ export default function ConsensusContent() {
 
   const questions = t.consensus.quizQuestions;
   const current = questions[currentQuestion];
+  const passed = quizComplete && correctAnswers / questions.length >= 0.7;
+
+  const handleRetryQuiz = () => {
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setShowExplanation(false);
+    setCorrectAnswers(0);
+    setQuizComplete(false);
+  };
 
   const handleAnswer = (index: number) => {
     if (selectedAnswer !== null) return;
@@ -183,10 +192,22 @@ export default function ConsensusContent() {
       ) : (
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
           <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring" }}
-            className="text-5xl font-bold text-[var(--sol-green)] block mb-4 animate-count-up">
+            className={`text-5xl font-bold block mb-4 animate-count-up ${passed ? "text-[var(--sol-green)]" : "text-[var(--sol-accent)]"}`}>
             {correctAnswers}/{questions.length}
           </motion.span>
-          <p className="text-slate-300 mb-6">{t.consensus.phase2Success}</p>
+          {passed ? (
+            <p className="text-slate-300 mb-6">{t.consensus.phase2Success}</p>
+          ) : (
+            <div>
+              <p className="text-[var(--sol-accent)] mb-2">{t.common.quizMinScore}</p>
+              <button
+                onClick={handleRetryQuiz}
+                className="mt-4 px-6 py-2.5 bg-[var(--sol-purple)] hover:bg-[var(--sol-purple)]/80 rounded-lg text-sm font-medium cursor-pointer"
+              >
+                {t.common.quizRetry}
+              </button>
+            </div>
+          )}
         </motion.div>
       )}
     </div>
@@ -254,7 +275,7 @@ export default function ConsensusContent() {
       slides={slides}
       canAdvance={gameState?.modules?.find(m => m.id === 'consensus')?.completed
         ? [true, true, true, true, true, true]
-        : [true, true, true, true, quizComplete, true]}
+        : [true, true, true, true, passed, true]}
     />
   );
 }

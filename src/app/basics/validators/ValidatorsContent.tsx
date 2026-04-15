@@ -31,6 +31,15 @@ export default function ValidatorsContent() {
   }, [gameState]);
 
   const questions = t.validators.quizQuestions;
+  const passed = quizComplete && correctCount / questions.length >= 0.7;
+
+  const handleRetryQuiz = () => {
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setShowExplanation(false);
+    setCorrectCount(0);
+    setQuizComplete(false);
+  };
 
   const handleAnswer = (index: number) => {
     if (selectedAnswer !== null) return;
@@ -316,33 +325,47 @@ export default function ValidatorsContent() {
           </AnimatePresence>
         </div>
       ) : (
-        /* Quiz complete -- score display + finish button */
+        /* Quiz complete -- score display + finish/retry */
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: 'spring', stiffness: 200, damping: 15 }}
         >
           <div className="bg-green-900/30 border border-green-700/50 rounded-lg p-6 mb-6 text-center">
-            <p className="text-green-400 font-bold text-lg mb-4">
-              {t.validators.phase2Narrative}
-            </p>
             <motion.span
-              className="text-4xl sm:text-5xl font-bold text-[var(--sol-green)] block mb-6"
+              className={`text-4xl sm:text-5xl font-bold block mb-6 animate-count-up ${passed ? "text-[var(--sol-green)]" : "text-[var(--sol-accent)]"}`}
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
             >
               {correctCount}/{questions.length}
             </motion.span>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleFinishQuiz}
-              className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 py-4 rounded-lg font-bold text-lg transition-colors"
-            >
-              {t.validators.phase2FinishButton}
-              <Trophy className="inline ml-2 w-5 h-5" />
-            </motion.button>
+            {passed ? (
+              <>
+                <p className="text-green-400 font-bold text-lg mb-4">
+                  {t.validators.phase2Success}
+                </p>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleFinishQuiz}
+                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 py-4 rounded-lg font-bold text-lg transition-colors"
+                >
+                  {t.validators.phase2FinishButton}
+                  <Trophy className="inline ml-2 w-5 h-5" />
+                </motion.button>
+              </>
+            ) : (
+              <div>
+                <p className="text-[var(--sol-accent)] mb-2">{t.common.quizMinScore}</p>
+                <button
+                  onClick={handleRetryQuiz}
+                  className="mt-4 px-6 py-2.5 bg-[var(--sol-purple)] hover:bg-[var(--sol-purple)]/80 rounded-lg text-sm font-medium cursor-pointer"
+                >
+                  {t.common.quizRetry}
+                </button>
+              </div>
+            )}
           </div>
         </motion.div>
       )}
@@ -450,7 +473,7 @@ export default function ValidatorsContent() {
       slides={slides}
       canAdvance={moduleComplete
         ? [true, true, true, true, true, true]
-        : [true, true, true, true, false]}
+        : [true, true, true, true, passed]}
     />
   );
 }

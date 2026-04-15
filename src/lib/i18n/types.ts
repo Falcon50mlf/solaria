@@ -26,6 +26,8 @@ export interface TranslationDictionary {
     modulesCompleted: string;
     progression: string;
     xpEarned: string;
+    quizRetry: string;
+    quizMinScore: string;
     congratulations: string;
   };
   meta: {

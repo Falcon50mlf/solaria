@@ -20,6 +20,8 @@ export const fr: TranslationDictionary = {
     modulesCompleted: "Modules complétés",
     progression: "Progression",
     xpEarned: "XP gagné",
+    quizRetry: "Recommencer le quiz",
+    quizMinScore: "Vous devez obtenir au moins 70% de bonnes réponses pour débloquer le badge.",
     congratulations: "Félicitations !",
   },
   meta: {
