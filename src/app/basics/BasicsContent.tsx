@@ -245,8 +245,8 @@ export default function BasicsContent() {
                     style={{ borderRadius: "inherit" }}
                   />
                 )}
-                <div className={`${isLocked ? '' : 'flip-card'}`} style={{ minHeight: '320px' }}>
-                  <div className="flip-card-inner" style={{ minHeight: '320px' }}>
+                <div className={`${isLocked ? '' : 'flip-card'} w-full max-w-[420px] mx-auto`} style={{ minHeight: '380px' }}>
+                  <div className="flip-card-inner" style={{ minHeight: '380px' }}>
                     {/* FRONT */}
                     <div className="flip-card-front">
                       <Link
@@ -336,20 +336,25 @@ export default function BasicsContent() {
                       <div className="flip-card-back">
                         <Link
                           href={moduleConfig.link}
-                          className={`game-card h-full flex flex-col items-center justify-center text-center ${
+                          className={`game-card h-full ${
                             isCompleted ? 'completed' : ''
                           } ${isActive ? 'active' : ''}`}
+                          style={{ display: 'flex' }}
                         >
-                          <div className="card-content h-full flex flex-col items-center justify-center p-6">
-                            <div className="card-icon mb-4">
-                              <Icon size={32} />
+                          <div className="h-full w-full flex flex-col items-center justify-between text-center px-6 py-8 sm:px-8">
+                            <div className="flex flex-col items-center">
+                              <div className="card-icon mb-3" style={{ width: '56px', height: '56px' }}>
+                                <Icon size={28} />
+                              </div>
+                              <h3 className="text-lg sm:text-xl font-bold mb-3" style={{ color: 'var(--color-text-primary, #fff)' }}>
+                                {moduleConfig.title}
+                              </h3>
+                              <p className="text-sm sm:text-base leading-relaxed max-w-[320px]" style={{ color: 'var(--color-text-secondary, #b0b5c8)' }}>
+                                {moduleConfig.backDescription}
+                              </p>
                             </div>
-                            <h3 className="card-title text-lg mb-3">{moduleConfig.title}</h3>
-                            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary, #b0b5c8)' }}>
-                              {moduleConfig.backDescription}
-                            </p>
-                            <div className="mt-4">
-                              <button className="btn-primary text-sm px-4 py-2">
+                            <div className="mt-5">
+                              <button className="btn-primary text-sm px-6 py-2.5">
                                 {isCompleted ? t.common.completed : t.common.start}
                               </button>
                             </div>
