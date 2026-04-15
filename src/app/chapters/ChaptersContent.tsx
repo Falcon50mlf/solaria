@@ -101,16 +101,15 @@ export default function ChaptersContent() {
             );
 
             return (
-              <Link key={chapter.id} href={chapter.link}>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 0 20px rgba(153, 69, 255, 0.2)",
-                  }}
-                  className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] hover:border-[var(--sol-purple)]/40 rounded-xl p-4 sm:p-6 transition-colors cursor-pointer"
-                >
+              <motion.div
+                key={chapter.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{
+                  boxShadow: "0 0 20px rgba(153, 69, 255, 0.2)",
+                }}
+                className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] hover:border-[var(--sol-purple)]/40 rounded-xl p-4 sm:p-6 transition-colors"
+              >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--sol-purple)]/20 to-[var(--sol-green)]/20 flex items-center justify-center">
@@ -147,7 +146,7 @@ export default function ChaptersContent() {
                     </div>
                   </div>
 
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 mb-5">
                     {chapter.moduleIds.map((modId, i) => {
                       const Icon = MODULE_ICONS[modId] ?? BookOpen;
                       const done = completedIds.has(modId);
@@ -173,8 +172,13 @@ export default function ChaptersContent() {
                       );
                     })}
                   </div>
+
+                  <Link href={chapter.link} className="block">
+                    <button className="btn-primary w-full text-sm sm:text-base px-6 py-3">
+                      {t.home.exploreWithoutAccount}
+                    </button>
+                  </Link>
                 </motion.div>
-              </Link>
             );
           })}
         </div>
