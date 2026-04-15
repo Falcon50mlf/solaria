@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "SolQuest - Apprends Solana en Jouant",
@@ -15,14 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="h-full antialiased" suppressHydrationWarning>
+    <html lang="fr" className={`h-full antialiased ${poppins.variable}`} suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col"
+        className="min-h-full flex flex-col font-poppins"
         style={{
-          background: "#07070F",
-          color: "#E4E4ED",
-          fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif",
+          background: "#111111",
+          color: "#FFFFFF",
         }}
       >
         <Providers>{children}</Providers>

@@ -3,19 +3,21 @@
 import { useEffect, useState } from "react";
 import { usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  Trophy,
   Zap,
+  BookOpen,
+  Trophy,
+  ChevronDown,
+  LogOut,
+  User,
+  ArrowRight,
+  Rocket,
   Network,
   Boxes,
   Key,
   Shield,
   Send,
-  BookOpen,
-  Copy,
-  Check,
-  ChevronRight,
   Brain,
   Server,
   Search,
@@ -24,7 +26,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { useUser } from "@/hooks/useUser";
 import { useLocale } from "@/lib/useLocale";
-import { TopBar } from "@/components/TopBar";
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 interface ProgressRow {
   module_id: string;
@@ -44,412 +46,286 @@ const MODULE_ICONS: Record<string, typeof Network> = {
   explorer: Search,
 };
 
-interface Chapter {
-  id: string;
-  link: string;
-  moduleIds: string[];
-  totalXp: number;
-}
-
-const CHAPTERS: Chapter[] = [
-  {
-    id: "basics",
-    link: "/basics",
-    moduleIds: ["decentralisation", "blockchain", "wallet", "seedphrase", "transactions", "consensus", "validators", "explorer"],
-    totalXp: 1150,
-  },
+const MODULE_ORDER = [
+  "decentralisation",
+  "blockchain",
+  "wallet",
+  "seedphrase",
+  "transactions",
+  "consensus",
+  "validators",
+  "explorer",
 ];
+
+const CHAPTER_TOTAL_XP = 1150;
 
 export default function DashboardContent() {
   const { t } = useLocale();
-  const { ready } = usePrivy();
-  const { user, walletAddress, isAuthenticated, isLoading } = useUser();
+  const { ready, logout } = usePrivy();
+  const { user, isAuthenticated, isLoading } = useUser();
   const router = useRouter();
   const [progress, setProgress] = useState<ProgressRow[]>([]);
   const [loadingProgress, setLoadingProgress] = useState(true);
-  const [copied, setCopied] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (ready && !isAuthenticated) {
-      router.push("/login?redirect=/dashboard");
-    }
+    if (ready && !isAuthenticated) router.push("/login?redirect=/dashboard");
   }, [ready, isAuthenticated, router]);
 
   useEffect(() => {
     if (!user) return;
-
     supabase
       .from("progress")
       .select("module_id, xp_earned, badge, completed_at")
       .eq("privy_did", user.id)
-      .order("completed_at", { ascending: true })
+      .order("completed_at", { ascending: false })
       .then(({ data, error }) => {
-        if (error) {
-          console.error("Error fetching progress:", error.message);
-        } else {
-          setProgress(data ?? []);
-        }
+        if (error) console.error(error.message);
+        else setProgress(data ?? []);
         setLoadingProgress(false);
       });
   }, [user]);
 
-  const totalXp = progress.reduce((sum, p) => sum + p.xp_earned, 0);
-  const badges = progress.filter((p) => p.badge).map((p) => p.badge as string);
-  const completedModuleIds = new Set(progress.map((p) => p.module_id));
-
-  const handleCopyWallet = () => {
-    if (!walletAddress) return;
-    navigator.clipboard.writeText(walletAddress);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   if (isLoading || !ready) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-[var(--sol-text-muted)]">...</div>
+      <div className="min-h-screen flex items-center justify-center bg-[#111]">
+        <div className="animate-pulse text-[#919191]">...</div>
       </div>
     );
   }
 
+  const totalXp = progress.reduce((s, p) => s + p.xp_earned, 0);
+  const completedIds = new Set(progress.map((p) => p.module_id));
+  const badges = progress.filter((p) => p.badge).map((p) => p.badge as string);
   const email = user?.email?.address ?? user?.google?.email ?? null;
-  const totalModules = CHAPTERS.reduce((sum, ch) => sum + ch.moduleIds.length, 0);
+  const emailTruncated = email
+    ? email.length > 14
+      ? email.slice(0, 4) + "..." + email.slice(-6)
+      : email
+    : "Account";
 
   return (
-    <div className="min-h-screen p-4 sm:p-6 md:p-10">
-      <TopBar />
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 sm:mb-10"
-        >
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2">
-            <span className="bg-gradient-to-r from-[var(--sol-purple)] to-[var(--sol-green)] bg-clip-text text-transparent">
-              {t.dashboard.title}
-            </span>
-          </h1>
-          <p className="text-[var(--sol-text-muted)] text-base sm:text-lg">
-            {t.dashboard.subtitle}
-          </p>
-        </motion.div>
-
-        {/* User info card */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-4 sm:p-6 mb-8"
-        >
-          <p className="text-lg font-semibold text-[var(--sol-text)] mb-4">
-            {t.dashboard.welcomeBack} 👋
-          </p>
-
-          <div className="space-y-3">
-            {email && (
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
-                <span className="text-sm text-[var(--sol-text-muted)] w-auto sm:w-32">
-                  {t.dashboard.emailLabel}
-                </span>
-                <span className="text-sm font-mono text-[var(--sol-text)]">
-                  {email}
-                </span>
-              </div>
-            )}
-
-            {walletAddress && (
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
-                <span className="text-sm text-[var(--sol-text-muted)] w-auto sm:w-32">
-                  {t.dashboard.walletLabel}
-                </span>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-mono text-[var(--sol-green)] truncate max-w-[120px] sm:max-w-[200px]">
-                    {walletAddress}
-                  </span>
+    <div className="relative min-h-screen bg-[#111] text-white font-poppins">
+      {/* Navbar */}
+      <nav className="relative z-30 flex items-center justify-between px-6 sm:px-12 py-4">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
+          <span className="font-semibold text-xl tracking-tight">SolQuest</span>
+        </Link>
+        <div className="flex items-center gap-3">
+          <LanguageToggle />
+          <div className="relative">
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              className="pill-purple inline-flex items-center gap-2 cursor-pointer"
+            >
+              <span className="font-mono text-sm">{emailTruncated}</span>
+              <ChevronDown size={14} className={`transition-transform ${menuOpen ? "rotate-180" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {menuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 top-full mt-2 w-44 rounded-2xl border border-[#9945ff] bg-[rgba(153,69,255,0.1)] backdrop-blur-md p-3 flex flex-col gap-2"
+                >
                   <button
-                    onClick={handleCopyWallet}
-                    className="text-[var(--sol-text-muted)] hover:text-[var(--sol-text)] transition-colors cursor-pointer"
-                  >
-                    {copied ? <Check size={14} /> : <Copy size={14} />}
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </motion.div>
-
-        {/* Stats row */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center"
-          >
-            <Zap size={24} className="text-[var(--sol-green)] mx-auto mb-2" />
-            <p className="text-2xl font-bold text-[var(--sol-text)]">
-              {totalXp}
-            </p>
-            <p className="text-xs text-[var(--sol-text-muted)]">
-              {t.dashboard.totalXp}
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.28 }}
-            className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center"
-          >
-            <BookOpen
-              size={24}
-              className="text-[var(--sol-purple)] mx-auto mb-2"
-            />
-            <p className="text-2xl font-bold text-[var(--sol-text)]">
-              {progress.length}/{totalModules}
-            </p>
-            <p className="text-xs text-[var(--sol-text-muted)]">
-              {t.common.modulesCompleted}
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.36 }}
-            className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center"
-          >
-            <Trophy size={24} className="text-amber-400 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-[var(--sol-text)]">
-              {badges.length}
-            </p>
-            <p className="text-xs text-[var(--sol-text-muted)]">
-              {t.dashboard.badgesEarned}
-            </p>
-          </motion.div>
-        </div>
-
-        {/* Chapters section */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mb-8"
-        >
-          <h2 className="text-xl font-bold text-[var(--sol-text)] mb-4">
-            {t.dashboard.chaptersTitle}
-          </h2>
-
-          <div className="space-y-4">
-            {CHAPTERS.map((chapter) => {
-              const chapterCompleted = chapter.moduleIds.filter((id) =>
-                completedModuleIds.has(id)
-              ).length;
-              const chapterTotal = chapter.moduleIds.length;
-              const chapterXp = progress
-                .filter((p) => chapter.moduleIds.includes(p.module_id))
-                .reduce((sum, p) => sum + p.xp_earned, 0);
-              const progressPercent = Math.round(
-                (chapterCompleted / chapterTotal) * 100
-              );
-
-              return (
-                <Link key={chapter.id} href={chapter.link}>
-                  <motion.div
-                    whileHover={{
-                      scale: 1.02,
-                      boxShadow: "0 0 20px rgba(153, 69, 255, 0.2)",
+                    onClick={async () => {
+                      await logout();
+                      router.push("/");
                     }}
-                    className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] hover:border-[var(--sol-purple)]/40 rounded-xl p-4 sm:p-6 transition-colors cursor-pointer"
+                    className="flex items-center gap-2 text-sm text-white hover:text-[#14f195] transition-colors cursor-pointer"
                   >
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--sol-purple)]/20 to-[var(--sol-green)]/20 flex items-center justify-center">
-                          <BookOpen
-                            size={24}
-                            className="text-[var(--sol-purple)]"
-                          />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-[var(--sol-text)] text-base sm:text-lg">
-                            {t.basics.pageTitle}
-                          </h3>
-                          <p className="text-xs sm:text-sm text-[var(--sol-text-muted)]">
-                            {chapterTotal} {t.dashboard.chapterModules}
-                          </p>
-                        </div>
-                      </div>
-                      <ChevronRight
-                        size={20}
-                        className="text-[var(--sol-text-muted)]"
-                      />
-                    </div>
-
-                    {/* Progress bar */}
-                    <div className="mb-3">
-                      <div className="flex justify-between text-xs sm:text-sm mb-1">
-                        <span className="text-[var(--sol-text-muted)]">
-                          {chapterCompleted}/{chapterTotal}{" "}
-                          {t.common.modulesCompleted}
-                        </span>
-                        <span className="text-[var(--sol-green)] font-medium">
-                          {chapterXp}/{chapter.totalXp} XP
-                        </span>
-                      </div>
-                      <div className="w-full bg-[var(--sol-darker)] rounded-full h-2 relative overflow-hidden">
-                        <motion.div
-                          className="bg-gradient-to-r from-[var(--sol-purple)] to-[var(--sol-green)] h-full rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${progressPercent}%` }}
-                          transition={{ duration: 0.8, delay: 0.5 }}
-                        />
-                        {progressPercent > 0 && !prefersReducedMotion && (
-                          <motion.div
-                            className="absolute inset-0 rounded-full overflow-hidden pointer-events-none"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1.5 }}
-                          >
-                            <motion.div
-                              className="h-full w-[30%] bg-gradient-to-r from-transparent via-white/15 to-transparent"
-                              animate={{ x: ["-100%", "400%"] }}
-                              transition={{ duration: 1.5, delay: 1.6, ease: "easeInOut" }}
-                            />
-                          </motion.div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Module icons row */}
-                    <div className="flex gap-2">
-                      {chapter.moduleIds.map((modId, i) => {
-                        const Icon = MODULE_ICONS[modId] ?? BookOpen;
-                        const done = completedModuleIds.has(modId);
-                        return (
-                          <motion.div
-                            key={modId}
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.7 + i * 0.08 }}
-                            className={`w-8 h-8 rounded-md flex items-center justify-center ${
-                              done
-                                ? "bg-[var(--sol-green)]/20 text-[var(--sol-green)]"
-                                : "bg-[var(--sol-darker)] text-[var(--sol-text-muted)]/50"
-                            }`}
-                          >
-                            <Icon size={16} />
-                          </motion.div>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                </Link>
-              );
-            })}
+                    <LogOut size={14} /> {t.dashboard.logout}
+                  </button>
+                  <div className="flex items-center gap-2 text-sm text-white/70">
+                    <User size={14} /> {t.dashboard.emailLabel}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-        </motion.div>
+        </div>
+      </nav>
 
-        {/* Progress history */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mb-8"
-        >
-          <h2 className="text-xl font-bold text-[var(--sol-text)] mb-4">
-            {t.dashboard.progressTitle}
-          </h2>
-
-          {loadingProgress ? (
-            <div className="animate-pulse text-[var(--sol-text-muted)]">
-              ...
+      {/* Grid layout */}
+      <div className="max-w-[1305px] mx-auto px-4 sm:px-8 pt-8 pb-16 grid grid-cols-1 lg:grid-cols-[1fr_369px] gap-10">
+        {/* Left column */}
+        <div className="flex flex-col gap-10 min-w-0">
+          {/* Welcome Back card */}
+          <section className="fg-card-purple relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
+            <h2 className="text-3xl font-bold mb-8">{t.dashboard.welcomeBack} 👋</h2>
+            <div className="flex items-stretch justify-between gap-6">
+              <Stat icon={<Zap size={24} className="text-[#14f195]" />} value={String(totalXp)} label={t.dashboard.totalXp} />
+              <div className="w-px bg-white/10 self-stretch" />
+              <Stat
+                icon={<BookOpen size={24} className="text-[#9945ff]" />}
+                value={`${progress.length}/${MODULE_ORDER.length}`}
+                label={t.common.modulesCompleted}
+              />
+              <div className="w-px bg-white/10 self-stretch" />
+              <Stat
+                icon={<Trophy size={24} className="text-amber-400" />}
+                value={String(badges.length)}
+                label={t.dashboard.badgesEarned}
+              />
             </div>
-          ) : progress.length === 0 ? (
-            <div className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-8 text-center">
-              <p className="text-[var(--sol-text-muted)]">
-                {t.dashboard.noProgress}
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {progress.map((p, index) => {
-                const Icon = MODULE_ICONS[p.module_id] ?? BookOpen;
-                const moduleName =
-                  t.basics.modules[
-                    p.module_id as keyof typeof t.basics.modules
-                  ]?.title ?? p.module_id;
+          </section>
 
+          {/* Basics chapter card */}
+          <section className="fg-card-green relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                  <BookOpen size={24} className="text-[#14f195]" />
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-normal">{t.basics.pageTitle}</h3>
+              </div>
+              <Link href="/basics" className="pill-green inline-flex items-center gap-2">
+                {t.common.continue} <ArrowRight size={18} />
+              </Link>
+            </div>
+
+            <div className="flex items-center justify-between text-sm mb-3">
+              <span className="text-[#919191]">
+                {progress.length}/{MODULE_ORDER.length} {t.common.modulesCompleted}
+              </span>
+              <span className="text-[#14f195] font-medium">
+                {totalXp}/{CHAPTER_TOTAL_XP} XP
+              </span>
+            </div>
+            <div className="h-2 rounded-full bg-white/10 overflow-hidden mb-8">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${(progress.length / MODULE_ORDER.length) * 100}%` }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="h-full rounded-full bg-gradient-to-r from-[#9945ff] to-[#14f195]"
+              />
+            </div>
+
+            <div className="flex gap-2.5 flex-wrap">
+              {MODULE_ORDER.map((id) => {
+                const Icon = MODULE_ICONS[id] ?? BookOpen;
+                const done = completedIds.has(id);
                 return (
-                  <motion.div
-                    key={p.module_id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 + index * 0.08 }}
-                    className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4"
+                  <div
+                    key={id}
+                    className={`w-8 h-8 rounded-md flex items-center justify-center ${
+                      done ? "bg-[rgba(20,241,149,0.2)] text-[#14f195]" : "bg-[#07070f] text-white/40"
+                    }`}
                   >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-[var(--sol-purple)]/20 to-[var(--sol-green)]/20 flex items-center justify-center shrink-0">
-                      <Icon size={20} className="text-[var(--sol-green)]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-[var(--sol-text)] text-sm sm:text-base">
-                        {moduleName}
-                      </p>
-                      <p className="text-xs sm:text-sm text-[var(--sol-text-muted)]">
-                        {t.dashboard.moduleCompleted} —{" "}
-                        {new Date(p.completed_at).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <div className="text-right shrink-0">
-                      <p className="font-bold text-[var(--sol-green)] text-sm sm:text-base">
-                        +{p.xp_earned} XP
-                      </p>
-                      {p.badge && (
-                        <p className="text-xs text-amber-400 flex items-center gap-1 justify-end">
-                          <Trophy size={12} />
-                          {p.badge}
-                        </p>
-                      )}
-                    </div>
-                  </motion.div>
+                    <Icon size={16} />
+                  </div>
                 );
               })}
             </div>
-          )}
-        </motion.div>
+          </section>
 
-        {/* Badges row */}
-        {badges.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mb-8"
-          >
-            <h2 className="text-xl font-bold text-[var(--sol-text)] mb-4">
-              {t.dashboard.badgesEarned}
-            </h2>
-            <div className="flex flex-wrap gap-3">
+          {/* Progression list */}
+          <section className="fg-card-purple relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
+            <div className="flex items-center gap-5 mb-6">
+              <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                <Rocket size={24} className="text-[#9945ff]" />
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-normal">{t.dashboard.progressTitle}</h3>
+            </div>
+
+            {loadingProgress ? (
+              <div className="animate-pulse text-[#919191]">...</div>
+            ) : progress.length === 0 ? (
+              <p className="text-[#919191]">{t.dashboard.noProgress}</p>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {progress.map((p) => {
+                  const Icon = MODULE_ICONS[p.module_id] ?? BookOpen;
+                  const moduleName =
+                    t.basics.modules[p.module_id as keyof typeof t.basics.modules]?.title ?? p.module_id;
+                  return (
+                    <motion.div
+                      key={p.module_id}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="flex items-center justify-between gap-4 rounded-xl border border-[#1a1a3e] bg-white/5 px-4 py-3"
+                    >
+                      <div className="flex items-center gap-4 min-w-0">
+                        <div
+                          className="w-12 h-12 rounded-lg shrink-0 flex items-center justify-center"
+                          style={{
+                            background:
+                              "linear-gradient(135deg, rgba(153,69,255,0.2) 0%, rgba(20,241,149,0.2) 100%)",
+                          }}
+                        >
+                          <Icon size={20} className="text-white" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-semibold text-base truncate">{moduleName}</p>
+                          <p className="text-sm text-[#919191]">
+                            {t.dashboard.moduleCompleted} — {new Date(p.completed_at).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end gap-2 shrink-0">
+                        <span className="font-bold text-[#14f195]">+{p.xp_earned} XP</span>
+                        {p.badge && (
+                          <span className="badge-blue inline-flex items-center gap-1.5">
+                            <Trophy size={12} /> {p.badge}
+                          </span>
+                        )}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        </div>
+
+        {/* Right column: My Badges */}
+        <aside className="fg-card-blue relative rounded-[38px] p-8 overflow-hidden h-fit">
+          <Trophy size={37} className="text-amber-400 mb-4" />
+          <h3 className="text-2xl sm:text-3xl font-normal mb-6">{t.dashboard.badgesEarned}</h3>
+
+          {badges.length === 0 ? (
+            <p className="text-[#919191] text-sm">{t.dashboard.noProgress}</p>
+          ) : (
+            <div className="grid grid-cols-2 gap-4">
               {badges.map((badge, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, scale: 0 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.6 + i * 0.1, type: "spring", stiffness: 200 }}
-                  whileHover={{ scale: 1.1, rotateY: 10 }}
-                  style={{ transformStyle: "preserve-3d" }}
-                  className="flex items-center gap-2 bg-amber-900/30 border border-amber-500/50 rounded-full px-4 py-2"
+                  transition={{ delay: i * 0.05 }}
+                  className="relative rounded-md overflow-hidden aspect-[131/121]"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(153,69,255,0.5) 0%, rgba(102,148,255,0.4) 50%, rgba(20,241,149,0.3) 100%)",
+                  }}
                 >
-                  <Trophy size={16} className="text-amber-400" />
-                  <span className="text-sm font-medium text-amber-200">
-                    {badge}
-                  </span>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Trophy size={42} className="text-white/80" />
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-2 badge-blue inline-flex items-center gap-1 whitespace-nowrap !text-[8px] !px-2 !py-1">
+                    <Trophy size={9} />
+                    <span className="truncate max-w-[80px]">{badge}</span>
+                  </div>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
-        )}
+          )}
+        </aside>
       </div>
+    </div>
+  );
+}
+
+function Stat({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
+  return (
+    <div className="flex-1 flex flex-col items-center gap-2 text-center">
+      {icon}
+      <div className="font-bold text-2xl sm:text-3xl">{value}</div>
+      <div className="text-xs text-[#88a]">{label}</div>
     </div>
   );
 }

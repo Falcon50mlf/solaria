@@ -3,161 +3,212 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Zap, Trophy, BookOpen } from "lucide-react";
+import { usePrivy } from "@privy-io/react-auth";
+import { Wallet, Building2, Layers, ShieldCheck, LogIn } from "lucide-react";
 import { useLocale } from "@/lib/useLocale";
-import { TopBar } from "@/components/TopBar";
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 const Particles = () => {
-  const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number }>>([]);
-
+  const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; o: number }>>([]);
   useEffect(() => {
-    const newParticles = Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-    }));
-    setParticles(newParticles);
+    setParticles(
+      Array.from({ length: 40 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        o: 0.2 + Math.random() * 0.4,
+      }))
+    );
   }, []);
-
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
+      {particles.map((p) => (
         <motion.div
-          key={particle.id}
-          className="absolute w-1 h-1 bg-[var(--sol-purple)] rounded-full opacity-40"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-          }}
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.2, 0.6, 0.2],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 0.5,
-          }}
+          key={p.id}
+          className="absolute w-1 h-1 rounded-full"
+          style={{ left: `${p.x}%`, top: `${p.y}%`, background: "#9945ff", opacity: p.o }}
+          animate={{ y: [0, -15, 0], opacity: [p.o * 0.5, p.o, p.o * 0.5] }}
+          transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, delay: Math.random() }}
         />
       ))}
     </div>
   );
 };
 
-const StatCard = ({
-  value,
-  label,
-  icon: Icon,
-  delay,
-}: {
-  value: string;
-  label: string;
-  icon: typeof Zap;
-  delay: number;
-}) => (
-  <motion.div
-    className="game-card p-6 flex flex-col items-center gap-3 min-w-[100px] sm:min-w-[140px]"
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay, duration: 0.6 }}
-  >
-    <Icon size={28} className="text-[var(--sol-green)]" />
-    <div className="text-3xl font-bold bg-gradient-to-r from-[var(--sol-purple)] to-[var(--sol-green)] bg-clip-text text-transparent">
-      {value}
-    </div>
-    <div className="text-sm text-[var(--sol-text-muted)] text-center">{label}</div>
-  </motion.div>
-);
-
 export default function HomeContent() {
   const { t } = useLocale();
+  const { authenticated, login, ready } = usePrivy();
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      <TopBar />
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[var(--sol-dark)] via-[var(--sol-darker)] to-[var(--sol-dark)] -z-10" />
+    <div className="relative min-h-screen flex flex-col bg-[#111] text-white font-poppins overflow-hidden">
+      {/* Top navbar */}
+      <nav className="relative z-20 flex items-center justify-between px-6 sm:px-12 py-4">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
+          <span className="font-semibold text-xl tracking-tight">SolQuest</span>
+        </Link>
+        <div className="flex items-center gap-3">
+          <LanguageToggle />
+          {ready && authenticated ? (
+            <Link href="/dashboard" className="pill-purple inline-flex items-center gap-2">
+              <Wallet size={18} /> {t.dashboard.title}
+            </Link>
+          ) : (
+            <button
+              onClick={login}
+              disabled={!ready}
+              className="pill-purple inline-flex items-center gap-2 cursor-pointer"
+            >
+              <LogIn size={18} /> {t.login.loginButton}
+            </button>
+          )}
+        </div>
+      </nav>
 
-      {/* Particles effect */}
+      {/* Top elliptical glow */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 -top-[480px] w-[667px] h-[667px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(153,69,255,0.35) 0%, rgba(153,69,255,0.1) 40%, rgba(17,17,17,0) 70%)",
+        }}
+      />
       <Particles />
 
-      {/* Animated grid background */}
-      <div className="absolute inset-0 opacity-5 -z-10">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(153, 69, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(153, 69, 255, 0.1) 1px, transparent 1px)",
-            backgroundSize: "50px 50px",
-          }}
-        />
-      </div>
-
-      {/* Glow effect top right */}
-      <div className="absolute top-0 right-0 w-48 h-48 sm:w-96 sm:h-96 bg-[var(--sol-purple)] rounded-full blur-3xl opacity-10 -z-10" />
-
-      {/* Main content */}
-      <main className="relative z-10 px-4 sm:px-6 lg:px-8 py-12 sm:py-20 max-w-6xl mx-auto w-full flex flex-col">
-        {/* Hero title */}
+      {/* Hero */}
+      <main className="relative z-10 flex-1 flex flex-col items-center px-4 sm:px-8 pt-16 sm:pt-20 pb-32">
         <motion.div
-          className="text-center mb-8 sm:mb-12"
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center justify-center rounded-full border border-[#9945ff] bg-[rgba(153,69,255,0.1)] px-8 py-3 mb-6"
         >
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            <span className="bg-gradient-to-r from-[var(--sol-purple)] via-[var(--sol-blue)] to-[var(--sol-green)] bg-clip-text text-transparent drop-shadow-lg">
-              SolQuest
-            </span>
-          </h1>
-          <p className="text-base sm:text-xl md:text-2xl text-[var(--sol-text-muted)] font-light">
-            {t.home.subtitle}
-          </p>
+          <span className="text-[13px] uppercase tracking-wider font-medium">
+            {t.home.narratorLabel}
+          </span>
         </motion.div>
 
-        {/* Narrative intro box */}
-        <motion.div
-          className="narrative-box mb-12"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-        >
-          <span className="narrator">{t.home.narratorLabel}</span>
-          <p>
-            {t.home.narratorText}
-          </p>
-        </motion.div>
-
-        {/* Stats section */}
-        <motion.div
-          className="flex justify-center gap-4 sm:gap-6 mb-12 flex-wrap"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-        >
-          <StatCard value="8" label={t.home.statModules} icon={BookOpen} delay={0.5} />
-          <StatCard value="1150 XP" label={t.home.statXpToEarn} icon={Zap} delay={0.6} />
-          <StatCard value="8" label={t.home.statBadges} icon={Trophy} delay={0.7} />
-        </motion.div>
-
-        {/* Chapters Section */}
-        <motion.div
-          className="w-full max-w-2xl mx-auto mb-12 flex justify-center"
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+          className="text-3xl sm:text-5xl md:text-[52px] font-bold uppercase text-center leading-[1.1] mb-4 flex flex-wrap items-center justify-center gap-3"
         >
-          <Link href="/chapters">
-            <button className="btn-primary text-base px-6 py-3 sm:text-lg sm:px-10 sm:py-4 transition-all duration-300">
-              {t.home.exploreWithoutAccount}
-            </button>
-          </Link>
+          <span>From zero to</span>
+          <span className="bg-gradient-to-r from-[#9945ff] via-[#00d4ff] to-[#14f195] bg-clip-text text-transparent">
+            Solana
+          </span>
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="text-lg sm:text-xl text-center font-light text-white/90 max-w-2xl mb-16"
+        >
+          {t.home.subtitle}
+        </motion.p>
+
+        {/* 3 feature cards */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.6 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-9 w-full max-w-6xl mb-12"
+        >
+          <FeatureCard
+            icon={<Building2 size={36} className="text-white" />}
+            title="Basics"
+            desc="Master the foundations of Web3: wallets, transactions, blockchain and the Solana ecosystem. The perfect starting point before going further."
+            variant="blue"
+            href="/chapters"
+            enabled
+          />
+          <FeatureCard
+            icon={<Layers size={36} className="text-white" />}
+            title="Solana Infrastructure"
+            desc="Dive into Solana's core mechanics: Proof of History, TPS, validators and network architecture. Understand what makes Solana unique."
+            variant="green"
+          />
+          <FeatureCard
+            icon={<ShieldCheck size={36} className="text-white" />}
+            title="Risks & Security"
+            desc="Learn to protect yourself in the Web3 ecosystem: rug pulls, phishing, smart contract audits and best practices. Because security is a skill too."
+            variant="purple"
+          />
         </motion.div>
 
-        {/* Floating accent shapes */}
-        <div className="absolute top-1/4 left-10 w-16 h-16 sm:w-32 sm:h-32 bg-[var(--sol-purple)] rounded-full blur-3xl opacity-5" />
-        <div className="absolute bottom-1/4 right-10 w-20 h-20 sm:w-40 sm:h-40 bg-[var(--sol-green)] rounded-full blur-3xl opacity-5" />
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.55 }}
+        >
+          <Link href="/chapters" className="pill-outline inline-flex items-center gap-2">
+            {t.home.exploreWithoutAccount}
+          </Link>
+        </motion.div>
       </main>
+
+      {/* Bottom navbar */}
+      <footer className="relative z-10 flex items-center justify-between px-6 sm:px-12 py-5 border-t border-white/5">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-md bg-gradient-to-br from-[#9945ff] to-[#14f195]" />
+          <div>
+            <div className="font-semibold text-2xl leading-tight">SolQuest</div>
+            <div className="text-[11px] tracking-[0.2em] uppercase text-white/60">from zero to solana</div>
+          </div>
+        </div>
+        <a
+          href="https://x.com"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="X"
+          className="w-8 h-8 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        </a>
+      </footer>
     </div>
   );
+}
+
+function FeatureCard({
+  icon,
+  title,
+  desc,
+  variant,
+  href,
+  enabled,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  variant: "blue" | "green" | "purple";
+  href?: string;
+  enabled?: boolean;
+}) {
+  const variantClass =
+    variant === "blue" ? "fg-card-blue" : variant === "green" ? "fg-card-green" : "fg-card-purple";
+
+  const inner = (
+    <motion.div
+      whileHover={enabled ? { y: -4 } : {}}
+      className={`${variantClass} relative rounded-[38px] p-8 sm:p-10 h-full min-h-[360px] flex flex-col gap-6 overflow-hidden ${
+        enabled ? "cursor-pointer" : "opacity-90"
+      }`}
+    >
+      <div>{icon}</div>
+      <h3 className="text-2xl sm:text-[28px] font-normal">{title}</h3>
+      <p className="text-[15px] text-[#919191] leading-relaxed flex-1">{desc}</p>
+      {!enabled && (
+        <span className="text-xs uppercase tracking-wider text-white/50 border border-white/10 rounded-full px-3 py-1 self-start">
+          Coming soon
+        </span>
+      )}
+    </motion.div>
+  );
+
+  return href && enabled ? <Link href={href}>{inner}</Link> : inner;
 }

@@ -3,14 +3,89 @@
 :root {
   --sol-purple: #9945FF;
   --sol-green: #14F195;
+  --sol-green-alt: #28E0B9;
+  --sol-badge-blue: #6694FF;
   --sol-dark: #0D0D1A;
   --sol-darker: #07070F;
+  --sol-black: #111111;
   --sol-card: #13132B;
   --sol-card-hover: #1A1A3E;
-  --sol-text: #E4E4ED;
-  --sol-text-muted: #8888AA;
+  --sol-text: #FFFFFF;
+  --sol-text-muted: #919191;
   --sol-accent: #FF6B6B;
   --sol-blue: #00D4FF;
+  --color-purple: #9945FF;
+  --color-green: #28E0B9;
+  --color-black: #111111;
+}
+
+.font-poppins { font-family: var(--font-poppins), system-ui, sans-serif; }
+
+.fg-card-purple {
+  background: linear-gradient(to bottom, #100B16, #0F0220);
+  box-shadow:
+    inset 0 -1px 10.8px 0 rgba(238, 54, 255, 0.2),
+    inset 0 -23px 12px -1px rgba(111, 27, 255, 0.17),
+    inset 0 -47px 16px -33px rgba(255, 255, 255, 0.7),
+    inset 0 -30px 26.7px -27px rgba(249, 187, 255, 0.5),
+    inset 0 -40px 46.3px -30px #9945FF;
+}
+.fg-card-blue {
+  background: linear-gradient(to bottom, #0D0C12, #0D111D);
+  box-shadow:
+    inset 0 -1px 10.8px 0 rgba(102, 148, 255, 0.2),
+    inset 0 -30px 12px -1px rgba(35, 101, 255, 0.15),
+    inset 0 -24px 16.7px -9px rgba(255, 255, 255, 0.64),
+    inset 0 -34px 26.7px -10px rgba(102, 148, 255, 0.5),
+    inset 0 -30px 46.8px -33px #144CCD;
+}
+.fg-card-green {
+  background: linear-gradient(to bottom, #0A120B, #031B14);
+  box-shadow:
+    inset 0 -1px 10.8px 0 #28E0B9,
+    inset 0 -30px 12px -1px rgba(40, 224, 185, 0.17),
+    inset 0 -37px 16px -36px rgba(255, 255, 255, 0.25),
+    inset 0 -34px 26.7px -15px #8BD5C6,
+    inset 0 -40px 46.8px -30px #28E0B9;
+}
+.pill-outline {
+  border: 1px solid var(--sol-purple);
+  border-radius: 36px;
+  padding: 14px 30px;
+  color: #fff;
+  font-size: 15px;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.pill-outline:hover { background: rgba(153, 69, 255, 0.15); }
+.pill-purple {
+  background: linear-gradient(125deg, #9945FF 3%, #111111 102%);
+  border: 1px solid #9945FF;
+  border-radius: 36px;
+  padding: 11px 25px;
+  color: #fff;
+  font-size: 15px;
+  transition: opacity 0.2s;
+}
+.pill-purple:hover { opacity: 0.9; }
+.pill-green {
+  background: linear-gradient(119deg, #28E0B9 3%, #111111 102%);
+  border: 1px solid #28E0B9;
+  border-radius: 36px;
+  padding: 11px 25px;
+  color: #fff;
+  font-size: 15px;
+  transition: opacity 0.2s;
+}
+.pill-green:hover { opacity: 0.9; }
+.badge-blue {
+  background: rgba(102, 148, 255, 0.3);
+  border: 0.785px solid #6694FF;
+  border-radius: 999px;
+  padding: 7px 15px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 510;
 }
 
 @theme inline {
