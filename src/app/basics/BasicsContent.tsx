@@ -231,32 +231,62 @@ export default function BasicsContent() {
                 className="module-step relative"
                 variants={itemVariants}
               >
-                {!prefersReducedMotion && isActive && (
-                  <motion.div
-                    className="absolute inset-0 rounded-2xl pointer-events-none"
-                    animate={{
-                      boxShadow: [
-                        "0 0 0 1px rgba(20, 241, 149, 0.2)",
-                        "0 0 15px 2px rgba(20, 241, 149, 0.3)",
-                        "0 0 0 1px rgba(20, 241, 149, 0.2)",
-                      ],
-                    }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ borderRadius: "inherit" }}
-                  />
-                )}
-                <div className={`${isLocked ? '' : 'flip-card'} w-full max-w-[420px] mx-auto`} style={{ minHeight: '380px' }}>
-                  <div className="flip-card-inner" style={{ minHeight: '380px' }}>
+                {isLocked ? (
+                <div className="w-full max-w-[420px] mx-auto">
+                  <Link
+                    href="#"
+                    className="game-card locked"
+                    style={{ pointerEvents: 'none' }}
+                  >
+                    <motion.div
+                      className="card-content"
+                      variants={cardVariants}
+                    >
+                      <div className="step-number">
+                        {t.common.step} {moduleConfig.step}
+                      </div>
+
+                      <div className="card-icon-wrapper">
+                        <div className="card-icon" style={{ filter: "blur(1px)" }}>
+                          <Icon size={36} />
+                        </div>
+                        <div className="lock-overlay">
+                          <Lock size={20} />
+                        </div>
+                      </div>
+
+                      <h3 className="card-title">{moduleConfig.title}</h3>
+                      <p className="card-subtitle">{moduleConfig.subtitle}</p>
+
+                      <div className="card-xp">
+                        <div className="xp-available">
+                          <Zap size={14} />
+                          <span>{moduleConfig.maxXp} {t.common.xp}</span>
+                        </div>
+                      </div>
+
+                      <p className="lock-message">
+                        {t.common.completePrevious}
+                      </p>
+
+                      <div className="card-action">
+                        <button className="btn-primary locked" disabled>
+                          {t.common.locked}
+                        </button>
+                      </div>
+                    </motion.div>
+                  </Link>
+                </div>
+              ) : (
+                <div className="flip-card w-full max-w-[420px] mx-auto min-h-[380px]">
+                  <div className="flip-card-inner min-h-[380px]">
                     {/* FRONT */}
                     <div className="flip-card-front">
                       <Link
-                        href={isLocked ? '#' : moduleConfig.link}
-                        className={`game-card h-full ${isLocked ? 'locked' : ''} ${
+                        href={moduleConfig.link}
+                        className={`game-card h-full ${
                           isCompleted ? 'completed' : ''
                         } ${isActive ? 'active' : ''}`}
-                        style={{
-                          pointerEvents: isLocked ? 'none' : 'auto',
-                        }}
                       >
                         <motion.div
                           className="card-content h-full"
@@ -267,14 +297,9 @@ export default function BasicsContent() {
                           </div>
 
                           <div className="card-icon-wrapper">
-                            <div className="card-icon" style={{ filter: isLocked ? "blur(1px)" : "none" }}>
+                            <div className="card-icon">
                               <Icon size={36} />
                             </div>
-                            {isLocked && (
-                              <div className="lock-overlay">
-                                <Lock size={20} />
-                              </div>
-                            )}
                             {isCompleted && (
                               <div className="complete-overlay">
                                 <motion.div
@@ -306,20 +331,10 @@ export default function BasicsContent() {
                             )}
                           </div>
 
-                          {isLocked && (
-                            <p className="lock-message">
-                              {t.common.completePrevious}
-                            </p>
-                          )}
-
                           <div className="card-action">
                             {isCompleted ? (
                               <button className="btn-primary completed">
                                 {t.common.completed}
-                              </button>
-                            ) : isLocked ? (
-                              <button className="btn-primary locked" disabled>
-                                {t.common.locked}
                               </button>
                             ) : (
                               <button className="btn-primary">
@@ -332,38 +347,37 @@ export default function BasicsContent() {
                     </div>
 
                     {/* BACK */}
-                    {!isLocked && (
-                      <div className="flip-card-back">
-                        <Link
-                          href={moduleConfig.link}
-                          className={`game-card h-full ${
-                            isCompleted ? 'completed' : ''
-                          } ${isActive ? 'active' : ''}`}
-                          style={{ display: 'flex' }}
-                        >
-                          <div className="h-full w-full flex flex-col items-center justify-between text-center px-6 py-8 sm:px-8">
-                            <div className="flex flex-col items-center">
-                              <div className="card-icon mb-3" style={{ width: '56px', height: '56px' }}>
-                                <Icon size={28} />
-                              </div>
-                              <h3 className="text-lg sm:text-xl font-bold mb-3" style={{ color: 'var(--color-text-primary, #fff)' }}>
-                                {moduleConfig.title}
-                              </h3>
-                              <p className="text-sm sm:text-base leading-relaxed max-w-[320px]" style={{ color: 'var(--color-text-secondary, #b0b5c8)' }}>
-                                {moduleConfig.backDescription}
-                              </p>
+                    <div className="flip-card-back">
+                      <Link
+                        href={moduleConfig.link}
+                        className={`game-card h-full ${
+                          isCompleted ? 'completed' : ''
+                        } ${isActive ? 'active' : ''}`}
+                        style={{ display: 'flex' }}
+                      >
+                        <div className="h-full w-full flex flex-col items-center justify-between text-center px-6 py-8 sm:px-8">
+                          <div className="flex flex-col items-center">
+                            <div className="card-icon mb-3" style={{ width: '56px', height: '56px' }}>
+                              <Icon size={28} />
                             </div>
-                            <div className="mt-5">
-                              <button className="btn-primary text-sm px-6 py-2.5">
-                                {isCompleted ? t.common.completed : t.common.start}
-                              </button>
-                            </div>
+                            <h3 className="text-lg sm:text-xl font-bold mb-3" style={{ color: 'var(--color-text-primary, #fff)' }}>
+                              {moduleConfig.title}
+                            </h3>
+                            <p className="text-sm sm:text-base leading-relaxed max-w-[320px]" style={{ color: 'var(--color-text-secondary, #b0b5c8)' }}>
+                              {moduleConfig.backDescription}
+                            </p>
                           </div>
-                        </Link>
-                      </div>
-                    )}
+                          <div className="mt-5">
+                            <button className="btn-primary text-sm px-6 py-2.5">
+                              {isCompleted ? t.common.completed : t.common.start}
+                            </button>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
                   </div>
                 </div>
+              )}
               </motion.div>
             );
           })}

@@ -234,6 +234,7 @@
   transform: translateX(-50%);
   width: 2px;
   pointer-events: none;
+  z-index: 0;
 }
 
 .path-line {
@@ -322,6 +323,32 @@
 .game-card.completed .card-content {
   border-color: var(--color-success);
   box-shadow: 0 0 20px rgba(20, 241, 149, 0.2), inset 0 0 20px rgba(20, 241, 149, 0.05);
+}
+
+/* Active Card Pulse Animation */
+.game-card.active .card-content {
+  animation: active-pulse 2s ease-in-out infinite;
+}
+
+@keyframes active-pulse {
+  0%, 100% { border-color: rgba(20, 241, 149, 0.3); }
+  50% { border-color: rgba(20, 241, 149, 0.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-card.active .card-content {
+    animation: none;
+    border-color: var(--color-primary);
+  }
+}
+
+/* Flip Card Min Heights */
+.flip-card-front .game-card {
+  min-height: 380px;
+}
+
+.flip-card-back .game-card {
+  min-height: 380px;
 }
 
 /* Step Number */
