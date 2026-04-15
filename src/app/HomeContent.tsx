@@ -3,25 +3,9 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  Zap,
-  Trophy,
-  BookOpen,
-  ChevronRight,
-  Network,
-  Boxes,
-  Key,
-  Shield,
-  Send,
-  Brain,
-  Server,
-  Search,
-} from "lucide-react";
+import { Zap, Trophy, BookOpen } from "lucide-react";
 import { useLocale } from "@/lib/useLocale";
 import { TopBar } from "@/components/TopBar";
-import { useGameState } from "@/lib/useGameState";
-
-const CHAPTER_MODULE_ICONS = [Network, Boxes, Key, Shield, Send, Brain, Server, Search];
 
 const Particles = () => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number }>>([]);
@@ -87,14 +71,6 @@ const StatCard = ({
 
 export default function HomeContent() {
   const { t } = useLocale();
-  const { modules } = useGameState();
-  const completedCount = modules.filter((m) => m.completed).length;
-  const totalModules = 8;
-  const chapterXpEarned = modules.reduce((sum, m) => sum + m.xpEarned, 0);
-  const chapterTotalXp = 1150;
-  const progressPercent = Math.round((completedCount / totalModules) * 100);
-  const completedIds = new Set(modules.filter((m) => m.completed).map((m) => m.id));
-  const moduleIds = ["decentralisation", "blockchain", "wallet", "seedphrase", "transactions", "consensus", "validators", "explorer"];
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -166,89 +142,16 @@ export default function HomeContent() {
 
         {/* Chapters Section */}
         <motion.div
-          className="w-full max-w-2xl mx-auto mb-12"
+          className="w-full max-w-2xl mx-auto mb-12 flex justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          <h2 className="text-xl font-bold text-[var(--sol-text)] mb-4">
-            {t.home.chaptersTitle}
-          </h2>
-          <Link href="/basics">
-            <motion.div
-              whileHover={{
-                scale: 1.02,
-                boxShadow: "0 0 20px rgba(153, 69, 255, 0.2)",
-              }}
-              className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] hover:border-[var(--sol-purple)]/40 rounded-xl p-4 sm:p-6 transition-colors cursor-pointer"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--sol-purple)]/20 to-[var(--sol-green)]/20 flex items-center justify-center">
-                    <BookOpen size={24} className="text-[var(--sol-purple)]" />
-                  </div>
-                  <div className="text-left">
-                    <h3 className="font-bold text-[var(--sol-text)] text-base sm:text-lg">
-                      {t.basics.pageTitle}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[var(--sol-text-muted)]">
-                      {totalModules} {t.home.chapterModules}
-                    </p>
-                  </div>
-                </div>
-                <ChevronRight size={20} className="text-[var(--sol-text-muted)]" />
-              </div>
-
-              <div className="mb-3">
-                <div className="flex justify-between text-xs sm:text-sm mb-1">
-                  <span className="text-[var(--sol-text-muted)]">
-                    {completedCount}/{totalModules} {t.common.modulesCompleted}
-                  </span>
-                  <span className="text-[var(--sol-green)] font-medium">
-                    {chapterXpEarned}/{chapterTotalXp} XP
-                  </span>
-                </div>
-                <div className="w-full bg-[var(--sol-darker)] rounded-full h-2 overflow-hidden">
-                  <motion.div
-                    className="bg-gradient-to-r from-[var(--sol-purple)] to-[var(--sol-green)] h-full rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${progressPercent}%` }}
-                    transition={{ duration: 0.8, delay: 1 }}
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                {moduleIds.map((id, i) => {
-                  const Icon = CHAPTER_MODULE_ICONS[i] ?? BookOpen;
-                  const done = completedIds.has(id);
-                  return (
-                    <motion.div
-                      key={id}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 15,
-                        delay: 1 + i * 0.06,
-                      }}
-                      className={`w-8 h-8 rounded-md flex items-center justify-center ${
-                        done
-                          ? "bg-[var(--sol-green)]/20 text-[var(--sol-green)]"
-                          : "bg-[var(--sol-darker)] text-[var(--sol-text-muted)]/50"
-                      }`}
-                    >
-                      <Icon size={16} />
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
+          <Link href="/chapters">
+            <button className="btn-primary text-base px-6 py-3 sm:text-lg sm:px-10 sm:py-4 transition-all duration-300">
+              {t.home.exploreWithoutAccount}
+            </button>
           </Link>
-          <p className="text-center text-xs text-[var(--sol-text-muted)] mt-3">
-            {t.home.exploreWithoutAccount}
-          </p>
         </motion.div>
 
         {/* Floating accent shapes */}
