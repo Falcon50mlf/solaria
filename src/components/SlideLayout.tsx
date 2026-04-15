@@ -2,9 +2,10 @@
 
 import { useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ArrowRight, Lock } from "lucide-react";
 import Link from "next/link";
 import { TopBar } from "./TopBar";
+import { useLocale } from "@/lib/useLocale";
 
 interface SlideLayoutProps {
   moduleTitle: string;
@@ -26,6 +27,7 @@ export function SlideLayout({
   icon,
   canAdvance,
 }: SlideLayoutProps) {
+  const { t } = useLocale();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
   const total = slides.length;
@@ -124,27 +126,46 @@ export function SlideLayout({
               {slides[currentSlide]}
 
               {/* Navigation buttons inline */}
-              <div className="flex items-center justify-between mt-8">
-                <button
+              <div className="flex items-center justify-between gap-3 mt-10">
+                <motion.button
                   onClick={goPrev}
                   disabled={currentSlide === 0}
-                  className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-0 disabled:cursor-default text-slate-400 hover:text-white cursor-pointer"
+                  whileHover={currentSlide === 0 ? {} : { x: -2 }}
+                  whileTap={currentSlide === 0 ? {} : { scale: 0.97 }}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-colors disabled:opacity-0 disabled:pointer-events-none text-slate-300 hover:text-white hover:bg-white/5 border border-white/10 cursor-pointer"
                 >
                   <ChevronLeft size={16} />
-                </button>
+                  <span className="hidden sm:inline">{t.common.back}</span>
+                </motion.button>
+
+                <span className="text-xs font-mono tracking-wider text-slate-500">
+                  {currentSlide + 1}<span className="mx-1 text-slate-600">/</span>{total}
+                </span>
 
                 {currentSlide < total - 1 && (
-                  <button
-                    onClick={goNext}
-                    disabled={isNextBlocked}
-                    className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
-                      isNextBlocked
-                        ? "bg-slate-700 text-slate-500 cursor-not-allowed"
-                        : "bg-[var(--sol-green)]/10 text-[var(--sol-green)] border border-[var(--sol-green)]/30 hover:bg-[var(--sol-green)]/20 hover:shadow-[0_0_15px_rgba(20,241,149,0.15)]"
-                    }`}
-                  >
-                    <ChevronRight size={16} />
-                  </button>
+                  isNextBlocked ? (
+                    <div className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-amber-500/10 text-amber-300/90 border border-amber-500/30">
+                      <Lock size={14} />
+                      <span className="hidden sm:inline">{t.common.completePrevious}</span>
+                    </div>
+                  ) : (
+                    <motion.button
+                      onClick={goNext}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="group relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold text-white overflow-hidden cursor-pointer bg-gradient-to-r from-[var(--sol-purple)] to-[var(--sol-green)] shadow-[0_0_20px_rgba(153,69,255,0.35)] hover:shadow-[0_0_28px_rgba(20,241,149,0.45)] transition-shadow"
+                    >
+                      <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                      <span className="relative">{t.common.continue}</span>
+                      <motion.span
+                        className="relative"
+                        animate={{ x: [0, 3, 0] }}
+                        transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <ArrowRight size={16} />
+                      </motion.span>
+                    </motion.button>
+                  )
                 )}
               </div>
             </motion.div>
