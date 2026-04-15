@@ -212,18 +212,20 @@ export default function ValidatorsContent() {
                 </p>
               </div>
 
-              {/* Progress */}
-              <div className="flex items-center gap-2 mb-6">
+              {/* Progress bar */}
+              <div className="flex gap-1 mb-6">
                 {questions.map((_, i) => (
-                  <div
+                  <motion.div
                     key={i}
-                    className={`h-2 flex-1 rounded-full transition-colors ${
-                      i < currentQuestion
-                        ? 'bg-purple-500'
-                        : i === currentQuestion
-                        ? 'bg-purple-400'
-                        : 'bg-slate-700'
+                    className={`h-1.5 flex-1 rounded-full ${
+                      i < currentQuestion ? "bg-[var(--sol-green)]" :
+                      i === currentQuestion ? "bg-[var(--sol-purple)]" :
+                      "bg-slate-700"
                     }`}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ delay: i * 0.05, duration: 0.3 }}
+                    style={{ transformOrigin: "left" }}
                   />
                 ))}
               </div>
@@ -232,9 +234,9 @@ export default function ValidatorsContent() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`q-${currentQuestion}`}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3 }}
                 >
                   <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-6">
@@ -250,6 +252,7 @@ export default function ValidatorsContent() {
                         const isSelected = selectedAnswer === i;
                         const isCorrect =
                           i === questions[currentQuestion].correctIndex;
+                        let animClass = '';
                         let borderClass = 'border-slate-600 hover:border-purple-500/50';
                         let bgClass = 'bg-slate-700/50 hover:bg-slate-700';
 
@@ -257,12 +260,14 @@ export default function ValidatorsContent() {
                           if (isCorrect) {
                             borderClass = 'border-green-500';
                             bgClass = 'bg-green-900/30';
+                            animClass = 'animate-flash-green';
                           } else if (isSelected && !isCorrect) {
                             borderClass = 'border-red-500';
                             bgClass = 'bg-red-900/30';
+                            animClass = 'animate-shake animate-flash-red';
                           } else {
                             borderClass = 'border-slate-700';
-                            bgClass = 'bg-slate-800/30';
+                            bgClass = 'bg-slate-800/30 opacity-50';
                           }
                         }
 
@@ -276,7 +281,7 @@ export default function ValidatorsContent() {
                               selectedAnswer === null ? { scale: 0.99 } : {}
                             }
                             onClick={() => handleAnswer(i)}
-                            className={`w-full text-left border rounded-lg p-4 transition-colors flex items-center gap-3 ${borderClass} ${bgClass} ${
+                            className={`w-full text-left border rounded-lg p-4 transition-colors flex items-center gap-3 ${borderClass} ${bgClass} ${animClass} ${
                               selectedAnswer !== null
                                 ? 'cursor-default'
                                 : 'cursor-pointer'

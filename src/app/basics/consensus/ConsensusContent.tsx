@@ -210,28 +210,31 @@ export default function ConsensusContent() {
 
               {!quizComplete ? (
                 <div>
-                  {/* Progress */}
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="text-sm text-slate-400">
-                      {currentQuestion + 1}/{questions.length}
-                    </span>
-                    <div className="flex-1 mx-4 h-2 bg-slate-800 rounded-full overflow-hidden">
+                  {/* Progress bar */}
+                  <div className="flex gap-1 mb-6">
+                    {questions.map((_, i) => (
                       <motion.div
-                        className="h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-                        transition={{ duration: 0.3 }}
+                        key={i}
+                        className={`h-1.5 flex-1 rounded-full ${
+                          i < currentQuestion ? "bg-[var(--sol-green)]" :
+                          i === currentQuestion ? "bg-[var(--sol-purple)]" :
+                          "bg-slate-700"
+                        }`}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ delay: i * 0.05, duration: 0.3 }}
+                        style={{ transformOrigin: "left" }}
                       />
-                    </div>
+                    ))}
                   </div>
 
                   {/* Question card */}
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentQuestion}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
                     >
                       <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-4 sm:p-8 mb-6">
@@ -243,16 +246,20 @@ export default function ConsensusContent() {
                       {/* Answer buttons */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                         {current.options.map((option, index) => {
-                          let btnClass = 'bg-slate-800/50 border border-slate-600 hover:border-purple-500/50';
+                          let btnClass = '';
 
-                          if (selectedAnswer !== null) {
+                          if (showExplanation) {
                             if (index === current.correctIndex) {
-                              btnClass = 'bg-green-900/30 border border-green-500';
-                            } else if (index === selectedAnswer && index !== current.correctIndex) {
-                              btnClass = 'bg-red-900/30 border border-red-500';
+                              btnClass = 'bg-green-900/30 border border-green-500 animate-flash-green';
+                            } else if (index === selectedAnswer) {
+                              btnClass = 'bg-red-900/30 border border-red-500 animate-shake animate-flash-red';
                             } else {
-                              btnClass = 'bg-slate-800/50 border border-slate-600 opacity-50';
+                              btnClass = 'bg-slate-800/30 border border-slate-700 opacity-50';
                             }
+                          } else if (selectedAnswer !== null) {
+                            btnClass = 'bg-slate-800/30 border border-slate-700 opacity-50 cursor-default';
+                          } else {
+                            btnClass = 'bg-slate-800/50 border border-slate-600 hover:border-purple-500/50 cursor-pointer';
                           }
 
                           return (
@@ -261,7 +268,7 @@ export default function ConsensusContent() {
                               whileHover={selectedAnswer === null ? { scale: 1.02 } : {}}
                               whileTap={selectedAnswer === null ? { scale: 0.98 } : {}}
                               onClick={() => handleAnswer(index)}
-                              className={`${btnClass} rounded-lg p-4 text-left transition-all cursor-pointer`}
+                              className={`${btnClass} rounded-lg p-4 text-left transition-all`}
                               disabled={selectedAnswer !== null}
                             >
                               <span className="text-slate-200">{option}</span>
@@ -322,17 +329,22 @@ export default function ConsensusContent() {
               ) : (
                 /* Quiz complete */
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
                 >
                   <div className="bg-green-900/30 border border-green-700/50 rounded-lg p-6 mb-6 text-center">
                     <p className="text-green-400 font-bold text-lg mb-4">
                       {t.consensus.phase2Success}
                     </p>
-                    <p className="text-2xl sm:text-3xl font-bold text-white mb-6">
+                    <motion.span
+                      className="text-4xl sm:text-5xl font-bold text-[var(--sol-green)] animate-count-up block mb-6"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+                    >
                       {correctAnswers}/{questions.length}
-                    </p>
+                    </motion.span>
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}

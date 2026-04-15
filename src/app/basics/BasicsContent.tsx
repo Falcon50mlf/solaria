@@ -30,8 +30,8 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
+      staggerChildren: 0.08,
+      delayChildren: 0.2,
     },
   },
 };
@@ -49,17 +49,18 @@ const itemVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
   visible: {
     opacity: 1,
     scale: 1,
+    y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.5,
       ease: "easeOut" as const,
     },
   },
   hover: {
-    scale: 1.02,
+    scale: 1.03,
     transition: {
       duration: 0.2,
     },
@@ -70,6 +71,7 @@ export default function BasicsContent() {
   const { t } = useLocale();
   const { authenticated } = usePrivy();
   const { totalXp, level, modules, badges } = useGameState();
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const MODULES = [
     { id: 'decentralisation', title: t.basics.modules.decentralisation.title, subtitle: t.basics.modules.decentralisation.subtitle, icon: Network, maxXp: 100, link: '/basics/decentralisation', step: 1 },
@@ -119,13 +121,27 @@ export default function BasicsContent() {
                 {totalXp} / {xpForNextLevel}
               </span>
             </div>
-            <div className="xp-bar">
+            <div className="xp-bar relative overflow-hidden">
               <motion.div
                 className="xp-fill"
                 initial={{ width: 0 }}
                 animate={{ width: `${xpProgress}%` }}
-                transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
+                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               />
+              {!prefersReducedMotion && xpProgress > 0 && (
+                <motion.div
+                  className="absolute inset-0 rounded-full overflow-hidden pointer-events-none"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.2 }}
+                >
+                  <motion.div
+                    className="h-full w-[30%] bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    animate={{ x: ["-100%", "400%"] }}
+                    transition={{ duration: 1.5, delay: 1.3, ease: "easeInOut" }}
+                  />
+                </motion.div>
+              )}
             </div>
           </div>
         </div>
@@ -138,7 +154,13 @@ export default function BasicsContent() {
                 className="badge"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 + idx * 0.1, duration: 0.3 }}
+                transition={{ delay: 0.4 + idx * 0.1, duration: 0.3, type: "spring" }}
+                whileHover={{
+                  scale: 1.1,
+                  rotateY: 15,
+                  transition: { duration: 0.2 },
+                }}
+                style={{ transformStyle: "preserve-3d" }}
                 title={badge}
               >
                 <Trophy size={16} />
@@ -206,9 +228,23 @@ export default function BasicsContent() {
             return (
               <motion.div
                 key={moduleConfig.id}
-                className="module-step"
+                className="module-step relative"
                 variants={itemVariants}
               >
+                {!prefersReducedMotion && isActive && (
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl pointer-events-none"
+                    animate={{
+                      boxShadow: [
+                        "0 0 0 1px rgba(20, 241, 149, 0.2)",
+                        "0 0 15px 2px rgba(20, 241, 149, 0.3)",
+                        "0 0 0 1px rgba(20, 241, 149, 0.2)",
+                      ],
+                    }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ borderRadius: "inherit" }}
+                  />
+                )}
                 <Link
                   href={isLocked ? '#' : moduleConfig.link}
                   className={`game-card ${isLocked ? 'locked' : ''} ${
@@ -228,17 +264,27 @@ export default function BasicsContent() {
                     </div>
 
                     <div className="card-icon-wrapper">
-                      <div className="card-icon">
+                      <div className="card-icon" style={{ filter: isLocked ? "blur(1px)" : "none" }}>
                         <Icon size={36} />
                       </div>
                       {isLocked && (
                         <div className="lock-overlay">
-                          <Lock size={20} />
+                          <motion.div
+                            whileHover={{ rotate: [0, -10, 10, -10, 0], transition: { duration: 0.5 } }}
+                          >
+                            <Lock size={20} />
+                          </motion.div>
                         </div>
                       )}
                       {isCompleted && (
                         <div className="complete-overlay">
-                          <CheckCircle2 size={24} />
+                          <motion.div
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.3 }}
+                          >
+                            <CheckCircle2 size={24} />
+                          </motion.div>
                         </div>
                       )}
                     </div>

@@ -104,6 +104,8 @@ export default function DashboardContent() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   if (isLoading || !ready) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -180,13 +182,13 @@ export default function DashboardContent() {
         </motion.div>
 
         {/* Stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8"
-        >
-          <div className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center"
+          >
             <Zap size={24} className="text-[var(--sol-green)] mx-auto mb-2" />
             <p className="text-2xl font-bold text-[var(--sol-text)]">
               {totalXp}
@@ -194,8 +196,13 @@ export default function DashboardContent() {
             <p className="text-xs text-[var(--sol-text-muted)]">
               {t.dashboard.totalXp}
             </p>
-          </div>
-          <div className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.28 }}
+            className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center"
+          >
             <BookOpen
               size={24}
               className="text-[var(--sol-purple)] mx-auto mb-2"
@@ -206,8 +213,13 @@ export default function DashboardContent() {
             <p className="text-xs text-[var(--sol-text-muted)]">
               {t.common.modulesCompleted}
             </p>
-          </div>
-          <div className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.36 }}
+            className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-5 text-center"
+          >
             <Trophy size={24} className="text-amber-400 mx-auto mb-2" />
             <p className="text-2xl font-bold text-[var(--sol-text)]">
               {badges.length}
@@ -215,8 +227,8 @@ export default function DashboardContent() {
             <p className="text-xs text-[var(--sol-text-muted)]">
               {t.dashboard.badgesEarned}
             </p>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* Chapters section */}
         <motion.div
@@ -245,7 +257,10 @@ export default function DashboardContent() {
               return (
                 <Link key={chapter.id} href={chapter.link}>
                   <motion.div
-                    whileHover={{ scale: 1.01 }}
+                    whileHover={{
+                      scale: 1.02,
+                      boxShadow: "0 0 20px rgba(153, 69, 255, 0.2)",
+                    }}
                     className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] hover:border-[var(--sol-purple)]/40 rounded-xl p-4 sm:p-6 transition-colors cursor-pointer"
                   >
                     <div className="flex items-center justify-between mb-4">
@@ -282,24 +297,41 @@ export default function DashboardContent() {
                           {chapterXp}/{chapter.totalXp} XP
                         </span>
                       </div>
-                      <div className="w-full bg-[var(--sol-darker)] rounded-full h-2 overflow-hidden">
+                      <div className="w-full bg-[var(--sol-darker)] rounded-full h-2 relative overflow-hidden">
                         <motion.div
                           className="bg-gradient-to-r from-[var(--sol-purple)] to-[var(--sol-green)] h-full rounded-full"
                           initial={{ width: 0 }}
                           animate={{ width: `${progressPercent}%` }}
                           transition={{ duration: 0.8, delay: 0.5 }}
                         />
+                        {progressPercent > 0 && !prefersReducedMotion && (
+                          <motion.div
+                            className="absolute inset-0 rounded-full overflow-hidden pointer-events-none"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1.5 }}
+                          >
+                            <motion.div
+                              className="h-full w-[30%] bg-gradient-to-r from-transparent via-white/15 to-transparent"
+                              animate={{ x: ["-100%", "400%"] }}
+                              transition={{ duration: 1.5, delay: 1.6, ease: "easeInOut" }}
+                            />
+                          </motion.div>
+                        )}
                       </div>
                     </div>
 
                     {/* Module icons row */}
                     <div className="flex gap-2">
-                      {chapter.moduleIds.map((modId) => {
+                      {chapter.moduleIds.map((modId, i) => {
                         const Icon = MODULE_ICONS[modId] ?? BookOpen;
                         const done = completedModuleIds.has(modId);
                         return (
-                          <div
+                          <motion.div
                             key={modId}
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.7 + i * 0.08 }}
                             className={`w-8 h-8 rounded-md flex items-center justify-center ${
                               done
                                 ? "bg-[var(--sol-green)]/20 text-[var(--sol-green)]"
@@ -307,7 +339,7 @@ export default function DashboardContent() {
                             }`}
                           >
                             <Icon size={16} />
-                          </div>
+                          </motion.div>
                         );
                       })}
                     </div>
@@ -341,7 +373,7 @@ export default function DashboardContent() {
             </div>
           ) : (
             <div className="space-y-3">
-              {progress.map((p) => {
+              {progress.map((p, index) => {
                 const Icon = MODULE_ICONS[p.module_id] ?? BookOpen;
                 const moduleName =
                   t.basics.modules[
@@ -351,8 +383,9 @@ export default function DashboardContent() {
                 return (
                   <motion.div
                     key={p.module_id}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 + index * 0.08 }}
                     className="bg-[var(--sol-card)] border border-[var(--sol-card-hover)] rounded-xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4"
                   >
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-[var(--sol-purple)]/20 to-[var(--sol-green)]/20 flex items-center justify-center shrink-0">
@@ -402,7 +435,9 @@ export default function DashboardContent() {
                   key={i}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.6 + i * 0.1 }}
+                  transition={{ delay: 0.6 + i * 0.1, type: "spring", stiffness: 200 }}
+                  whileHover={{ scale: 1.1, rotateY: 10 }}
+                  style={{ transformStyle: "preserve-3d" }}
                   className="flex items-center gap-2 bg-amber-900/30 border border-amber-500/50 rounded-full px-4 py-2"
                 >
                   <Trophy size={16} className="text-amber-400" />

@@ -263,31 +263,31 @@ export default function ExplorerContent() {
               {/* Section 2: Quiz */}
               {!quizComplete ? (
                 <div>
-                  {/* Progress */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm text-slate-400">
-                      Question {currentQuestion + 1}/{questions.length}
-                    </span>
-                    <span className="text-sm text-purple-400">
-                      {correctAnswers} correct
-                    </span>
-                  </div>
-                  <div className="w-full bg-slate-700 rounded-full h-2 mb-6">
-                    <div
-                      className="bg-purple-500 h-2 rounded-full transition-all duration-300"
-                      style={{
-                        width: `${((currentQuestion + (showExplanation ? 1 : 0)) / questions.length) * 100}%`,
-                      }}
-                    />
+                  {/* Progress bar */}
+                  <div className="flex gap-1 mb-6">
+                    {questions.map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className={`h-1.5 flex-1 rounded-full ${
+                          i < currentQuestion ? "bg-[var(--sol-green)]" :
+                          i === currentQuestion ? "bg-[var(--sol-purple)]" :
+                          "bg-slate-700"
+                        }`}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ delay: i * 0.05, duration: 0.3 }}
+                        style={{ transformOrigin: "left" }}
+                      />
+                    ))}
                   </div>
 
                   {/* Question */}
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentQuestion}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
                     >
                       <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-4 sm:p-6 mb-6">
@@ -305,16 +305,22 @@ export default function ExplorerContent() {
                               let borderColor = 'border-slate-600';
                               let bgColor = 'bg-slate-700/50';
                               let textColor = 'text-slate-200';
+                              let animClass = '';
 
                               if (showExplanation) {
                                 if (isCorrect) {
                                   borderColor = 'border-green-500';
                                   bgColor = 'bg-green-900/30';
                                   textColor = 'text-green-300';
+                                  animClass = 'animate-flash-green';
                                 } else if (isSelected && !isCorrect) {
                                   borderColor = 'border-red-500';
                                   bgColor = 'bg-red-900/30';
                                   textColor = 'text-red-300';
+                                  animClass = 'animate-shake animate-flash-red';
+                                } else {
+                                  borderColor = 'border-slate-700';
+                                  bgColor = 'bg-slate-800/30 opacity-50';
                                 }
                               }
 
@@ -328,7 +334,7 @@ export default function ExplorerContent() {
                                     !showExplanation ? { scale: 0.99 } : {}
                                   }
                                   onClick={() => handleAnswer(idx)}
-                                  className={`w-full text-left p-4 rounded-lg border ${borderColor} ${bgColor} ${textColor} transition-all ${
+                                  className={`w-full text-left p-4 rounded-lg border ${borderColor} ${bgColor} ${textColor} ${animClass} transition-all ${
                                     !showExplanation
                                       ? 'hover:border-purple-500 cursor-pointer'
                                       : 'cursor-default'
@@ -389,17 +395,24 @@ export default function ExplorerContent() {
               ) : (
                 /* Quiz Complete */
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
                 >
                   <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-6 text-center mb-6">
                     <Trophy className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
                     <h3 className="text-2xl font-bold mb-2">
                       {t.explorer.phase2Success}
                     </h3>
-                    <p className="text-slate-300 mb-2">
-                      {correctAnswers}/{questions.length} correct answers
-                    </p>
+                    <motion.span
+                      className="text-4xl sm:text-5xl font-bold text-[var(--sol-green)] animate-count-up block mb-2"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+                    >
+                      {correctAnswers}/{questions.length}
+                    </motion.span>
+                    <p className="text-slate-300 mb-2">correct answers</p>
                     <p className="text-purple-400 font-semibold">+180 XP</p>
                   </div>
 
