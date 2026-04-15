@@ -122,39 +122,36 @@ export function SlideLayout({
               className="w-full"
             >
               {slides[currentSlide]}
+
+              {/* Navigation buttons inline */}
+              <div className="flex items-center justify-between mt-8">
+                <button
+                  onClick={goPrev}
+                  disabled={currentSlide === 0}
+                  className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-0 disabled:cursor-default text-slate-400 hover:text-white cursor-pointer"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+
+                {currentSlide < total - 1 && (
+                  <button
+                    onClick={goNext}
+                    disabled={isNextBlocked}
+                    className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
+                      isNextBlocked
+                        ? "bg-slate-700 text-slate-500 cursor-not-allowed"
+                        : "bg-[var(--sol-green)]/10 text-[var(--sol-green)] border border-[var(--sol-green)]/30 hover:bg-[var(--sol-green)]/20 hover:shadow-[0_0_15px_rgba(20,241,149,0.15)]"
+                    }`}
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                )}
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
 
-      {/* Navigation Footer */}
-      <div className="sticky bottom-0 z-40 bg-slate-900/80 backdrop-blur-md border-t border-slate-700/50">
-        <div className="max-w-[680px] mx-auto px-4 py-3 flex items-center justify-between">
-          <button
-            onClick={goPrev}
-            disabled={currentSlide === 0}
-            className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-20 disabled:cursor-default text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer"
-          >
-            <ChevronLeft size={18} />
-          </button>
-
-          <span className="text-sm font-mono text-slate-400">
-            {currentSlide + 1} / {total}
-          </span>
-
-          <button
-            onClick={goNext}
-            disabled={currentSlide === total - 1 || isNextBlocked}
-            className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:cursor-default cursor-pointer ${
-              isNextBlocked
-                ? "disabled:opacity-30 text-slate-500"
-                : "disabled:opacity-20 text-[var(--sol-green)] hover:bg-[var(--sol-green)]/10 hover:shadow-[0_0_15px_rgba(20,241,149,0.2)]"
-            }`}
-          >
-            <ChevronRight size={18} />
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
