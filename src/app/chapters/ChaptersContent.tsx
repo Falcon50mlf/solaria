@@ -14,6 +14,12 @@ import {
   Brain,
   Server,
   Search,
+  MapPin,
+  Globe2,
+  PenTool,
+  Fuel,
+  ScanSearch,
+  Cpu,
 } from "lucide-react";
 import { useLocale } from "@/lib/useLocale";
 import { useGameState } from "@/lib/useGameState";
@@ -29,6 +35,12 @@ const MODULE_ICONS: Record<string, typeof BookOpen> = {
   consensus: Brain,
   validators: Server,
   explorer: Search,
+  adresse: MapPin,
+  networks: Globe2,
+  signature: PenTool,
+  fees: Fuel,
+  solscan: ScanSearch,
+  node: Cpu,
 };
 
 interface Chapter {
@@ -51,8 +63,14 @@ const CHAPTERS: Chapter[] = [
       "consensus",
       "validators",
       "explorer",
+      "adresse",
+      "networks",
+      "signature",
+      "fees",
+      "solscan",
+      "node",
     ],
-    totalXp: 1150,
+    totalXp: 1960,
   },
 ];
 

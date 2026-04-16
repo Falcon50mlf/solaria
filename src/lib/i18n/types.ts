@@ -6,6 +6,36 @@ export interface ModuleTranslations {
   backDescription: string;
 }
 
+export interface QuizModuleDict {
+  headerTitle: string;
+  backToBasics: string;
+  storyIntro: string;
+  storyAnalogy: string;
+  def1Title: string;
+  def1Text: string;
+  def2Title: string;
+  def2Text: string;
+  keyConceptsTitle: string;
+  keyConceptsText: string;
+  didYouKnowTitle: string;
+  didYouKnowText: string;
+  storySummary: string;
+  phase2Title: string;
+  phase2Subtitle: string;
+  phase2Narrative: string;
+  quizQuestions: {
+    question: string;
+    options: string[];
+    correctIndex: number;
+    explanation: string;
+  }[];
+  phase2Success: string;
+  phase2FinishButton: string;
+  revealSubtitle: string;
+  keyPointsTitle: string;
+  keyPoints: string[];
+}
+
 export interface TranslationDictionary {
   common: {
     next: string;
@@ -72,6 +102,12 @@ export interface TranslationDictionary {
       consensus: ModuleTranslations;
       validators: ModuleTranslations;
       explorer: ModuleTranslations;
+      adresse: ModuleTranslations;
+      networks: ModuleTranslations;
+      signature: ModuleTranslations;
+      fees: ModuleTranslations;
+      solscan: ModuleTranslations;
+      node: ModuleTranslations;
     };
   };
   badges: {
@@ -83,6 +119,12 @@ export interface TranslationDictionary {
     consensus: string;
     validators: string;
     explorer: string;
+    adresse: string;
+    networks: string;
+    signature: string;
+    fees: string;
+    solscan: string;
+    node: string;
     master: string;
   };
   decentralisation: {
@@ -432,4 +474,10 @@ export interface TranslationDictionary {
     allCompletedTitle: string;
     allCompletedText: string;
   };
+  adresse: QuizModuleDict;
+  networks: QuizModuleDict;
+  signature: QuizModuleDict;
+  fees: QuizModuleDict;
+  solscan: QuizModuleDict;
+  node: QuizModuleDict;
 }

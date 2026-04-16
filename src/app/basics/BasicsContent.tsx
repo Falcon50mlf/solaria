@@ -19,6 +19,12 @@ import {
   Brain,
   Server,
   Search,
+  MapPin,
+  Globe2,
+  PenTool,
+  Fuel,
+  ScanSearch,
+  Cpu,
 } from 'lucide-react';
 import { useLocale } from '@/lib/useLocale';
 import { LanguageToggle } from '@/components/LanguageToggle';
@@ -47,6 +53,12 @@ export default function BasicsContent() {
     { id: 'consensus', title: t.basics.modules.consensus.title, subtitle: t.basics.modules.consensus.subtitle, icon: Brain, maxXp: 160, link: '/basics/consensus', step: 6 },
     { id: 'validators', title: t.basics.modules.validators.title, subtitle: t.basics.modules.validators.subtitle, icon: Server, maxXp: 170, link: '/basics/validators', step: 7 },
     { id: 'explorer', title: t.basics.modules.explorer.title, subtitle: t.basics.modules.explorer.subtitle, icon: Search, maxXp: 180, link: '/basics/explorer', step: 8 },
+    { id: 'adresse', title: t.basics.modules.adresse.title, subtitle: t.basics.modules.adresse.subtitle, icon: MapPin, maxXp: 110, link: '/basics/adresse', step: 9 },
+    { id: 'networks', title: t.basics.modules.networks.title, subtitle: t.basics.modules.networks.subtitle, icon: Globe2, maxXp: 120, link: '/basics/networks', step: 10 },
+    { id: 'signature', title: t.basics.modules.signature.title, subtitle: t.basics.modules.signature.subtitle, icon: PenTool, maxXp: 140, link: '/basics/signature', step: 11 },
+    { id: 'fees', title: t.basics.modules.fees.title, subtitle: t.basics.modules.fees.subtitle, icon: Fuel, maxXp: 130, link: '/basics/fees', step: 12 },
+    { id: 'solscan', title: t.basics.modules.solscan.title, subtitle: t.basics.modules.solscan.subtitle, icon: ScanSearch, maxXp: 150, link: '/basics/solscan', step: 13 },
+    { id: 'node', title: t.basics.modules.node.title, subtitle: t.basics.modules.node.subtitle, icon: Cpu, maxXp: 160, link: '/basics/node', step: 14 },
   ];
 
   const moduleStates = new Map(modules.map((m) => [m.id, m]));

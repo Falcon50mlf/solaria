@@ -1,4 +1,18 @@
-export type ModuleId = "decentralisation" | "blockchain" | "wallet" | "seedphrase" | "transactions" | "consensus" | "validators" | "explorer";
+export type ModuleId =
+  | "decentralisation"
+  | "blockchain"
+  | "wallet"
+  | "seedphrase"
+  | "transactions"
+  | "consensus"
+  | "validators"
+  | "explorer"
+  | "adresse"
+  | "networks"
+  | "signature"
+  | "fees"
+  | "solscan"
+  | "node";
 
 export interface ModuleProgress {
   id: ModuleId;
@@ -33,6 +47,12 @@ export const MODULE_BADGES: Record<ModuleId, string> = {
   consensus: "Maître du Consensus",
   validators: "Gardien du Réseau",
   explorer: "Détective On-Chain",
+  adresse: "Cartographe d'Adresses",
+  networks: "Navigateur des Réseaux",
+  signature: "Maître des Signatures",
+  fees: "Économe du Gas",
+  solscan: "Enquêteur Solscan",
+  node: "Sentinelle du Nœud",
 };
 
 export const MASTER_BADGE = "Maître des Basics";
@@ -46,6 +66,12 @@ export const MODULE_ORDER: ModuleId[] = [
   "consensus",
   "validators",
   "explorer",
+  "adresse",
+  "networks",
+  "signature",
+  "fees",
+  "solscan",
+  "node",
 ];
 
 export const INITIAL_MODULES: ModuleProgress[] = [
@@ -111,6 +137,54 @@ export const INITIAL_MODULES: ModuleProgress[] = [
     completed: false,
     xpEarned: 0,
     maxXp: 180,
+    unlocked: false,
+  },
+  {
+    id: "adresse",
+    title: "L'Adresse Solana",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 110,
+    unlocked: false,
+  },
+  {
+    id: "networks",
+    title: "Mainnet / Devnet / Testnet",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 120,
+    unlocked: false,
+  },
+  {
+    id: "signature",
+    title: "La Signature de Transaction",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 140,
+    unlocked: false,
+  },
+  {
+    id: "fees",
+    title: "Les Frais de Gas",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 130,
+    unlocked: false,
+  },
+  {
+    id: "solscan",
+    title: "Solscan / Solana Explorer",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 150,
+    unlocked: false,
+  },
+  {
+    id: "node",
+    title: "Le Nœud (Node)",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 160,
     unlocked: false,
   },
 ];
