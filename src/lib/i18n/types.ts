@@ -47,6 +47,16 @@ export interface TranslationDictionary {
     chapterModules: string;
     exploreWithoutAccount: string;
     backToDashboard: string;
+    heroTitle1: string;
+    heroTitle2: string;
+    cardBasicsTitle: string;
+    cardBasicsDesc: string;
+    cardInfraTitle: string;
+    cardInfraDesc: string;
+    cardSecurityTitle: string;
+    cardSecurityDesc: string;
+    comingSoon: string;
+    fromZeroToSolana: string;
   };
   basics: {
     pageTitle: string;

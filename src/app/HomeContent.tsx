@@ -95,9 +95,9 @@ export default function HomeContent() {
           transition={{ delay: 0.1, duration: 0.6 }}
           className="text-3xl sm:text-5xl md:text-[52px] font-bold uppercase text-center leading-[1.1] mb-4 flex flex-wrap items-center justify-center gap-3"
         >
-          <span>From zero to</span>
+          <span>{t.home.heroTitle1}</span>
           <span className="bg-gradient-to-r from-[#9945ff] via-[#00d4ff] to-[#14f195] bg-clip-text text-transparent">
-            Solana
+            {t.home.heroTitle2}
           </span>
         </motion.h1>
         <motion.p
@@ -118,22 +118,25 @@ export default function HomeContent() {
         >
           <FeatureCard
             icon={<Building2 size={36} className="text-white" />}
-            title="Basics"
-            desc="Master the foundations of Web3: wallets, transactions, blockchain and the Solana ecosystem. The perfect starting point before going further."
+            title={t.home.cardBasicsTitle}
+            desc={t.home.cardBasicsDesc}
+            comingSoonLabel={t.home.comingSoon}
             variant="blue"
             href="/chapters"
             enabled
           />
           <FeatureCard
             icon={<Layers size={36} className="text-white" />}
-            title="Solana Infrastructure"
-            desc="Dive into Solana's core mechanics: Proof of History, TPS, validators and network architecture. Understand what makes Solana unique."
+            title={t.home.cardInfraTitle}
+            desc={t.home.cardInfraDesc}
+            comingSoonLabel={t.home.comingSoon}
             variant="green"
           />
           <FeatureCard
             icon={<ShieldCheck size={36} className="text-white" />}
-            title="Risks & Security"
-            desc="Learn to protect yourself in the Web3 ecosystem: rug pulls, phishing, smart contract audits and best practices. Because security is a skill too."
+            title={t.home.cardSecurityTitle}
+            desc={t.home.cardSecurityDesc}
+            comingSoonLabel={t.home.comingSoon}
             variant="purple"
           />
         </motion.div>
@@ -156,7 +159,7 @@ export default function HomeContent() {
           <SolariaLogo size={42} fill="white" />
           <div>
             <div className="font-semibold text-2xl leading-tight">Solaria</div>
-            <div className="text-[11px] tracking-[0.2em] uppercase text-white/60">from zero to solana</div>
+            <div className="text-[11px] tracking-[0.2em] uppercase text-white/60">{t.home.fromZeroToSolana}</div>
           </div>
         </div>
         <a
@@ -182,6 +185,7 @@ function FeatureCard({
   variant,
   href,
   enabled,
+  comingSoonLabel,
 }: {
   icon: React.ReactNode;
   title: string;
@@ -189,6 +193,7 @@ function FeatureCard({
   variant: "blue" | "green" | "purple";
   href?: string;
   enabled?: boolean;
+  comingSoonLabel: string;
 }) {
   const variantClass =
     variant === "blue" ? "fg-card-blue" : variant === "green" ? "fg-card-green" : "fg-card-purple";
@@ -205,7 +210,7 @@ function FeatureCard({
       <p className="text-[15px] text-[#919191] leading-relaxed flex-1">{desc}</p>
       {!enabled && (
         <span className="text-xs uppercase tracking-wider text-white/50 border border-white/10 rounded-full px-3 py-1 self-start">
-          Coming soon
+          {comingSoonLabel}
         </span>
       )}
     </motion.div>
