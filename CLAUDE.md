@@ -180,4 +180,4 @@ Le snapshot est cache dans `cachedSnapshot` et ne se recree que dans `notify()`.
 5. **Nouveaux modules** : suivre le pattern page.tsx wrapper + Content.tsx, 3 phases (story → game → reveal)
 6. **Encadres pedagogiques** : uniquement les 3 types (Definition, Notions cles, Le saviez-vous), groupes par phase
 7. **Deploiement** : `npx vercel --prod --yes` (projet lie a Vercel)
-8. **GitHub** : repo `Falcon50mlf/solquest`, push via `gh auth setup-git && git push`
+8. **GitHub** : repo `Falcon50mlf/solaria`, push via `gh auth setup-git && git push`
