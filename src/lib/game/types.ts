@@ -12,7 +12,22 @@ export type ModuleId =
   | "signature"
   | "fees"
   | "solscan"
-  | "node";
+  | "node"
+  | "poh"
+  | "gulfstream"
+  | "sealevel"
+  | "archivers"
+  | "tps"
+  | "votetx"
+  | "restart"
+  | "congestion"
+  | "tower"
+  | "turbine"
+  | "cloudbreak"
+  | "slot"
+  | "economics"
+  | "cluster"
+  | "jito";
 
 export interface ModuleProgress {
   id: ModuleId;
@@ -53,6 +68,21 @@ export const MODULE_BADGES: Record<ModuleId, string> = {
   fees: "Économe du Gas",
   solscan: "Enquêteur Solscan",
   node: "Sentinelle du Nœud",
+  poh: "Horloger du PoH",
+  gulfstream: "Pilote du Gulf Stream",
+  sealevel: "Paralléliste",
+  archivers: "Gardien des Archives",
+  tps: "Mesureur de Vitesse",
+  votetx: "Votant du Consensus",
+  restart: "Mécanicien du Cluster",
+  congestion: "Régulateur de Trafic",
+  tower: "Architecte de la Tour",
+  turbine: "Ingénieur Turbine",
+  cloudbreak: "Maître du Stockage",
+  slot: "Maître du Temps",
+  economics: "Économiste Solana",
+  cluster: "Chef de Cluster",
+  jito: "Capitaine MEV",
 };
 
 export const MASTER_BADGE = "Maître des Basics";
@@ -72,6 +102,21 @@ export const MODULE_ORDER: ModuleId[] = [
   "fees",
   "solscan",
   "node",
+  "poh",
+  "gulfstream",
+  "sealevel",
+  "archivers",
+  "tps",
+  "votetx",
+  "restart",
+  "congestion",
+  "tower",
+  "turbine",
+  "cloudbreak",
+  "slot",
+  "economics",
+  "cluster",
+  "jito",
 ];
 
 export const INITIAL_MODULES: ModuleProgress[] = [
@@ -185,6 +230,126 @@ export const INITIAL_MODULES: ModuleProgress[] = [
     completed: false,
     xpEarned: 0,
     maxXp: 160,
+    unlocked: false,
+  },
+  {
+    id: "poh",
+    title: "Proof of History (PoH)",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 180,
+    unlocked: false,
+  },
+  {
+    id: "gulfstream",
+    title: "Gulf Stream",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 170,
+    unlocked: false,
+  },
+  {
+    id: "sealevel",
+    title: "Sealevel (Parallélisme)",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 190,
+    unlocked: false,
+  },
+  {
+    id: "archivers",
+    title: "Archivers",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 150,
+    unlocked: false,
+  },
+  {
+    id: "tps",
+    title: "TPS (Transactions / seconde)",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 140,
+    unlocked: false,
+  },
+  {
+    id: "votetx",
+    title: "Vote Transactions",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 160,
+    unlocked: false,
+  },
+  {
+    id: "restart",
+    title: "Restart & Upgrade",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 170,
+    unlocked: false,
+  },
+  {
+    id: "congestion",
+    title: "Congestion Réseau",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 160,
+    unlocked: false,
+  },
+  {
+    id: "tower",
+    title: "Tower BFT",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 180,
+    unlocked: false,
+  },
+  {
+    id: "turbine",
+    title: "Turbine",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 170,
+    unlocked: false,
+  },
+  {
+    id: "cloudbreak",
+    title: "Cloudbreak (Stockage)",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 180,
+    unlocked: false,
+  },
+  {
+    id: "slot",
+    title: "Slot / Epoch",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 150,
+    unlocked: false,
+  },
+  {
+    id: "economics",
+    title: "Validator Economics",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 190,
+    unlocked: false,
+  },
+  {
+    id: "cluster",
+    title: "Cluster",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 150,
+    unlocked: false,
+  },
+  {
+    id: "jito",
+    title: "Jito (MEV)",
+    completed: false,
+    xpEarned: 0,
+    maxXp: 200,
     unlocked: false,
   },
 ];

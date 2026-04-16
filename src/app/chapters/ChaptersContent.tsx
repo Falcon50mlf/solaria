@@ -20,6 +20,20 @@ import {
   Fuel,
   ScanSearch,
   Cpu,
+  Clock,
+  Waves,
+  GitBranch,
+  Archive,
+  Gauge,
+  Vote,
+  RotateCw,
+  Activity,
+  Building2,
+  Wind,
+  Database,
+  Hourglass,
+  Coins,
+  Zap,
 } from "lucide-react";
 import { useLocale } from "@/lib/useLocale";
 import { useGameState } from "@/lib/useGameState";
@@ -41,6 +55,21 @@ const MODULE_ICONS: Record<string, typeof BookOpen> = {
   fees: Fuel,
   solscan: ScanSearch,
   node: Cpu,
+  poh: Clock,
+  gulfstream: Waves,
+  sealevel: GitBranch,
+  archivers: Archive,
+  tps: Gauge,
+  votetx: Vote,
+  restart: RotateCw,
+  congestion: Activity,
+  tower: Building2,
+  turbine: Wind,
+  cloudbreak: Database,
+  slot: Hourglass,
+  economics: Coins,
+  cluster: Boxes,
+  jito: Zap,
 };
 
 interface Chapter {
@@ -48,12 +77,14 @@ interface Chapter {
   link: string;
   moduleIds: string[];
   totalXp: number;
+  titleKey: "basics" | "infrastructure";
 }
 
 const CHAPTERS: Chapter[] = [
   {
     id: "basics",
     link: "/basics",
+    titleKey: "basics",
     moduleIds: [
       "decentralisation",
       "blockchain",
@@ -71,6 +102,29 @@ const CHAPTERS: Chapter[] = [
       "node",
     ],
     totalXp: 1960,
+  },
+  {
+    id: "infrastructure",
+    link: "/infrastructure",
+    titleKey: "infrastructure",
+    moduleIds: [
+      "poh",
+      "gulfstream",
+      "sealevel",
+      "archivers",
+      "tps",
+      "votetx",
+      "restart",
+      "congestion",
+      "tower",
+      "turbine",
+      "cloudbreak",
+      "slot",
+      "economics",
+      "cluster",
+      "jito",
+    ],
+    totalXp: 2540,
   },
 ];
 
@@ -140,7 +194,7 @@ export default function ChaptersContent() {
                     <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
                       <BookOpen size={24} className="text-[#14f195]" />
                     </div>
-                    <h3 className="text-2xl sm:text-3xl font-normal">{t.basics.pageTitle}</h3>
+                    <h3 className="text-2xl sm:text-3xl font-normal">{t[chapter.titleKey].pageTitle}</h3>
                   </div>
                 </div>
 

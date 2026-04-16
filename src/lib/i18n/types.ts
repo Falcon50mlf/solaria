@@ -110,6 +110,27 @@ export interface TranslationDictionary {
       node: ModuleTranslations;
     };
   };
+  infrastructure: {
+    pageTitle: string;
+    pageSubtitle: string;
+    modules: {
+      poh: ModuleTranslations;
+      gulfstream: ModuleTranslations;
+      sealevel: ModuleTranslations;
+      archivers: ModuleTranslations;
+      tps: ModuleTranslations;
+      votetx: ModuleTranslations;
+      restart: ModuleTranslations;
+      congestion: ModuleTranslations;
+      tower: ModuleTranslations;
+      turbine: ModuleTranslations;
+      cloudbreak: ModuleTranslations;
+      slot: ModuleTranslations;
+      economics: ModuleTranslations;
+      cluster: ModuleTranslations;
+      jito: ModuleTranslations;
+    };
+  };
   badges: {
     decentralisation: string;
     blockchain: string;
@@ -125,7 +146,23 @@ export interface TranslationDictionary {
     fees: string;
     solscan: string;
     node: string;
+    poh: string;
+    gulfstream: string;
+    sealevel: string;
+    archivers: string;
+    tps: string;
+    votetx: string;
+    restart: string;
+    congestion: string;
+    tower: string;
+    turbine: string;
+    cloudbreak: string;
+    slot: string;
+    economics: string;
+    cluster: string;
+    jito: string;
     master: string;
+    infrastructureMaster: string;
   };
   decentralisation: {
     // Phase 1
@@ -480,4 +517,19 @@ export interface TranslationDictionary {
   fees: QuizModuleDict;
   solscan: QuizModuleDict;
   node: QuizModuleDict;
+  poh: QuizModuleDict;
+  gulfstream: QuizModuleDict;
+  sealevel: QuizModuleDict;
+  archivers: QuizModuleDict;
+  tps: QuizModuleDict;
+  votetx: QuizModuleDict;
+  restart: QuizModuleDict;
+  congestion: QuizModuleDict;
+  tower: QuizModuleDict;
+  turbine: QuizModuleDict;
+  cloudbreak: QuizModuleDict;
+  slot: QuizModuleDict;
+  economics: QuizModuleDict;
+  cluster: QuizModuleDict;
+  jito: QuizModuleDict;
 }
