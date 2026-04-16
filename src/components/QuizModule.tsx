@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, XCircle, Trophy, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { usePrivy } from "@privy-io/react-auth";
 import { completeModule } from "@/lib/gameState";
 import { useGameState } from "@/lib/useGameState";
 import { useLocale } from "@/lib/useLocale";
@@ -62,6 +63,7 @@ export function QuizModule({
   nextModuleLabel,
 }: QuizModuleProps) {
   const { t } = useLocale();
+  const { authenticated, ready } = usePrivy();
   const gameState = useGameState();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -73,6 +75,9 @@ export function QuizModule({
   const current = questions[currentQuestion];
   const passed = quizComplete && correctAnswers / questions.length >= 0.7;
   const moduleCompleted = gameState?.modules?.find((m) => m.id === moduleId)?.completed ?? false;
+  const loggedIn = ready && authenticated;
+  const exitLink = loggedIn ? "/dashboard" : "/";
+  const exitLabel = loggedIn ? t.home.backToDashboard : t.login.backHome;
 
   const handleRetryQuiz = () => {
     setCurrentQuestion(0);
@@ -327,8 +332,8 @@ export function QuizModule({
             {nextModuleLabel ?? t.common.nextModule} →
           </Link>
         )}
-        <Link href="/basics" className="text-slate-400 hover:text-white text-sm">
-          {content.backToBasics}
+        <Link href={exitLink} className="text-slate-400 hover:text-white text-sm">
+          {exitLabel}
         </Link>
       </div>
     </div>

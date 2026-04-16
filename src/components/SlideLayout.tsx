@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ArrowRight, Lock } from "lucide-react";
 import Link from "next/link";
+import { usePrivy } from "@privy-io/react-auth";
 import { useLocale } from "@/lib/useLocale";
 import { LanguageToggle } from "./LanguageToggle";
 import { SolariaLogo } from "./SolariaLogo";
@@ -22,16 +23,19 @@ interface SlideLayoutProps {
 export function SlideLayout({
   moduleTitle,
   moduleXp,
-  backLink,
-  backLabel,
   slides,
   icon,
   canAdvance,
 }: SlideLayoutProps) {
   const { t } = useLocale();
+  const { authenticated, ready } = usePrivy();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
   const total = slides.length;
+
+  const loggedIn = ready && authenticated;
+  const resolvedBackLink = loggedIn ? "/dashboard" : "/";
+  const resolvedBackLabel = loggedIn ? t.home.backToDashboard : t.login.backHome;
 
   const isNextBlocked = canAdvance ? canAdvance[currentSlide] === false : false;
 
@@ -78,11 +82,11 @@ export function SlideLayout({
         <div className="max-w-[720px] mx-auto px-4 py-3">
           <div className="flex items-center justify-between mb-2">
             <Link
-              href={backLink}
+              href={resolvedBackLink}
               className="flex items-center gap-1.5 text-sm text-[#919191] hover:text-white transition-colors"
             >
               <ChevronLeft size={16} />
-              {backLabel}
+              {resolvedBackLabel}
             </Link>
             <div className="flex items-center gap-2 text-sm">
               {icon}
