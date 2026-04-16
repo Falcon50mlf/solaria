@@ -27,7 +27,7 @@ export const localeStore = createStore<LocaleState>()(
         set((state) => ({ locale: state.locale === "fr" ? "en" : "fr" })),
     }),
     {
-      name: "solquest-locale",
+      name: "solaria-locale",
       storage: createJSONStorage(() =>
         typeof window !== "undefined" ? localStorage : noopStorage
       ),

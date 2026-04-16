@@ -100,7 +100,7 @@ export const gameStore = createStore<GameStore>()(
       },
     }),
     {
-      name: "solquest-game-state",
+      name: "solaria-game-state",
       version: 1,
       storage: createJSONStorage(() =>
         typeof window !== "undefined" ? authGatedStorage : noopStorage

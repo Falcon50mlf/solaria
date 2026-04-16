@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { usePrivy } from "@privy-io/react-auth";
 import { resetGameState } from "@/lib/gameState";
 
-const SESSION_KEY = "solquest-session-start";
+const SESSION_KEY = "solaria-session-start";
 const EXPIRY_MS = 5 * 60 * 1000; // 5 minutes
 
 export function SessionGuard() {

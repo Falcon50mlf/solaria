@@ -1,6 +1,6 @@
 @AGENTS.md
 
-# SolQuest — Project Documentation
+# Solaria — Project Documentation
 
 ## Stack technique
 
