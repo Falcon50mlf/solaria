@@ -34,6 +34,20 @@ import {
   Hourglass,
   Coins,
   Zap,
+  AlertTriangle,
+  ShieldAlert,
+  FileCheck2,
+  Ban,
+  HardDrive,
+  Thermometer,
+  ClipboardCheck,
+  Bug,
+  RefreshCw,
+  UserX,
+  AlertOctagon,
+  Skull,
+  Glasses,
+  ShieldCheck,
 } from "lucide-react";
 import { useLocale } from "@/lib/useLocale";
 import { useGameState } from "@/lib/useGameState";
@@ -70,6 +84,21 @@ const MODULE_ICONS: Record<string, typeof BookOpen> = {
   economics: Coins,
   cluster: Boxes,
   jito: Zap,
+  rugpull: AlertTriangle,
+  scamphishing: ShieldAlert,
+  approvetx: FileCheck2,
+  revoke: Ban,
+  hardwarewallet: HardDrive,
+  hotvscold: Thermometer,
+  audit: ClipboardCheck,
+  exploit: Bug,
+  flashloan: Zap,
+  reentrancy: RefreshCw,
+  socialeng: UserX,
+  fakedapp: AlertOctagon,
+  malware: Skull,
+  dyor: Glasses,
+  escrow: ShieldCheck,
 };
 
 interface Chapter {
@@ -77,7 +106,7 @@ interface Chapter {
   link: string;
   moduleIds: string[];
   totalXp: number;
-  titleKey: "basics" | "infrastructure";
+  titleKey: "basics" | "infrastructure" | "security";
 }
 
 const CHAPTERS: Chapter[] = [
@@ -125,6 +154,18 @@ const CHAPTERS: Chapter[] = [
       "jito",
     ],
     totalXp: 2540,
+  },
+  {
+    id: "security",
+    link: "/security",
+    titleKey: "security",
+    moduleIds: [
+      "rugpull", "scamphishing", "approvetx", "revoke",
+      "hardwarewallet", "hotvscold", "audit", "exploit",
+      "flashloan", "reentrancy", "socialeng", "fakedapp",
+      "malware", "dyor", "escrow",
+    ],
+    totalXp: 2290,
   },
 ];
 

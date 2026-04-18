@@ -27,7 +27,22 @@ export type ModuleId =
   | "slot"
   | "economics"
   | "cluster"
-  | "jito";
+  | "jito"
+  | "rugpull"
+  | "scamphishing"
+  | "approvetx"
+  | "revoke"
+  | "hardwarewallet"
+  | "hotvscold"
+  | "audit"
+  | "exploit"
+  | "flashloan"
+  | "reentrancy"
+  | "socialeng"
+  | "fakedapp"
+  | "malware"
+  | "dyor"
+  | "escrow";
 
 export interface ModuleProgress {
   id: ModuleId;
@@ -83,6 +98,21 @@ export const MODULE_BADGES: Record<ModuleId, string> = {
   economics: "Économiste Solana",
   cluster: "Chef de Cluster",
   jito: "Capitaine MEV",
+  rugpull: "Détecteur de Rug",
+  scamphishing: "Anti-Phishing",
+  approvetx: "Approbateur Averti",
+  revoke: "Révocateur",
+  hardwarewallet: "Forteresse Hardware",
+  hotvscold: "Maître du Froid",
+  audit: "Auditeur",
+  exploit: "Chasseur d'Exploits",
+  flashloan: "Expert Flash Loan",
+  reentrancy: "Bouclier Anti-Reentrancy",
+  socialeng: "Détecteur Social",
+  fakedapp: "Vérificateur de dApps",
+  malware: "Anti-Malware",
+  dyor: "Chercheur Autonome",
+  escrow: "Gardien d'Escrow",
 };
 
 export const MASTER_BADGE = "Maître des Basics";
@@ -117,6 +147,21 @@ export const MODULE_ORDER: ModuleId[] = [
   "economics",
   "cluster",
   "jito",
+  "rugpull",
+  "scamphishing",
+  "approvetx",
+  "revoke",
+  "hardwarewallet",
+  "hotvscold",
+  "audit",
+  "exploit",
+  "flashloan",
+  "reentrancy",
+  "socialeng",
+  "fakedapp",
+  "malware",
+  "dyor",
+  "escrow",
 ];
 
 export const INITIAL_MODULES: ModuleProgress[] = [
@@ -352,6 +397,21 @@ export const INITIAL_MODULES: ModuleProgress[] = [
     maxXp: 200,
     unlocked: false,
   },
+  { id: "rugpull", title: "Rug Pull", completed: false, xpEarned: 0, maxXp: 140, unlocked: false },
+  { id: "scamphishing", title: "Scam / Phishing", completed: false, xpEarned: 0, maxXp: 150, unlocked: false },
+  { id: "approvetx", title: "Approuver une Transaction", completed: false, xpEarned: 0, maxXp: 130, unlocked: false },
+  { id: "revoke", title: "Revoke Permissions", completed: false, xpEarned: 0, maxXp: 120, unlocked: false },
+  { id: "hardwarewallet", title: "Hardware Wallet (Ledger)", completed: false, xpEarned: 0, maxXp: 160, unlocked: false },
+  { id: "hotvscold", title: "Hot vs Cold Wallet", completed: false, xpEarned: 0, maxXp: 140, unlocked: false },
+  { id: "audit", title: "Smart Contract Audit", completed: false, xpEarned: 0, maxXp: 180, unlocked: false },
+  { id: "exploit", title: "Exploit / Hack", completed: false, xpEarned: 0, maxXp: 170, unlocked: false },
+  { id: "flashloan", title: "Flash Loan Attack", completed: false, xpEarned: 0, maxXp: 190, unlocked: false },
+  { id: "reentrancy", title: "Reentrancy", completed: false, xpEarned: 0, maxXp: 180, unlocked: false },
+  { id: "socialeng", title: "Social Engineering", completed: false, xpEarned: 0, maxXp: 150, unlocked: false },
+  { id: "fakedapp", title: "Fausse dApp", completed: false, xpEarned: 0, maxXp: 140, unlocked: false },
+  { id: "malware", title: "Malware / Drainer", completed: false, xpEarned: 0, maxXp: 160, unlocked: false },
+  { id: "dyor", title: "DYOR", completed: false, xpEarned: 0, maxXp: 130, unlocked: false },
+  { id: "escrow", title: "Escrow", completed: false, xpEarned: 0, maxXp: 150, unlocked: false },
 ];
 
 export const INITIAL_STATE: GameState = {

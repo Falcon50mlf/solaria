@@ -40,6 +40,21 @@ import {
   Database,
   Hourglass,
   Coins,
+  AlertTriangle,
+  ShieldAlert,
+  FileCheck2,
+  Ban,
+  HardDrive,
+  Thermometer,
+  ClipboardCheck,
+  Bug,
+  RefreshCw,
+  UserX,
+  AlertOctagon,
+  Skull,
+  Glasses,
+  ShieldCheck,
+  ShieldBan,
 } from "lucide-react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
@@ -85,6 +100,21 @@ const MODULE_ICONS: Record<string, typeof Network> = {
   economics: Coins,
   cluster: Boxes,
   jito: Zap,
+  rugpull: AlertTriangle,
+  scamphishing: ShieldAlert,
+  approvetx: FileCheck2,
+  revoke: Ban,
+  hardwarewallet: HardDrive,
+  hotvscold: Thermometer,
+  audit: ClipboardCheck,
+  exploit: Bug,
+  flashloan: Zap,
+  reentrancy: RefreshCw,
+  socialeng: UserX,
+  fakedapp: AlertOctagon,
+  malware: Skull,
+  dyor: Glasses,
+  escrow: ShieldCheck,
 };
 
 const BASICS_ORDER = [
@@ -100,6 +130,14 @@ const INFRA_ORDER = [
   "cloudbreak", "slot", "economics", "cluster", "jito",
 ];
 const INFRA_TOTAL_XP = 2540;
+
+const SECURITY_ORDER = [
+  "rugpull", "scamphishing", "approvetx", "revoke",
+  "hardwarewallet", "hotvscold", "audit", "exploit",
+  "flashloan", "reentrancy", "socialeng", "fakedapp",
+  "malware", "dyor", "escrow",
+];
+const SECURITY_TOTAL_XP = 2290;
 
 export default function DashboardContent() {
   const { t } = useLocale();
@@ -143,7 +181,9 @@ export default function DashboardContent() {
   const basicsXp = progress.filter((p) => BASICS_ORDER.includes(p.module_id)).reduce((s, p) => s + p.xp_earned, 0);
   const infraCompleted = INFRA_ORDER.filter((id) => completedIds.has(id)).length;
   const infraXp = progress.filter((p) => INFRA_ORDER.includes(p.module_id)).reduce((s, p) => s + p.xp_earned, 0);
-  const allModulesCount = BASICS_ORDER.length + INFRA_ORDER.length;
+  const securityCompleted = SECURITY_ORDER.filter((id) => completedIds.has(id)).length;
+  const securityXp = progress.filter((p) => SECURITY_ORDER.includes(p.module_id)).reduce((s, p) => s + p.xp_earned, 0);
+  const allModulesCount = BASICS_ORDER.length + INFRA_ORDER.length + SECURITY_ORDER.length;
   const email = user?.email?.address ?? user?.google?.email ?? null;
   const emailTruncated = email
     ? email.length > 14
@@ -319,6 +359,55 @@ export default function DashboardContent() {
             </div>
           </section>
 
+          {/* Security chapter card */}
+          <section className="fg-card-green relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                  <ShieldBan size={24} className="text-[#ff6b6b]" />
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-normal">{t.security.pageTitle}</h3>
+              </div>
+              <Link href="/security" className="pill-green inline-flex items-center gap-2">
+                {t.common.continue} <ArrowRight size={18} />
+              </Link>
+            </div>
+
+            <div className="flex items-center justify-between text-sm mb-3">
+              <span className="text-[#919191]">
+                {securityCompleted}/{SECURITY_ORDER.length} {t.common.modulesCompleted}
+              </span>
+              <span className="text-[#14f195] font-medium">
+                {securityXp}/{SECURITY_TOTAL_XP} XP
+              </span>
+            </div>
+            <div className="h-2 rounded-full bg-white/10 overflow-hidden mb-8">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${SECURITY_ORDER.length > 0 ? (securityCompleted / SECURITY_ORDER.length) * 100 : 0}%` }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="h-full rounded-full bg-gradient-to-r from-[#ff6b6b] to-[#9945ff]"
+              />
+            </div>
+
+            <div className="flex gap-2.5 flex-wrap">
+              {SECURITY_ORDER.map((id) => {
+                const Icon = MODULE_ICONS[id] ?? BookOpen;
+                const done = completedIds.has(id);
+                return (
+                  <div
+                    key={id}
+                    className={`w-8 h-8 rounded-md flex items-center justify-center ${
+                      done ? "bg-[rgba(20,241,149,0.2)] text-[#14f195]" : "bg-[#07070f] text-white/40"
+                    }`}
+                  >
+                    <Icon size={16} />
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
           {/* Progression list */}
           <section className="fg-card-purple relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
             <div className="flex items-center gap-5 mb-6">
@@ -339,6 +428,7 @@ export default function DashboardContent() {
                   const moduleName =
                     (t.basics.modules as Record<string, { title: string }>)[p.module_id]?.title ??
                     (t.infrastructure.modules as Record<string, { title: string }>)[p.module_id]?.title ??
+                    (t.security.modules as Record<string, { title: string }>)[p.module_id]?.title ??
                     p.module_id;
                   return (
                     <motion.div

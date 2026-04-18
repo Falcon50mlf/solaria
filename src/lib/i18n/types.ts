@@ -161,8 +161,24 @@ export interface TranslationDictionary {
     economics: string;
     cluster: string;
     jito: string;
+    rugpull: string;
+    scamphishing: string;
+    approvetx: string;
+    revoke: string;
+    hardwarewallet: string;
+    hotvscold: string;
+    audit: string;
+    exploit: string;
+    flashloan: string;
+    reentrancy: string;
+    socialeng: string;
+    fakedapp: string;
+    malware: string;
+    dyor: string;
+    escrow: string;
     master: string;
     infrastructureMaster: string;
+    securityMaster: string;
   };
   decentralisation: {
     // Phase 1
@@ -532,4 +548,40 @@ export interface TranslationDictionary {
   economics: QuizModuleDict;
   cluster: QuizModuleDict;
   jito: QuizModuleDict;
+  security: {
+    pageTitle: string;
+    pageSubtitle: string;
+    modules: {
+      rugpull: ModuleTranslations;
+      scamphishing: ModuleTranslations;
+      approvetx: ModuleTranslations;
+      revoke: ModuleTranslations;
+      hardwarewallet: ModuleTranslations;
+      hotvscold: ModuleTranslations;
+      audit: ModuleTranslations;
+      exploit: ModuleTranslations;
+      flashloan: ModuleTranslations;
+      reentrancy: ModuleTranslations;
+      socialeng: ModuleTranslations;
+      fakedapp: ModuleTranslations;
+      malware: ModuleTranslations;
+      dyor: ModuleTranslations;
+      escrow: ModuleTranslations;
+    };
+  };
+  rugpull: QuizModuleDict;
+  scamphishing: QuizModuleDict;
+  approvetx: QuizModuleDict;
+  revoke: QuizModuleDict;
+  hardwarewallet: QuizModuleDict;
+  hotvscold: QuizModuleDict;
+  audit: QuizModuleDict;
+  exploit: QuizModuleDict;
+  flashloan: QuizModuleDict;
+  reentrancy: QuizModuleDict;
+  socialeng: QuizModuleDict;
+  fakedapp: QuizModuleDict;
+  malware: QuizModuleDict;
+  dyor: QuizModuleDict;
+  escrow: QuizModuleDict;
 }
