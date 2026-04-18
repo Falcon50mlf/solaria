@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, XCircle, Trophy, ArrowRight } from "lucide-react";
+import { CheckCircle2, XCircle, Trophy, ArrowRight, Timer } from "lucide-react";
 import Link from "next/link";
 import { usePrivy } from "@privy-io/react-auth";
 import { completeModule } from "@/lib/gameState";
@@ -70,6 +70,9 @@ export function QuizModule({
   const [showExplanation, setShowExplanation] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [quizComplete, setQuizComplete] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimeRef = useRef<number | null>(null);
 
   const questions = content.quizQuestions;
   const current = questions[currentQuestion];
@@ -79,12 +82,37 @@ export function QuizModule({
   const exitLink = loggedIn ? "/dashboard" : "/chapters";
   const exitLabel = loggedIn ? t.home.backToDashboard : t.login.backHome;
 
+  // Start timer on first render of quiz, stop on complete
+  useEffect(() => {
+    if (quizComplete) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+    if (!startTimeRef.current) {
+      startTimeRef.current = Date.now();
+    }
+    timerRef.current = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - (startTimeRef.current ?? Date.now())) / 1000));
+    }, 1000);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [quizComplete]);
+
+  const formatTime = (s: number) => {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${m}:${sec.toString().padStart(2, "0")}`;
+  };
+
+  const timerColor = elapsed < 30 ? "text-[var(--sol-green)]" : elapsed < 60 ? "text-amber-400" : "text-[var(--sol-accent)]";
+
   const handleRetryQuiz = () => {
     setCurrentQuestion(0);
     setSelectedAnswer(null);
     setShowExplanation(false);
     setCorrectAnswers(0);
     setQuizComplete(false);
+    setElapsed(0);
+    startTimeRef.current = Date.now();
   };
 
   const handleAnswer = (index: number) => {
@@ -165,7 +193,13 @@ export function QuizModule({
 
   const quizSlide = (
     <div>
-      <h2 className="text-2xl font-bold text-[var(--sol-green)] mb-6">{content.phase2Title}</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold text-[var(--sol-green)]">{content.phase2Title}</h2>
+        <div className={`flex items-center gap-2 font-mono text-lg font-bold ${timerColor} transition-colors`}>
+          <Timer size={18} />
+          <span>{formatTime(elapsed)}</span>
+        </div>
+      </div>
       <div className="flex gap-1 mb-6">
         {questions.map((_, i) => (
           <div
@@ -263,10 +297,14 @@ export function QuizModule({
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring" }}
-            className={`text-5xl font-bold block mb-4 animate-count-up ${passed ? "text-[var(--sol-green)]" : "text-[var(--sol-accent)]"}`}
+            className={`text-5xl font-bold block mb-2 animate-count-up ${passed ? "text-[var(--sol-green)]" : "text-[var(--sol-accent)]"}`}
           >
             {correctAnswers}/{questions.length}
           </motion.span>
+          <p className="text-sm font-mono text-slate-400 mb-4 flex items-center justify-center gap-1.5">
+            <Timer size={14} /> {formatTime(elapsed)}
+            {passed && elapsed < 30 && <span className="ml-2 text-[var(--sol-green)] font-bold uppercase text-xs">Speed bonus!</span>}
+          </p>
           {passed ? (
             <p className="text-slate-300 mb-6">{content.phase2Success}</p>
           ) : (
