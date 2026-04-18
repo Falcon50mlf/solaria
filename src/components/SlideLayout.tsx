@@ -34,7 +34,7 @@ export function SlideLayout({
   const total = slides.length;
 
   const loggedIn = ready && authenticated;
-  const resolvedBackLink = loggedIn ? "/dashboard" : "/";
+  const resolvedBackLink = loggedIn ? "/dashboard" : "/chapters";
   const resolvedBackLabel = loggedIn ? t.home.backToDashboard : t.login.backHome;
 
   const isNextBlocked = canAdvance ? canAdvance[currentSlide] === false : false;

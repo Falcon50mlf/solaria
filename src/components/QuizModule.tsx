@@ -76,7 +76,7 @@ export function QuizModule({
   const passed = quizComplete && correctAnswers / questions.length >= 0.7;
   const moduleCompleted = gameState?.modules?.find((m) => m.id === moduleId)?.completed ?? false;
   const loggedIn = ready && authenticated;
-  const exitLink = loggedIn ? "/dashboard" : "/";
+  const exitLink = loggedIn ? "/dashboard" : "/chapters";
   const exitLabel = loggedIn ? t.home.backToDashboard : t.login.backHome;
 
   const handleRetryQuiz = () => {
