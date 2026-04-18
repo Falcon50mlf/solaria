@@ -21,6 +21,25 @@ import {
   Brain,
   Server,
   Search,
+  MapPin,
+  Globe2,
+  PenTool,
+  Fuel,
+  ScanSearch,
+  Cpu,
+  Clock,
+  Waves,
+  GitBranch,
+  Archive,
+  Gauge,
+  Vote,
+  RotateCw,
+  Activity,
+  Building2,
+  Wind,
+  Database,
+  Hourglass,
+  Coins,
 } from "lucide-react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
@@ -45,20 +64,42 @@ const MODULE_ICONS: Record<string, typeof Network> = {
   consensus: Brain,
   validators: Server,
   explorer: Search,
+  adresse: MapPin,
+  networks: Globe2,
+  signature: PenTool,
+  fees: Fuel,
+  solscan: ScanSearch,
+  node: Cpu,
+  poh: Clock,
+  gulfstream: Waves,
+  sealevel: GitBranch,
+  archivers: Archive,
+  tps: Gauge,
+  votetx: Vote,
+  restart: RotateCw,
+  congestion: Activity,
+  tower: Building2,
+  turbine: Wind,
+  cloudbreak: Database,
+  slot: Hourglass,
+  economics: Coins,
+  cluster: Boxes,
+  jito: Zap,
 };
 
-const MODULE_ORDER = [
-  "decentralisation",
-  "blockchain",
-  "wallet",
-  "seedphrase",
-  "transactions",
-  "consensus",
-  "validators",
-  "explorer",
+const BASICS_ORDER = [
+  "decentralisation", "blockchain", "wallet", "seedphrase",
+  "transactions", "consensus", "validators", "explorer",
+  "adresse", "networks", "signature", "fees", "solscan", "node",
 ];
+const BASICS_TOTAL_XP = 1960;
 
-const CHAPTER_TOTAL_XP = 1150;
+const INFRA_ORDER = [
+  "poh", "gulfstream", "sealevel", "archivers", "tps",
+  "votetx", "restart", "congestion", "tower", "turbine",
+  "cloudbreak", "slot", "economics", "cluster", "jito",
+];
+const INFRA_TOTAL_XP = 2540;
 
 export default function DashboardContent() {
   const { t } = useLocale();
@@ -98,6 +139,11 @@ export default function DashboardContent() {
   const totalXp = progress.reduce((s, p) => s + p.xp_earned, 0);
   const completedIds = new Set(progress.map((p) => p.module_id));
   const badges = progress.filter((p) => p.badge).map((p) => p.badge as string);
+  const basicsCompleted = BASICS_ORDER.filter((id) => completedIds.has(id)).length;
+  const basicsXp = progress.filter((p) => BASICS_ORDER.includes(p.module_id)).reduce((s, p) => s + p.xp_earned, 0);
+  const infraCompleted = INFRA_ORDER.filter((id) => completedIds.has(id)).length;
+  const infraXp = progress.filter((p) => INFRA_ORDER.includes(p.module_id)).reduce((s, p) => s + p.xp_earned, 0);
+  const allModulesCount = BASICS_ORDER.length + INFRA_ORDER.length;
   const email = user?.email?.address ?? user?.google?.email ?? null;
   const emailTruncated = email
     ? email.length > 14
@@ -163,7 +209,7 @@ export default function DashboardContent() {
               <div className="w-px bg-white/10 self-stretch" />
               <Stat
                 icon={<BookOpen size={24} className="text-[#9945ff]" />}
-                value={`${progress.length}/${MODULE_ORDER.length}`}
+                value={`${progress.length}/${allModulesCount}`}
                 label={t.common.modulesCompleted}
               />
               <div className="w-px bg-white/10 self-stretch" />
@@ -191,23 +237,72 @@ export default function DashboardContent() {
 
             <div className="flex items-center justify-between text-sm mb-3">
               <span className="text-[#919191]">
-                {progress.length}/{MODULE_ORDER.length} {t.common.modulesCompleted}
+                {basicsCompleted}/{BASICS_ORDER.length} {t.common.modulesCompleted}
               </span>
               <span className="text-[#14f195] font-medium">
-                {totalXp}/{CHAPTER_TOTAL_XP} XP
+                {basicsXp}/{BASICS_TOTAL_XP} XP
               </span>
             </div>
             <div className="h-2 rounded-full bg-white/10 overflow-hidden mb-8">
               <motion.div
                 initial={{ width: 0 }}
-                animate={{ width: `${(progress.length / MODULE_ORDER.length) * 100}%` }}
+                animate={{ width: `${(basicsCompleted / BASICS_ORDER.length) * 100}%` }}
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="h-full rounded-full bg-gradient-to-r from-[#9945ff] to-[#14f195]"
               />
             </div>
 
             <div className="flex gap-2.5 flex-wrap">
-              {MODULE_ORDER.map((id) => {
+              {BASICS_ORDER.map((id) => {
+                const Icon = MODULE_ICONS[id] ?? BookOpen;
+                const done = completedIds.has(id);
+                return (
+                  <div
+                    key={id}
+                    className={`w-8 h-8 rounded-md flex items-center justify-center ${
+                      done ? "bg-[rgba(20,241,149,0.2)] text-[#14f195]" : "bg-[#07070f] text-white/40"
+                    }`}
+                  >
+                    <Icon size={16} />
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Infrastructure chapter card */}
+          <section className="fg-card-green relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                  <Server size={24} className="text-[#14f195]" />
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-normal">{t.infrastructure.pageTitle}</h3>
+              </div>
+              <Link href="/infrastructure" className="pill-green inline-flex items-center gap-2">
+                {t.common.continue} <ArrowRight size={18} />
+              </Link>
+            </div>
+
+            <div className="flex items-center justify-between text-sm mb-3">
+              <span className="text-[#919191]">
+                {infraCompleted}/{INFRA_ORDER.length} {t.common.modulesCompleted}
+              </span>
+              <span className="text-[#14f195] font-medium">
+                {infraXp}/{INFRA_TOTAL_XP} XP
+              </span>
+            </div>
+            <div className="h-2 rounded-full bg-white/10 overflow-hidden mb-8">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${INFRA_ORDER.length > 0 ? (infraCompleted / INFRA_ORDER.length) * 100 : 0}%`}}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="h-full rounded-full bg-gradient-to-r from-[#14f195] to-[#00d4ff]"
+              />
+            </div>
+
+            <div className="flex gap-2.5 flex-wrap">
+              {INFRA_ORDER.map((id) => {
                 const Icon = MODULE_ICONS[id] ?? BookOpen;
                 const done = completedIds.has(id);
                 return (
@@ -242,7 +337,9 @@ export default function DashboardContent() {
                 {progress.map((p) => {
                   const Icon = MODULE_ICONS[p.module_id] ?? BookOpen;
                   const moduleName =
-                    t.basics.modules[p.module_id as keyof typeof t.basics.modules]?.title ?? p.module_id;
+                    (t.basics.modules as Record<string, { title: string }>)[p.module_id]?.title ??
+                    (t.infrastructure.modules as Record<string, { title: string }>)[p.module_id]?.title ??
+                    p.module_id;
                   return (
                     <motion.div
                       key={p.module_id}
