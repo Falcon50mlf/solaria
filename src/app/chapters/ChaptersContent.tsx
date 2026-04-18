@@ -107,6 +107,10 @@ interface Chapter {
   moduleIds: string[];
   totalXp: number;
   titleKey: "basics" | "infrastructure" | "security";
+  cardClass: string;
+  accentColor: string;
+  progressGradient: string;
+  pillClass: string;
 }
 
 const CHAPTERS: Chapter[] = [
@@ -114,6 +118,10 @@ const CHAPTERS: Chapter[] = [
     id: "basics",
     link: "/basics",
     titleKey: "basics",
+    cardClass: "fg-card-purple",
+    accentColor: "#9945ff",
+    progressGradient: "from-[#9945ff] to-[#14f195]",
+    pillClass: "pill-purple",
     moduleIds: [
       "decentralisation",
       "blockchain",
@@ -136,6 +144,10 @@ const CHAPTERS: Chapter[] = [
     id: "infrastructure",
     link: "/infrastructure",
     titleKey: "infrastructure",
+    cardClass: "fg-card-green",
+    accentColor: "#14f195",
+    progressGradient: "from-[#14f195] to-[#00d4ff]",
+    pillClass: "pill-green",
     moduleIds: [
       "poh",
       "gulfstream",
@@ -159,6 +171,10 @@ const CHAPTERS: Chapter[] = [
     id: "security",
     link: "/security",
     titleKey: "security",
+    cardClass: "fg-card-red",
+    accentColor: "#ff6b6b",
+    progressGradient: "from-[#ff6b6b] to-[#9945ff]",
+    pillClass: "pill-red",
     moduleIds: [
       "rugpull", "scamphishing", "approvetx", "revoke",
       "hardwarewallet", "hotvscold", "audit", "exploit",
@@ -228,12 +244,12 @@ export default function ChaptersContent() {
                 key={chapter.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="fg-card-green relative rounded-[38px] p-8 sm:p-10 overflow-hidden"
+                className={`${chapter.cardClass} relative rounded-[38px] p-8 sm:p-10 overflow-hidden`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
-                      <BookOpen size={24} className="text-[#14f195]" />
+                      <BookOpen size={24} style={{ color: chapter.accentColor }} />
                     </div>
                     <h3 className="text-2xl sm:text-3xl font-normal">{t[chapter.titleKey].pageTitle}</h3>
                   </div>
@@ -243,7 +259,7 @@ export default function ChaptersContent() {
                   <span className="text-[#919191]">
                     {chapterCompleted}/{chapterTotal} {t.common.modulesCompleted}
                   </span>
-                  <span className="text-[#14f195] font-medium">
+                  <span style={{ color: chapter.accentColor }} className="font-medium">
                     {chapterXp}/{chapter.totalXp} XP
                   </span>
                 </div>
@@ -252,7 +268,7 @@ export default function ChaptersContent() {
                     initial={{ width: 0 }}
                     animate={{ width: `${progressPercent}%` }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="h-full rounded-full bg-gradient-to-r from-[#9945ff] to-[#14f195]"
+                    className={`h-full rounded-full bg-gradient-to-r ${chapter.progressGradient}`}
                   />
                 </div>
 
@@ -264,8 +280,9 @@ export default function ChaptersContent() {
                       <div
                         key={modId}
                         className={`w-8 h-8 rounded-md flex items-center justify-center ${
-                          done ? "bg-[rgba(20,241,149,0.2)] text-[#14f195]" : "bg-[#07070f] text-white/40"
+                          done ? "bg-white/15" : "bg-[#07070f] text-white/40"
                         }`}
+                        style={done ? { color: chapter.accentColor } : undefined}
                       >
                         <Icon size={16} />
                       </div>
@@ -273,7 +290,7 @@ export default function ChaptersContent() {
                   })}
                 </div>
 
-                <Link href={chapter.link} className="pill-green inline-flex items-center gap-2">
+                <Link href={chapter.link} className={`${chapter.pillClass} inline-flex items-center gap-2`}>
                   {t.home.exploreWithoutAccount} <ArrowRight size={18} />
                 </Link>
               </motion.div>

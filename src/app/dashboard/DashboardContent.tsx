@@ -262,15 +262,15 @@ export default function DashboardContent() {
           </section>
 
           {/* Basics chapter card */}
-          <section className="fg-card-green relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
+          <section className="fg-card-purple relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
               <div className="flex items-center gap-5">
                 <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
-                  <BookOpen size={24} className="text-[#14f195]" />
+                  <BookOpen size={24} className="text-[#9945ff]" />
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-normal">{t.basics.pageTitle}</h3>
               </div>
-              <Link href="/basics" className="pill-green inline-flex items-center gap-2">
+              <Link href="/basics" className="pill-purple inline-flex items-center gap-2">
                 {t.common.continue} <ArrowRight size={18} />
               </Link>
             </div>
@@ -279,7 +279,7 @@ export default function DashboardContent() {
               <span className="text-[#919191]">
                 {basicsCompleted}/{BASICS_ORDER.length} {t.common.modulesCompleted}
               </span>
-              <span className="text-[#14f195] font-medium">
+              <span className="text-[#9945ff] font-medium">
                 {basicsXp}/{BASICS_TOTAL_XP} XP
               </span>
             </div>
@@ -300,7 +300,7 @@ export default function DashboardContent() {
                   <div
                     key={id}
                     className={`w-8 h-8 rounded-md flex items-center justify-center ${
-                      done ? "bg-[rgba(20,241,149,0.2)] text-[#14f195]" : "bg-[#07070f] text-white/40"
+                      done ? "bg-[rgba(153,69,255,0.2)] text-[#9945ff]" : "bg-[#07070f] text-white/40"
                     }`}
                   >
                     <Icon size={16} />
@@ -360,7 +360,7 @@ export default function DashboardContent() {
           </section>
 
           {/* Security chapter card */}
-          <section className="fg-card-green relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
+          <section className="fg-card-red relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
               <div className="flex items-center gap-5">
                 <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
@@ -368,7 +368,7 @@ export default function DashboardContent() {
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-normal">{t.security.pageTitle}</h3>
               </div>
-              <Link href="/security" className="pill-green inline-flex items-center gap-2">
+              <Link href="/security" className="pill-red inline-flex items-center gap-2">
                 {t.common.continue} <ArrowRight size={18} />
               </Link>
             </div>
@@ -377,7 +377,7 @@ export default function DashboardContent() {
               <span className="text-[#919191]">
                 {securityCompleted}/{SECURITY_ORDER.length} {t.common.modulesCompleted}
               </span>
-              <span className="text-[#14f195] font-medium">
+              <span className="text-[#ff6b6b] font-medium">
                 {securityXp}/{SECURITY_TOTAL_XP} XP
               </span>
             </div>
@@ -398,7 +398,7 @@ export default function DashboardContent() {
                   <div
                     key={id}
                     className={`w-8 h-8 rounded-md flex items-center justify-center ${
-                      done ? "bg-[rgba(20,241,149,0.2)] text-[#14f195]" : "bg-[#07070f] text-white/40"
+                      done ? "bg-[rgba(255,107,107,0.2)] text-[#ff6b6b]" : "bg-[#07070f] text-white/40"
                     }`}
                   >
                     <Icon size={16} />
