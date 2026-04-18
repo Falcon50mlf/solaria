@@ -14,6 +14,7 @@ import { completeModule } from '@/lib/gameState';
 import { useGameState } from '@/lib/useGameState';
 import { useLocale } from '@/lib/useLocale';
 import { SlideLayout } from '@/components/SlideLayout';
+import { useQuizTimer, TimerDisplay, TimerResult } from '@/components/QuizTimer';
 
 export default function ValidatorsContent() {
   const { t } = useLocale();
@@ -24,11 +25,14 @@ export default function ValidatorsContent() {
   const [correctCount, setCorrectCount] = useState(0);
   const [quizComplete, setQuizComplete] = useState(false);
   const [moduleComplete, setModuleComplete] = useState(false);
+  const timer = useQuizTimer();
 
   useEffect(() => {
     const mod = gameState?.modules?.find((m) => m.id === 'validators');
     if (mod?.completed) setModuleComplete(true);
   }, [gameState]);
+
+  useEffect(() => { if (quizComplete) timer.stop(); }, [quizComplete]);
 
   const questions = t.validators.quizQuestions;
   const passed = quizComplete && correctCount / questions.length >= 0.7;
@@ -39,6 +43,7 @@ export default function ValidatorsContent() {
     setShowExplanation(false);
     setCorrectCount(0);
     setQuizComplete(false);
+    timer.reset();
   };
 
   const handleAnswer = (index: number) => {
@@ -161,12 +166,15 @@ export default function ValidatorsContent() {
 
   /* ── Slide 5: Quiz ── */
   const slide5 = (
-    <div>
-      <div className="mb-6">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
-          {t.validators.phase2Title}
-        </h2>
-        <p className="text-slate-400">{t.validators.phase2Subtitle}</p>
+    <div ref={(el) => { if (el && !timer.running) timer.start(); }}>
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
+            {t.validators.phase2Title}
+          </h2>
+          <p className="text-slate-400">{t.validators.phase2Subtitle}</p>
+        </div>
+        <TimerDisplay elapsed={timer.elapsed} />
       </div>
 
       {!quizComplete ? (
@@ -340,6 +348,7 @@ export default function ValidatorsContent() {
             >
               {correctCount}/{questions.length}
             </motion.span>
+            <TimerResult elapsed={timer.elapsed} passed={passed} />
             {passed ? (
               <>
                 <p className="text-green-400 font-bold text-lg mb-4">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Brain, CheckCircle2, XCircle, Trophy, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -8,6 +8,7 @@ import { completeModule } from '@/lib/gameState';
 import { useGameState } from '@/lib/useGameState';
 import { useLocale } from '@/lib/useLocale';
 import { SlideLayout } from '@/components/SlideLayout';
+import { useQuizTimer, TimerDisplay, TimerResult } from '@/components/QuizTimer';
 
 export default function ConsensusContent() {
   const { t } = useLocale();
@@ -17,10 +18,13 @@ export default function ConsensusContent() {
   const [showExplanation, setShowExplanation] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [quizComplete, setQuizComplete] = useState(false);
+  const timer = useQuizTimer();
 
   const questions = t.consensus.quizQuestions;
   const current = questions[currentQuestion];
   const passed = quizComplete && correctAnswers / questions.length >= 0.7;
+
+  useEffect(() => { if (quizComplete) timer.stop(); }, [quizComplete]);
 
   const handleRetryQuiz = () => {
     setCurrentQuestion(0);
@@ -28,6 +32,7 @@ export default function ConsensusContent() {
     setShowExplanation(false);
     setCorrectAnswers(0);
     setQuizComplete(false);
+    timer.reset();
   };
 
   const handleAnswer = (index: number) => {
@@ -120,8 +125,11 @@ export default function ConsensusContent() {
 
   // Slide 5: Quiz
   const quizSlide = (
-    <div>
-      <h2 className="text-2xl font-bold text-[var(--sol-green)] mb-6">{t.consensus.phase2Title}</h2>
+    <div onAnimationStart={() => timer.start()} ref={(el) => { if (el && !timer.running) timer.start(); }}>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold text-[var(--sol-green)]">{t.consensus.phase2Title}</h2>
+        <TimerDisplay elapsed={timer.elapsed} />
+      </div>
       {/* Progress dots */}
       <div className="flex gap-1 mb-6">
         {questions.map((_, i) => (
@@ -192,9 +200,10 @@ export default function ConsensusContent() {
       ) : (
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
           <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring" }}
-            className={`text-5xl font-bold block mb-4 animate-count-up ${passed ? "text-[var(--sol-green)]" : "text-[var(--sol-accent)]"}`}>
+            className={`text-5xl font-bold block mb-2 animate-count-up ${passed ? "text-[var(--sol-green)]" : "text-[var(--sol-accent)]"}`}>
             {correctAnswers}/{questions.length}
           </motion.span>
+          <TimerResult elapsed={timer.elapsed} passed={passed} />
           {passed ? (
             <p className="text-slate-300 mb-6">{t.consensus.phase2Success}</p>
           ) : (

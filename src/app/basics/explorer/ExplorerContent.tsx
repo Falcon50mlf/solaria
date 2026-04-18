@@ -17,6 +17,7 @@ import { useGameState } from '@/lib/useGameState';
 import { useLocale } from '@/lib/useLocale';
 import { useUser } from '@/hooks/useUser';
 import { SlideLayout } from '@/components/SlideLayout';
+import { useQuizTimer, TimerDisplay, TimerResult } from '@/components/QuizTimer';
 
 export default function ExplorerContent() {
   const { t } = useLocale();
@@ -30,6 +31,7 @@ export default function ExplorerContent() {
   const [quizComplete, setQuizComplete] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showReveal, setShowReveal] = useState(false);
+  const timer = useQuizTimer();
 
   // Check if explorer module is already completed
   useEffect(() => {
@@ -40,12 +42,15 @@ export default function ExplorerContent() {
   const questions = t.explorer.quizQuestions;
   const passed = quizComplete && correctAnswers / questions.length >= 0.7;
 
+  useEffect(() => { if (quizComplete) timer.stop(); }, [quizComplete]);
+
   const handleRetryQuiz = () => {
     setCurrentQuestion(0);
     setSelectedAnswer(null);
     setShowExplanation(false);
     setCorrectAnswers(0);
     setQuizComplete(false);
+    timer.reset();
   };
 
   const handleAnswer = (index: number) => {
@@ -170,10 +175,13 @@ export default function ExplorerContent() {
 
   // ── Slide 5: Wallet address + Quiz ──
   const slide5 = (
-    <div>
-      <h2 className="text-2xl font-bold text-[var(--sol-green)] mb-6">
-        {t.explorer.phase2Title}
-      </h2>
+    <div ref={(el) => { if (el && !timer.running) timer.start(); }}>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold text-[var(--sol-green)]">
+          {t.explorer.phase2Title}
+        </h2>
+        <TimerDisplay elapsed={timer.elapsed} />
+      </div>
 
       {/* Wallet address section */}
       {walletAddress && (
@@ -347,6 +355,7 @@ export default function ExplorerContent() {
             >
               {correctAnswers}/{questions.length}
             </motion.span>
+            <TimerResult elapsed={timer.elapsed} passed={passed} />
             {passed ? (
               <>
                 <h3 className="text-2xl font-bold mb-2">
