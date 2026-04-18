@@ -178,7 +178,27 @@ export interface TranslationDictionary {
     escrow: string;
     master: string;
     infrastructureMaster: string;
+    defi: string;
+    staking: string;
+    liquiditypool: string;
+    swap: string;
+    cexdex: string;
+    spread: string;
+    liquidation: string;
+    optionsonchain: string;
+    indextokens: string;
+    tvl: string;
+    soltoken: string;
+    yieldfarming: string;
+    amm: string;
+    slippage: string;
+    orderbook: string;
+    leverage: string;
+    perp: string;
+    etfcrypto: string;
+    apyapr: string;
     securityMaster: string;
+    financeMaster: string;
   };
   decentralisation: {
     // Phase 1
@@ -584,4 +604,48 @@ export interface TranslationDictionary {
   malware: QuizModuleDict;
   dyor: QuizModuleDict;
   escrow: QuizModuleDict;
+  finance: {
+    pageTitle: string;
+    pageSubtitle: string;
+    modules: {
+      defi: ModuleTranslations;
+      staking: ModuleTranslations;
+      liquiditypool: ModuleTranslations;
+      swap: ModuleTranslations;
+      cexdex: ModuleTranslations;
+      spread: ModuleTranslations;
+      liquidation: ModuleTranslations;
+      optionsonchain: ModuleTranslations;
+      indextokens: ModuleTranslations;
+      tvl: ModuleTranslations;
+      soltoken: ModuleTranslations;
+      yieldfarming: ModuleTranslations;
+      amm: ModuleTranslations;
+      slippage: ModuleTranslations;
+      orderbook: ModuleTranslations;
+      leverage: ModuleTranslations;
+      perp: ModuleTranslations;
+      etfcrypto: ModuleTranslations;
+      apyapr: ModuleTranslations;
+    };
+  };
+  defi: QuizModuleDict;
+  staking: QuizModuleDict;
+  liquiditypool: QuizModuleDict;
+  swap: QuizModuleDict;
+  cexdex: QuizModuleDict;
+  spread: QuizModuleDict;
+  liquidation: QuizModuleDict;
+  optionsonchain: QuizModuleDict;
+  indextokens: QuizModuleDict;
+  tvl: QuizModuleDict;
+  soltoken: QuizModuleDict;
+  yieldfarming: QuizModuleDict;
+  amm: QuizModuleDict;
+  slippage: QuizModuleDict;
+  orderbook: QuizModuleDict;
+  leverage: QuizModuleDict;
+  perp: QuizModuleDict;
+  etfcrypto: QuizModuleDict;
+  apyapr: QuizModuleDict;
 }

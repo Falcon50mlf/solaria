@@ -42,7 +42,26 @@ export type ModuleId =
   | "fakedapp"
   | "malware"
   | "dyor"
-  | "escrow";
+  | "escrow"
+  | "defi"
+  | "staking"
+  | "liquiditypool"
+  | "swap"
+  | "cexdex"
+  | "spread"
+  | "liquidation"
+  | "optionsonchain"
+  | "indextokens"
+  | "tvl"
+  | "soltoken"
+  | "yieldfarming"
+  | "amm"
+  | "slippage"
+  | "orderbook"
+  | "leverage"
+  | "perp"
+  | "etfcrypto"
+  | "apyapr";
 
 export interface ModuleProgress {
   id: ModuleId;
@@ -113,6 +132,25 @@ export const MODULE_BADGES: Record<ModuleId, string> = {
   malware: "Anti-Malware",
   dyor: "Chercheur Autonome",
   escrow: "Gardien d'Escrow",
+  defi: "Pionnier DeFi",
+  staking: "Staker Pro",
+  liquiditypool: "Fournisseur de Liquidité",
+  swap: "Swappeur",
+  cexdex: "Navigateur CEX/DEX",
+  spread: "Analyste du Spread",
+  liquidation: "Survivant de Liquidation",
+  optionsonchain: "Stratège d'Options",
+  indextokens: "Indexeur",
+  tvl: "Mesureur de TVL",
+  soltoken: "Expert SOL",
+  yieldfarming: "Fermier de Rendement",
+  amm: "Maître AMM",
+  slippage: "Chasseur de Slippage",
+  orderbook: "Lecteur d'Orderbook",
+  leverage: "Maître du Levier",
+  perp: "Trader Perp",
+  etfcrypto: "Expert ETF",
+  apyapr: "Calculateur de Rendement",
 };
 
 export const MASTER_BADGE = "Maître des Basics";
@@ -162,6 +200,10 @@ export const MODULE_ORDER: ModuleId[] = [
   "malware",
   "dyor",
   "escrow",
+  "defi", "staking", "liquiditypool", "swap", "cexdex",
+  "spread", "liquidation", "optionsonchain", "indextokens", "tvl",
+  "soltoken", "yieldfarming", "amm", "slippage", "orderbook",
+  "leverage", "perp", "etfcrypto", "apyapr",
 ];
 
 export const INITIAL_MODULES: ModuleProgress[] = [
@@ -412,6 +454,25 @@ export const INITIAL_MODULES: ModuleProgress[] = [
   { id: "malware", title: "Malware / Drainer", completed: false, xpEarned: 0, maxXp: 160, unlocked: false },
   { id: "dyor", title: "DYOR", completed: false, xpEarned: 0, maxXp: 130, unlocked: false },
   { id: "escrow", title: "Escrow", completed: false, xpEarned: 0, maxXp: 150, unlocked: false },
+  { id: "defi", title: "DeFi", completed: false, xpEarned: 0, maxXp: 150, unlocked: false },
+  { id: "staking", title: "Staking", completed: false, xpEarned: 0, maxXp: 140, unlocked: false },
+  { id: "liquiditypool", title: "Liquidity Pool", completed: false, xpEarned: 0, maxXp: 170, unlocked: false },
+  { id: "swap", title: "Swap", completed: false, xpEarned: 0, maxXp: 120, unlocked: false },
+  { id: "cexdex", title: "CEX vs DEX", completed: false, xpEarned: 0, maxXp: 140, unlocked: false },
+  { id: "spread", title: "Spread", completed: false, xpEarned: 0, maxXp: 130, unlocked: false },
+  { id: "liquidation", title: "Liquidation", completed: false, xpEarned: 0, maxXp: 160, unlocked: false },
+  { id: "optionsonchain", title: "Options On-Chain", completed: false, xpEarned: 0, maxXp: 180, unlocked: false },
+  { id: "indextokens", title: "Index Tokens", completed: false, xpEarned: 0, maxXp: 150, unlocked: false },
+  { id: "tvl", title: "TVL", completed: false, xpEarned: 0, maxXp: 130, unlocked: false },
+  { id: "soltoken", title: "SOL (Token Natif)", completed: false, xpEarned: 0, maxXp: 140, unlocked: false },
+  { id: "yieldfarming", title: "Yield Farming", completed: false, xpEarned: 0, maxXp: 170, unlocked: false },
+  { id: "amm", title: "AMM", completed: false, xpEarned: 0, maxXp: 180, unlocked: false },
+  { id: "slippage", title: "Slippage", completed: false, xpEarned: 0, maxXp: 130, unlocked: false },
+  { id: "orderbook", title: "Orderbook", completed: false, xpEarned: 0, maxXp: 150, unlocked: false },
+  { id: "leverage", title: "Levier (Leverage)", completed: false, xpEarned: 0, maxXp: 170, unlocked: false },
+  { id: "perp", title: "Perp (Perpetual Futures)", completed: false, xpEarned: 0, maxXp: 180, unlocked: false },
+  { id: "etfcrypto", title: "ETF Crypto", completed: false, xpEarned: 0, maxXp: 140, unlocked: false },
+  { id: "apyapr", title: "APY / APR", completed: false, xpEarned: 0, maxXp: 120, unlocked: false },
 ];
 
 export const INITIAL_STATE: GameState = {

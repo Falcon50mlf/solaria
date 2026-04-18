@@ -48,6 +48,20 @@ import {
   Skull,
   Glasses,
   ShieldCheck,
+  Landmark,
+  Droplets,
+  ArrowLeftRight,
+  BarChart3,
+  TrendingDown,
+  Target,
+  PieChart,
+  CircleDollarSign,
+  Sprout,
+  Repeat2,
+  Scale,
+  CandlestickChart,
+  LineChart,
+  Percent,
 } from "lucide-react";
 import { useLocale } from "@/lib/useLocale";
 import { useGameState } from "@/lib/useGameState";
@@ -99,6 +113,25 @@ const MODULE_ICONS: Record<string, typeof BookOpen> = {
   malware: Skull,
   dyor: Glasses,
   escrow: ShieldCheck,
+  defi: Landmark,
+  staking: Coins,
+  liquiditypool: Droplets,
+  swap: ArrowLeftRight,
+  cexdex: Building2,
+  spread: BarChart3,
+  liquidation: TrendingDown,
+  optionsonchain: Target,
+  indextokens: PieChart,
+  tvl: Hourglass,
+  soltoken: CircleDollarSign,
+  yieldfarming: Sprout,
+  amm: Repeat2,
+  slippage: AlertTriangle,
+  orderbook: BookOpen,
+  leverage: Scale,
+  perp: CandlestickChart,
+  etfcrypto: LineChart,
+  apyapr: Percent,
 };
 
 interface Chapter {
@@ -106,7 +139,7 @@ interface Chapter {
   link: string;
   moduleIds: string[];
   totalXp: number;
-  titleKey: "basics" | "infrastructure" | "security";
+  titleKey: "basics" | "infrastructure" | "security" | "finance";
   cardClass: string;
   accentColor: string;
   progressGradient: string;
@@ -182,6 +215,22 @@ const CHAPTERS: Chapter[] = [
       "malware", "dyor", "escrow",
     ],
     totalXp: 2290,
+  },
+  {
+    id: "finance",
+    link: "/finance",
+    titleKey: "finance",
+    cardClass: "fg-card-teal",
+    accentColor: "#2dd4bf",
+    progressGradient: "from-[#2dd4bf] to-[#06b6d4]",
+    pillClass: "pill-teal",
+    moduleIds: [
+      "defi", "staking", "liquiditypool", "swap", "cexdex",
+      "spread", "liquidation", "optionsonchain", "indextokens", "tvl",
+      "soltoken", "yieldfarming", "amm", "slippage", "orderbook",
+      "leverage", "perp", "etfcrypto", "apyapr",
+    ],
+    totalXp: 2870,
   },
 ];
 

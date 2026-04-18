@@ -55,6 +55,20 @@ import {
   Glasses,
   ShieldCheck,
   ShieldBan,
+  Landmark,
+  Droplets,
+  ArrowLeftRight,
+  BarChart3,
+  TrendingDown,
+  Target,
+  PieChart,
+  CircleDollarSign,
+  Sprout,
+  Repeat2,
+  Scale,
+  CandlestickChart,
+  LineChart,
+  Percent,
 } from "lucide-react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
@@ -115,6 +129,25 @@ const MODULE_ICONS: Record<string, typeof Network> = {
   malware: Skull,
   dyor: Glasses,
   escrow: ShieldCheck,
+  defi: Landmark,
+  staking: Coins,
+  liquiditypool: Droplets,
+  swap: ArrowLeftRight,
+  cexdex: Building2,
+  spread: BarChart3,
+  liquidation: TrendingDown,
+  optionsonchain: Target,
+  indextokens: PieChart,
+  tvl: Zap,
+  soltoken: CircleDollarSign,
+  yieldfarming: Sprout,
+  amm: Repeat2,
+  slippage: AlertTriangle,
+  orderbook: BookOpen,
+  leverage: Scale,
+  perp: CandlestickChart,
+  etfcrypto: LineChart,
+  apyapr: Percent,
 };
 
 const BASICS_ORDER = [
@@ -138,6 +171,14 @@ const SECURITY_ORDER = [
   "malware", "dyor", "escrow",
 ];
 const SECURITY_TOTAL_XP = 2290;
+
+const FINANCE_ORDER = [
+  "defi", "staking", "liquiditypool", "swap", "cexdex",
+  "spread", "liquidation", "optionsonchain", "indextokens", "tvl",
+  "soltoken", "yieldfarming", "amm", "slippage", "orderbook",
+  "leverage", "perp", "etfcrypto", "apyapr",
+];
+const FINANCE_TOTAL_XP = 2870;
 
 export default function DashboardContent() {
   const { t } = useLocale();
@@ -183,7 +224,9 @@ export default function DashboardContent() {
   const infraXp = progress.filter((p) => INFRA_ORDER.includes(p.module_id)).reduce((s, p) => s + p.xp_earned, 0);
   const securityCompleted = SECURITY_ORDER.filter((id) => completedIds.has(id)).length;
   const securityXp = progress.filter((p) => SECURITY_ORDER.includes(p.module_id)).reduce((s, p) => s + p.xp_earned, 0);
-  const allModulesCount = BASICS_ORDER.length + INFRA_ORDER.length + SECURITY_ORDER.length;
+  const financeCompleted = FINANCE_ORDER.filter((id) => completedIds.has(id)).length;
+  const financeXp = progress.filter((p) => FINANCE_ORDER.includes(p.module_id)).reduce((s, p) => s + p.xp_earned, 0);
+  const allModulesCount = BASICS_ORDER.length + INFRA_ORDER.length + SECURITY_ORDER.length + FINANCE_ORDER.length;
   const email = user?.email?.address ?? user?.google?.email ?? null;
   const emailTruncated = email
     ? email.length > 14
@@ -408,6 +451,55 @@ export default function DashboardContent() {
             </div>
           </section>
 
+          {/* Finance chapter card */}
+          <section className="fg-card-teal relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                  <Landmark size={24} className="text-[#2dd4bf]" />
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-normal">{t.finance.pageTitle}</h3>
+              </div>
+              <Link href="/finance" className="pill-teal inline-flex items-center gap-2">
+                {t.common.continue} <ArrowRight size={18} />
+              </Link>
+            </div>
+
+            <div className="flex items-center justify-between text-sm mb-3">
+              <span className="text-[#919191]">
+                {financeCompleted}/{FINANCE_ORDER.length} {t.common.modulesCompleted}
+              </span>
+              <span className="text-[#2dd4bf] font-medium">
+                {financeXp}/{FINANCE_TOTAL_XP} XP
+              </span>
+            </div>
+            <div className="h-2 rounded-full bg-white/10 overflow-hidden mb-8">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${FINANCE_ORDER.length > 0 ? (financeCompleted / FINANCE_ORDER.length) * 100 : 0}%` }}
+                transition={{ duration: 0.8, delay: 0.9 }}
+                className="h-full rounded-full bg-gradient-to-r from-[#2dd4bf] to-[#06b6d4]"
+              />
+            </div>
+
+            <div className="flex gap-2.5 flex-wrap">
+              {FINANCE_ORDER.map((id) => {
+                const Icon = MODULE_ICONS[id] ?? BookOpen;
+                const done = completedIds.has(id);
+                return (
+                  <div
+                    key={id}
+                    className={`w-8 h-8 rounded-md flex items-center justify-center ${
+                      done ? "bg-[rgba(45,212,191,0.2)] text-[#2dd4bf]" : "bg-[#07070f] text-white/40"
+                    }`}
+                  >
+                    <Icon size={16} />
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
           {/* Progression list */}
           <section className="fg-card-purple relative rounded-[38px] p-8 sm:p-12 overflow-hidden">
             <div className="flex items-center gap-5 mb-6">
@@ -429,6 +521,7 @@ export default function DashboardContent() {
                     (t.basics.modules as Record<string, { title: string }>)[p.module_id]?.title ??
                     (t.infrastructure.modules as Record<string, { title: string }>)[p.module_id]?.title ??
                     (t.security.modules as Record<string, { title: string }>)[p.module_id]?.title ??
+                    (t.finance.modules as Record<string, { title: string }>)[p.module_id]?.title ??
                     p.module_id;
                   return (
                     <motion.div
