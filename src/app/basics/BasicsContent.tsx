@@ -41,7 +41,7 @@ const cardVariants = {
 
 export default function BasicsContent() {
   const { t } = useLocale();
-  const { authenticated } = usePrivy();
+  usePrivy();
   const { totalXp, level, modules, badges } = useGameState();
 
   const MODULES = [
@@ -85,11 +85,11 @@ export default function BasicsContent() {
 
       <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 pt-4 pb-16">
         <Link
-          href={authenticated ? "/dashboard" : "/chapters"}
+          href="/chapters"
           className="inline-flex items-center gap-1 text-[#919191] hover:text-white transition-colors mb-6 text-sm"
         >
           <ChevronLeft size={16} />
-          {authenticated ? t.home.backToDashboard : t.login.backHome}
+          {t.login.backHome}
         </Link>
 
         {/* Player bar */}
