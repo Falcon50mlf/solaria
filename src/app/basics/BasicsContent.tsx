@@ -41,7 +41,7 @@ const cardVariants = {
 
 export default function BasicsContent() {
   const { t } = useLocale();
-  usePrivy();
+  const { authenticated } = usePrivy();
   const { totalXp, level, modules, badges } = useGameState();
 
   const MODULES = [
@@ -149,7 +149,7 @@ export default function BasicsContent() {
           {MODULES.map((m, idx) => {
             const state = moduleStates.get(m.id) || { completed: false, unlocked: idx === 0, xpEarned: 0 };
             const Icon = m.icon;
-            const isLocked = !state.unlocked;
+            const isLocked = authenticated ? !state.unlocked : false;
             const isCompleted = state.completed;
 
             const variantClass = isCompleted ? "fg-card-green" : isLocked ? "fg-card-blue" : "fg-card-purple";
